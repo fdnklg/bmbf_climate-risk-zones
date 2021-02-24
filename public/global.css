@@ -1,0 +1,164 @@
+@font-face {
+  font-family: 'Piazzolla Light';
+  src: url('./fonts/Piazzolla-Light.woff2') format('woff2'),
+    url('./fonts/Piazzolla-Light.woff') format('woff');
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'Post Grotesk Bold';
+  src: url('./fonts/PostGrotesk-Bold.woff2') format('woff2'),
+    url('./fonts/PostGrotesk-Bold.woff') format('woff');
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'Post Grotesk Regular';
+  src: url('./fonts/PostGrotesk-Regular.woff2') format('woff2'),
+    url('./fonts/PostGrotesk-Regular.woff') format('woff');
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'Post Grotesk Light';
+  src: url('./fonts/PostGrotesk-Light.woff2') format('woff2'),
+    url('./fonts/PostGrotesk-Light.woff') format('woff');
+  font-style: normal;
+  font-display: swap;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5 {
+  /* font-family: 'Piazzolla Light'; */
+  font-family: 'Post Grotesk Bold';
+}
+
+html,
+body {
+  position: relative;
+  margin: 0;
+  padding: 0;
+  width: 100vw;
+  max-width: 100%;
+  height: 100vh;
+  font-size: 15px;
+  line-height: 150%;
+  font-family: 'Post Grotesk Light', BlinkMacSystemFont, 'Segoe UI', Roboto,
+    Oxygen-Sans, Ubuntu, Cantarell, 'Helvetica Neue', sans-serif;
+}
+a.mapboxgl-ctrl-logo {
+  display: none !important;
+}
+.mapboxgl-ctrl-scale {
+  font-family: 'Post Grotesk Regular';
+  color: #080e2f;
+  border-bottom: 1px solid #080e2f !important;
+  border-right: 1px solid #080e2f !important;
+  border-left: 1px solid #080e2f !important;
+}
+.mapboxgl-ctrl-bottom-right {
+  bottom: 20px !important;
+  right: 20px !important;
+}
+body {
+  color: #080e2f;
+  margin: 0;
+  box-sizing: border-box;
+}
+a:hover {
+  text-decoration: underline;
+}
+label {
+  display: block;
+}
+
+input,
+button,
+select,
+textarea {
+  font-family: inherit;
+  font-size: inherit;
+  -webkit-padding: 0.4em 0;
+  padding: 0.4em;
+  margin: 0 0 0.5em 0;
+  box-sizing: border-box;
+  border: 1px solid #ccc;
+  border-radius: 2px;
+}
+
+input:disabled {
+  color: #ccc;
+}
+
+#zipcode:-webkit-autofill,
+#zipcode:-webkit-autofill:hover,
+#zipcode:-webkit-autofill:focus,
+#zipcode:-webkit-autofill:active {
+  background-color: transparent;
+}
+
+#zipcode:-internal-autofill-selected {
+  background-color: transparent !important;
+}
+
+textarea:focus,
+input:focus {
+  outline: none;
+}
+
+button {
+  color: #333;
+  background-color: #f4f4f4;
+  outline: none;
+}
+
+button:disabled {
+  color: #999;
+}
+
+button:not(:disabled):active {
+  background-color: #ddd;
+}
+
+button:focus {
+  border-color: #666;
+}
+
+.padding {
+  padding: 0 var(--space-m);
+}
+
+.distWrapper {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  line-height: 100%;
+}
+
+.sticky {
+  position: sticky;
+}
+
+.mapboxgl-map {
+  z-index: -1;
+}
+
+strong {
+  font-weight: normal;
+  font-family: 'Post Grotesk Bold';
+}
+
+.input-hint.highlight {
+  color: #080e2f !important;
+}
+
+.blink {
+  border: 2px solid rgb(231, 118, 103) !important;
+  transition: all 0.25s ease-in-out;
+}
