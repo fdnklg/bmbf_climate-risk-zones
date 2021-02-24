@@ -1,0 +1,89 @@
+@mixin type-small {
+  font-size: $font-size-xs;
+  line-height: $line-height-s;
+}
+
+@mixin type-medium {
+  font-size: $font-size-s;
+  line-height: $line-height-s;
+}
+
+@mixin box-shadow {
+  box-shadow: rgba(26, 25, 43, 0.016) 0px 2.8px 2.2px,
+    rgba(26, 25, 43, 0.02) 0px 12.5px 10px,
+    rgba(26, 25, 43, 0.024) 0px 22.3px 17.9px,
+    rgba(26, 25, 43, 0.027) 0px 41.8px 33.4px,
+    rgba(26, 25, 43, 0.02) 0px 100px 80px;
+}
+
+@mixin max-width {
+  margin: auto;
+  width: 100%;
+  max-width: calc(768px + 2rem);
+  //   padding-left: 1rem;
+  //   padding-right: 1rem;
+}
+
+@mixin marker {
+  font-size: $font-size-xs;
+  background: $color-main;
+  padding: $space-m;
+  border-radius: 3px;
+}
+
+@mixin box-shadow-btn {
+  box-shadow: 1px 2px 3px rgba(0, 0, 0, 0.2);
+}
+
+@mixin transition-s {
+  transition: all 0.125s ease-in-out;
+}
+
+@mixin transition-m {
+  transition: all 0.25s ease-in-out;
+}
+
+@mixin respond-max-screen-phablet {
+  @media (max-width: $screen-phablet) {
+    @content;
+  }
+}
+
+@mixin respond-max-screen-medium {
+  @media (max-width: $screen-medium) {
+    @content;
+  }
+}
+
+@mixin respond-min-screen-medium {
+  @media (min-width: $screen-medium) {
+    @content;
+  }
+}
+
+@mixin respond-min-screen-large {
+  @media (min-width: $screen-large) {
+    @content;
+  }
+}
+
+@mixin travel-type-color($property, $light: true) {
+  &.car {
+    #{$property}: if($light, $color-car-light, $color-car);
+  }
+  &.ecar {
+    #{$property}: if($light, $color-ecar-light, $color-ecar);
+  }
+  &.car_mf {
+    #{$property}: if($light, $color-car_mf-light, $color-car_mf);
+  }
+  &.public {
+    #{$property}: if($light, $color-public-light, $color-public);
+  }
+  &.bike {
+    #{$property}: if($light, $color-bike-light, $color-bike);
+  }
+  &.plane {
+    #{$property}: if($light, $color-plane-light, $color-plane);
+  }
+}
