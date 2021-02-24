@@ -1,7 +1,11 @@
 <script>
   import { onMount, afterUpdate, setContext } from 'svelte'
-  import { anchors as storeAnchors } from 'stores'
-  import { createGeojson, updateMapboxLayers } from './utils'
+  import { selectedAnchor as anchor } from 'stores'
+  import {
+    createGeojson,
+    updateMapboxLayers,
+    calcSelectedAnchor,
+  } from './utils'
   import { mapbox, key } from './mapbox.js'
   import bbox from '@turf/bbox'
 
@@ -25,8 +29,8 @@
         container,
         zoom: 13.1,
         center: [13.404, 52.520008],
-        pitch: 45,
-        bearing: 80,
+        // pitch: 45,
+        // bearing: 80,
         dragPan: false,
         scrollZoom: false,
         attributionControl: false,
@@ -36,10 +40,17 @@
       map.on('movestart', () => {
         flying = true
         console.log('flying', flying)
+        anchor.set(false)
       })
 
       map.on('moveend', () => {
         flying = false
+        if (data) {
+          const { anchors } = data
+          const projectedAnchors = anchors.map((anchor) => map.project(anchor))
+          const selectedAnchor = calcSelectedAnchor(projectedAnchors)
+          anchor.set(selectedAnchor)
+        }
         // var tooltip = new mapbox.Popup()
         //   .setLngLat(map.getCenter())
         //   .setHTML('<h1>Hello World!</h1>')
@@ -74,9 +85,9 @@
           type: 'symbol',
           source: 'layers',
           layout: {
-            'icon-image': 'custom-marker',
+            'icon-image': 'mapbox-marker-icon-blue.svg',
             // get the title name from the source's "title" property
-            'text-field': ['get', 'title'],
+            'text-field': '.',
             // 'text-offset': [3, 1.25],
           },
           // paint: {
@@ -133,12 +144,9 @@
         ? fitBounds
         : bbox(JSON.parse(JSON.stringify(geojson)))
 
-      const layers = map.getStyle().layers
+      // const layers = map.getStyle().layers
 
       const source = map.getSource('layers')
-
-      const projectedAnchors = anchors.map((anchor) => map.project(anchor))
-      storeAnchors.set(projectedAnchors)
 
       // @TODO
       // Problem: find out which anchor has the most space in the current view
@@ -153,6 +161,7 @@
         // fit map to bounding box
         const boundGeoJson = map.fitBounds(fittingBounds, {
           padding: paddingBounds,
+          duration: 0,
         })
       }
     }

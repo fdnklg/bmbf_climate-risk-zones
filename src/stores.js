@@ -8,7 +8,7 @@ export const activeZipcode = writable(50667)
 export const zipcodes = writable([])
 export const userInput = writable(false)
 export const activeKeyZeitreihe = writable('air_temperature_max')
-export const anchors = writable([])
+export const selectedAnchor = writable(false)
 
 let cache = {}
 
@@ -33,7 +33,7 @@ export const storyData = derived([data], ([$data], set) => {
       } = json
 
       szenarien.map((szenario) => {
-        const { layers, mapbox_layers } = szenario
+        const { layers, mapbox_layers, annotation } = szenario
 
         const szenarioGeojson = createGeojson()
         szenarioGeojson.mapbox_layers = mapbox_layers
@@ -50,7 +50,6 @@ export const storyData = derived([data], ([$data], set) => {
             'stroke-opacity': 1,
           }
 
-          console.log('key', key)
           const geometries = json[key]
 
           // if geometries is an array create feature for each item and push it to array
@@ -98,8 +97,8 @@ export const storyData = derived([data], ([$data], set) => {
 
           // add anchor points features to geojson if postcode_geom
           if (key === 'postcode_geom') {
-            postcode_anchors.forEach((geom) => {
-              const props = { id: 'postcode_anchors', title: 'test' }
+            postcode_anchors.forEach((geom, i) => {
+              const props = { id: 'postcode_anchors', title: i }
               const feature = createFeature(geom, props)
               szenarioGeojson.features.push(feature)
             })
@@ -108,8 +107,8 @@ export const storyData = derived([data], ([$data], set) => {
 
         // szenario.postcode_point = postcode_point
         // szenario.risk_zone_points = risk_zone_points
-        // szenario.postcode_anchors = postcode_anchors
 
+        // szenario.postcode_anchors = postcode_anchors
         szenario.geojson = szenarioGeojson
         szenario.postcode = postcode
         szenario.anchors = postcode_anchors.map((p) => p.coordinates)

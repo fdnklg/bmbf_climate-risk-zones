@@ -1,12 +1,13 @@
 <script>
   import { afterUpdate } from 'svelte'
-  import { storyData, anchors } from 'stores'
+  import { storyData, selectedAnchor } from 'stores'
 
   import IntersectionObserver from 'core/components/Intersectionobserver.svelte'
   import Map3D from 'components/Map3D/index.svelte'
   import Tooltip from 'components/Tooltip.svelte'
   import Loading from 'components/Loading.svelte'
   import Tile from 'components/Tile/Tile.svelte'
+  import TooltipContent from 'components/TooltipContent.svelte'
   import Anchor from 'components/Anchor.svelte'
 
   let step
@@ -15,10 +16,6 @@
   function handleActiveStep(e) {
     step = e.detail
   }
-
-  afterUpdate(() => {
-    console.log('szenarien afterupdate', $anchors)
-  })
 
   $: currentData = $storyData
     ? $storyData.szenarien.find((d) => d.step == step)
@@ -55,8 +52,10 @@
   {#if data}
     <div class="sticky">
       <Map3D data={currentData} />
-      {#if $anchors.length > 0}
-        <Tooltip position={$anchors[0]} />
+      {#if $selectedAnchor && currentData.annotation}
+        <Tooltip anchor={$selectedAnchor}>
+          <TooltipContent data={currentData.annotation} />
+        </Tooltip>
       {/if}
     </div>
     {#each data as item, i}

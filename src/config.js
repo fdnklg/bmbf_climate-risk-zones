@@ -14,15 +14,24 @@ export const content = {
   - Each step has an array of map_layers which exist in the mapbox map.
   - map_layers can contain: 'hochwasser', 'sturmfluten', 'verdichtungsraeume', 'klimazonen'.
 
-  */
-  szenarien: [
-    {
-      step: '1.1',
+  {
+      step: '1.1', step id which is necessary to count up and trigger if szenario is in viewport
       mapbox_layers: ['hochwasser'], // names of data layers inside mapbox map
       fitBounds: [
         [5.98865807458, 47.3024876979],
         [15.0169958839, 54.983104153],
-      ], // defines the focus of the bounding box
+      ], defines the focus of the bounding box
+      layers: [], expects object with key like layer id to show matching feature with id in geojson
+
+    },
+
+  */
+  szenarien: [
+    {
+      step: '1.1',
+      mapbox_layers: [], // names of data layers inside mapbox map
+      annotation: 'Fläche der von dir eingegebenen Postleitzahl.',
+      padding: 50,
       layers: [
         {
           key: 'postcode_geom',
@@ -31,11 +40,9 @@ export const content = {
     },
     {
       step: '1.2',
-      mapbox_layers: ['klimazonen'], // names of data layers inside mapbox map
-      fitBounds: [
-        [5.98865807458, 47.3024876979],
-        [15.0169958839, 54.983104153],
-      ], // defines the focus of the bounding box
+      mapbox_layers: [], // names of data layers inside mapbox map
+      annotation: 'Fläche der von dir eingegebenen Postleitzahl.',
+      padding: 100,
       layers: [
         {
           key: 'postcode_geom',
@@ -45,6 +52,8 @@ export const content = {
     {
       step: '1.3',
       mapbox_layers: [], // names of data layers inside mapbox map
+      annotation: 'Fläche der von dir eingegebenen Postleitzahl.',
+      padding: 200,
       layers: [
         {
           key: 'postcode_geom',
@@ -54,6 +63,7 @@ export const content = {
     {
       step: '1.4',
       mapbox_layers: ['klimazonen'],
+      annotation: 'Fläche der von dir eingegebenen Postleitzahl.',
       padding: 300,
       layers: [
         {
@@ -63,7 +73,32 @@ export const content = {
     },
     {
       step: '1.5',
-      mapbox_layers: ['hochwasser'],
+      mapbox_layers: ['hochwasser'], // names of data layers inside mapbox map
+      annotation: 'Fläche der von dir eingegebenen Postleitzahl.',
+      fitBounds: [
+        [5.98865807458, 47.3024876979],
+        [15.0169958839, 54.983104153],
+      ], // defines the focus of the bounding box
+      layers: [],
+    },
+    {
+      step: '1.6',
+      mapbox_layers: ['klimazonen'], // names of data layers inside mapbox map
+      annotation: 'Fläche der von dir eingegebenen Postleitzahl.',
+      fitBounds: [
+        [5.98865807458, 47.3024876979],
+        [15.0169958839, 54.983104153],
+      ], // defines the focus of the bounding box
+      layers: [
+        {
+          key: 'postcode_geom',
+        },
+      ],
+    },
+    {
+      step: '1.7',
+      mapbox_layers: [],
+      annotation: 'Fläche der von dir eingegebenen Postleitzahl.',
       layers: [
         {
           key: 'fluvial_flood',

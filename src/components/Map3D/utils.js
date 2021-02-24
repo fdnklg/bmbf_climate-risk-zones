@@ -1,80 +1,4 @@
 import { mapbox_layers as mapbox_layers_constant } from 'constants'
-// import { dsvFormat } from 'd3-dsv'
-// import union from '@turf/union'
-// import unkinkPolygon from '@turf/unkink-polygon'
-// import kinks from '@turf/kinks'
-// import difference from 'turf-difference'
-// import bboxPolygon from '@turf/bbox-polygon'
-
-// export const createBoundingBox = (cutOutFeat) => {
-//   let united = false
-//   if (cutOutFeat && cutOutFeat.length > 1) {
-//     cutOutFeat = cutOutFeat.map((feat) => {
-//       var kink = kinks.default(feat)
-
-//       if (kink.features.length) {
-//         const polys = unkinkPolygon(feat)
-//         return polys.features[0]
-//       }
-
-//       return feat
-//     })
-//     united = union.default(...cutOutFeat)
-//   }
-
-//   let bboxEurope = [-5.2288281645, 42.0255985816, 25.622332041, 58.9956007543]
-//   let bboxEuropeFeat
-//   if (united) {
-//     bboxEuropeFeat = difference(bboxPolygon.default(bboxEurope), united)
-//   }
-
-//   return {
-//     type: 'Feature',
-//     properties: {
-//       fill: '#fff',
-//       'fill-opacity': 0.85,
-//       'stroke-opacity': 0,
-//     },
-//     geometry: {
-//       type: 'Polygon',
-//       coordinates: united ? bboxEuropeFeat.geometry.coordinates : [],
-//     },
-//   }
-// }
-
-// export const createCircle = (center, radiusInKm, style) => {
-//   const points = 64
-
-//   const coords = {
-//     latitude: center[1],
-//     longitude: center[0],
-//   }
-
-//   const km = radiusInKm
-
-//   const ret = []
-//   const distanceX = km / (111.32 * Math.cos((coords.latitude * Math.PI) / 180))
-//   const distanceY = km / 110.574
-
-//   let theta, x, y
-//   for (let i = 0; i < points; i++) {
-//     theta = (i / points) * (2 * Math.PI)
-//     x = distanceX * Math.cos(theta)
-//     y = distanceY * Math.sin(theta)
-
-//     ret.push([coords.longitude + x, coords.latitude + y])
-//   }
-//   ret.push(ret[0])
-
-//   return {
-//     type: 'Feature',
-//     properties: style,
-//     geometry: {
-//       type: 'Polygon',
-//       coordinates: [ret],
-//     },
-//   }
-// }
 
 export const createGeojson = () => {
   return {
@@ -89,6 +13,57 @@ export const createFeature = (geom, properties) => {
     properties: properties,
     geometry: geom,
   }
+}
+
+export function calcSelectedAnchor(anchors) {
+  return anchors.reduce((previous, current, currentIndex) => {
+    const left = current.x
+    const right = window.innerWidth - left
+    const top = current.y
+    const bottom = window.innerHeight - top
+
+    const alignX = left * 2 > right ? 'right' : 'left'
+    const alignY = top > bottom ? 'bottom' : 'top'
+
+    const x = left > right ? right : left
+    const y = top > bottom ? bottom : top
+
+    const anchor = {
+      alignY: x < y * 2 ? alignY : false,
+      alignX: alignX,
+      factor: x * 3 * y,
+      x: x,
+      y: y,
+    }
+
+    if (currentIndex === 1) return anchor
+    if (previous.factor < anchor.factor) return anchor
+    return previous
+  })
+  /*
+          1. Überprüfe wo die position am shape liegt (links/rechts oder oben/unten).
+
+          1. Vergleiche die Werte zu horizontalen und vertikalen Rändern und wähle jeweils den kleineren.
+          2. Wähle das kleinere Wertepaar.
+          3. Vergleiche die Wertepaare untereinander und wähle das wertepaar mit den höchsten Werten.
+          4. Die position definiert vertikalen und horizontalen Versatz.
+
+          5. Finales Objekt:
+          {
+            alignX: 'left',
+            alignY: 'top',
+            x: 555,
+            y: 555,
+          }
+
+          rand rechts = breite - tooltip x position
+          rand unten = höhe - tooltip y position
+          rand oben = tooltip y position
+          rand links = tooltip x position
+
+          wenn rand links kleiner als rand rechts = 
+
+          */
 }
 
 export function rotateCamera(map, timestamp) {
