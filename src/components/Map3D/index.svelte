@@ -40,11 +40,11 @@
 
       map.on('moveend', () => {
         flying = false
-        var tooltip = new mapbox.Popup()
-          .setLngLat(map.getCenter())
-          .setHTML('<h1>Hello World!</h1>')
-          .addTo(map)
-        console.log('flying', flying)
+        // var tooltip = new mapbox.Popup()
+        //   .setLngLat(map.getCenter())
+        //   .setHTML('<h1>Hello World!</h1>')
+        //   .addTo(map)
+        // console.log('flying', flying)
       })
 
       map.on('load', () => {
