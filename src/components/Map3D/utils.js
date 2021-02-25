@@ -1,4 +1,5 @@
 import { mapbox_layers as mapbox_layers_constant } from 'constants'
+import bbox from '@turf/bbox'
 
 export const createGeojson = () => {
   return {
@@ -81,6 +82,21 @@ export const updateMapboxLayers = (map, mapbox_layers) => {
       map.setLayoutProperty(layer, 'visibility', 'visible')
     })
   }
+}
+
+export function getFittingBounds(data) {
+  // bbox(JSON.parse(JSON.stringify(geojson)));
+  console.log('getFittingBounds', data)
+}
+
+export function addLayer(map, id, type, source, paint) {
+  map.addLayer({
+    id: id,
+    type: type,
+    source: source,
+    paint: paint,
+    filter: ['==', 'id', id],
+  })
 }
 
 // const parse = (str, delimiter) => {

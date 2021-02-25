@@ -1,6 +1,6 @@
 <script>
   import { afterUpdate } from 'svelte'
-  import { storyData, selectedAnchor } from 'stores'
+  import { storyData, selectedAnchors } from 'stores'
 
   import IntersectionObserver from 'core/components/Intersectionobserver.svelte'
   import Map3D from 'components/Map3D/index.svelte'
@@ -20,9 +20,6 @@
   $: currentData = $storyData
     ? $storyData.szenarien.find((d) => d.step == step)
     : false
-  afterUpdate(() => {
-    console.log($selectedAnchor, '$selectedAnchor')
-  })
 </script>
 
 <style lang="scss">
@@ -55,11 +52,11 @@
   {#if data}
     <div class="sticky">
       <Map3D data={currentData} />
-      {#if $selectedAnchor && currentData.annotation}
-        <Tooltip anchor={$selectedAnchor}>
-          <TooltipContent data={currentData.annotation} />
+      {#each $selectedAnchors as d}
+        <Tooltip anchor={d.coords}>
+          <TooltipContent data={d.text} />
         </Tooltip>
-      {/if}
+      {/each}
     </div>
     {#each data as item, i}
       <div class="szenario {i === data.length - 1 ? 'extra' : ''}">

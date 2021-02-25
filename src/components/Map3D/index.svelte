@@ -1,11 +1,19 @@
 <script>
   import { onMount, afterUpdate, setContext } from 'svelte'
-  import { selectedAnchor as anchor } from 'stores'
+  import { selectedAnchors } from 'stores'
   import {
     createGeojson,
     updateMapboxLayers,
     calcSelectedAnchor,
+    getFittingBounds,
+    addLayer,
   } from './utils'
+  import {
+    paintFill,
+    paintLine,
+    paintLineBuff,
+    paintLineFluvialFlood,
+  } from './constants'
   import { mapbox, key } from './mapbox.js'
   import bbox from '@turf/bbox'
 
@@ -39,7 +47,7 @@
 
       map.on('movestart', () => {
         flying = true
-        anchor.set(false)
+        selectedAnchors.set([])
       })
 
       map.on('moveend', () => {
@@ -47,11 +55,20 @@
         if (data) {
           setTimeout(() => {
             const { anchors } = data
-            const projectedAnchors = anchors.map((anchor) =>
-              map.project(anchor)
-            )
-            const selectedAnchor = calcSelectedAnchor(projectedAnchors)
-            anchor.set(selectedAnchor)
+            if (anchors.length > 0) {
+              // calc projected coords for annotation lat/lng coords
+              let projectedAnnotations = []
+              anchors.forEach((anchor) => {
+                const { anchors } = anchor
+                const projectedCoords = anchors.map((anchor) =>
+                  map.project(anchor)
+                )
+                const selectedAnchor = calcSelectedAnchor(projectedCoords)
+                anchor.coords = selectedAnchor
+                projectedAnnotations.push(anchor)
+              })
+              selectedAnchors.set(projectedAnnotations)
+            }
           }, 100)
         }
       })
@@ -59,79 +76,33 @@
       map.on('load', () => {
         map.addSource('layers', { type: 'geojson', data: createGeojson() })
 
-        // map.addSource('mapbox-dem', {
-        //   type: 'raster-dem',
-        //   url: 'mapbox://mapbox.mapbox-terrain-dem-v1',
-        //   tileSize: 512,
-        //   maxzoom: 14,
-        // })
-        // map.setTerrain({ source: 'mapbox-dem', exaggeration: 1.5 })
+        addLayer(map, 'fluvial_flood-fill', 'fill', 'layers', paintFill)
+        addLayer(
+          map,
+          'fluvial_flood-contour',
+          'line',
+          'layers',
+          paintLineFluvialFlood
+        )
 
-        // map.addLayer({
-        //   id: 'riskzone_anchors',
-        //   type: 'symbol',
-        //   source: 'layers',
-        //   // paint: {
-        //   //   'fill-color': ['get', 'fill'],
-        //   //   'fill-opacity': ['get', 'fill-opacity'],
-        //   // },
-        //   filter: ['==', 'id', 'riskzone_anchors'],
-        // })
+        addLayer(map, 'postcode_buff_geom-fill', 'fill', 'layers', paintFill)
+        addLayer(
+          map,
+          'postcode_buff_geom-contour',
+          'line',
+          'layers',
+          paintLineBuff
+        )
 
-        // map.addLayer({
-        //   id: 'postcode_anchors',
-        //   type: 'symbol',
-        //   source: 'layers',
-        //   layout: {
-        //     'icon-image': 'mapbox-marker-icon-blue.svg',
-        //     // get the title name from the source's "title" property
-        //     'text-field': '.',
-        //     // 'text-offset': [3, 1.25],
-        //   },
-        //   // paint: {
-        //   //   'fill-color': ['get', 'fill'],
-        //   //   'fill-opacity': ['get', 'fill-opacity'],
-        //   // },
-        //   filter: ['==', 'id', 'postcode_anchors'],
-        // })
+        addLayer(map, 'postcode_geom-fill', 'fill', 'layers', paintFill)
+        addLayer(map, 'postcode_geom-contour', 'line', 'layers', paintLine)
 
-        map.addLayer({
-          id: 'postcode_geom-fill',
-          type: 'fill',
-          source: 'layers',
-          paint: {
-            'fill-color': ['get', 'fill'],
-            'fill-opacity': ['get', 'fill-opacity'],
-          },
-          filter: ['==', 'id', 'postcode_geom-fill'],
-        })
-
-        map.addLayer({
-          id: 'postcode_geom-contour',
-          type: 'line',
-          source: 'layers',
-          paint: {
-            'line-opacity': 1,
-            'line-color': ['get', 'stroke'],
-            'line-width': 1.5,
-          },
-          filter: ['==', 'id', 'postcode_geom-contour'],
-        })
-
-        map.addLayer({
-          id: 'fluvial_flood',
-          type: 'fill',
-          source: 'layers',
-          paint: {
-            'fill-color': ['get', 'fill'],
-            'fill-opacity': ['get', 'fill-opacity'],
-          },
-          filter: ['==', 'id', 'fluvial_flood'],
-        })
-
-        map.moveLayer('fluvial_flood', 'bridge-rail')
+        map.moveLayer('fluvial_flood-fill', 'bridge-rail')
+        map.moveLayer('fluvial_flood-contour', 'bridge-rail')
         map.moveLayer('postcode_geom-fill', 'bridge-rail')
         map.moveLayer('postcode_geom-contour', 'bridge-rail')
+        map.moveLayer('postcode_buff_geom-fill', 'bridge-rail')
+        map.moveLayer('postcode_buff_geom-contour', 'bridge-rail')
       })
     }
 
@@ -151,24 +122,17 @@
     if (data && map) {
       const { geojson, mapbox_layers, padding, fitBounds, anchors } = data
       let paddingBounds = padding ? padding : window.innerWidth < 500 ? 20 : 50
+
+      let fitting = fitBounds ? fitBounds : getFittingBounds(data)
+
       let fittingBounds = fitBounds
         ? fitBounds
         : bbox(JSON.parse(JSON.stringify(geojson)))
-
-      // const layers = map.getStyle().layers
-
       const source = map.getSource('layers')
-
-      // @TODO
-      // Problem: find out which anchor has the most space in the current view
-      // Filter correct anchor based on project result?
-      // getPosition(map, source)
 
       if (source) {
         source.setData(geojson)
-
         updateMapboxLayers(map, mapbox_layers)
-
         // fit map to bounding box
         const boundGeoJson = map.fitBounds(fittingBounds, {
           padding: paddingBounds,

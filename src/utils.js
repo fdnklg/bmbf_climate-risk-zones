@@ -1,6 +1,6 @@
 import { dsvFormat } from 'd3-dsv'
 import { extent } from 'd3-array'
-import { zeitreiheDataGradients as gradient } from 'constants'
+import { zeitreiheDataGradients as gradient, styles } from 'constants'
 
 export const translateRiskzone = {
   cold: '',
@@ -10,8 +10,6 @@ export const translateRiskzone = {
   premountain: '',
   warm: '',
 }
-
-function getGradient(key) {}
 
 export const createZeitreihe = (data, datakey, sliceAt = false) => {
   const zeitreihe = data.find((d) => d.type === datakey)

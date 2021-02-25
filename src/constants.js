@@ -23,6 +23,30 @@ export const s3UrlRisk =
   'https://locobss-story-risk.s3.eu-central-1.amazonaws.com/'
 export const zipCodesUrl = `${s3Url}postcodes.txt`
 
+export const styles = {
+  fluvial_flood: {
+    fill: 'blue',
+    stroke: 'blue',
+    'line-width': 0.75,
+    'fill-opacity': 0.05,
+    'line-opacity': 0.1,
+  },
+  postcode_geom: {
+    fill: 'white',
+    stroke: 'black',
+    'line-width': 2,
+    'fill-opacity': 0.4,
+    'line-opacity': 1,
+  },
+  postcode_buff_geom: {
+    fill: 'red',
+    stroke: 'black',
+    'line-width': 1,
+    'fill-opacity': 0,
+    'line-opacity': 1,
+  },
+}
+
 export const zeitreiheDataGradients = {
   air_temperature_max: ['#C7A168', '#B46250'],
   air_temperature_mean: ['#C7A168', '#B46250'],

@@ -1,14 +1,14 @@
-import { writable, readable, derived } from 'svelte/store'
-import { fetchJson, createZeitreihe, addPropAndMap } from 'utils'
+import { writable, derived } from 'svelte/store'
+import { fetchJson, createZeitreihe, getStyle } from 'utils'
 import { createGeojson, createFeature } from 'components/Map3D/utils.js'
-import { zeitreiheDataKeys, s3UrlRisk } from 'constants'
+import { zeitreiheDataKeys, s3UrlRisk, styles } from 'constants'
 
 export const data = writable(null)
 export const activeZipcode = writable(50667)
 export const zipcodes = writable([])
 export const userInput = writable(false)
 export const activeKeyZeitreihe = writable('air_temperature_max')
-export const selectedAnchor = writable(false)
+export const selectedAnchors = writable([])
 
 let cache = {}
 
@@ -29,10 +29,8 @@ export const storyData = derived(
           dense_space,
           postcode,
           has_ocean_flood,
-          postcode_point,
-          risk_zone_points,
-          risk_zone_anchors,
           postcode_anchors,
+          postcode_buff_anchors,
         } = json
 
         szenarien.map((szenario) => {
@@ -40,20 +38,12 @@ export const storyData = derived(
 
           const szenarioGeojson = createGeojson()
           szenarioGeojson.mapbox_layers = mapbox_layers
+          szenario.anchors = []
 
           // create feature for each layer based on config
           layers.map((layer) => {
             const { key } = layer
-
-            // @TODO create style dynamically later
-            const style = {
-              fill: 'white',
-              'fill-opacity': 0.4,
-              stroke: 'black',
-              'line-opacity': 1,
-              'line-width': 3,
-            }
-
+            const style = styles[key]
             const geometries = json[key]
 
             // if geometries is an array create feature for each item and push it to array
@@ -78,27 +68,6 @@ export const storyData = derived(
                 )
                 szenarioGeojson.features.push(featureFill)
                 szenarioGeojson.features.push(featureContour)
-
-                /*
-
-              Was ist zu tun?
-
-              - Momentan werden alle features zum Geojson hinzugefügt.
-              - Wäre es möglich, die geojsons etwas 
-
-              */
-
-                // if (key === 'klimazonen') {
-                //   // add anchor points to json here
-                //   let riskzoneAnchorPoints = addPropAndMap(
-                //     'riskzone_anchors',
-                //     'id',
-                //     risk_zone_anchors[0].anchors
-                //   )
-                //   riskzoneAnchorPoints.forEach((d) =>
-                //     szenarioGeojson.features.push(d)
-                //   )
-                // }
               })
               // else if geometry has only on object push to features
             } else {
@@ -120,23 +89,31 @@ export const storyData = derived(
               szenarioGeojson.features.push(featureContour)
             }
 
-            // add anchor points features to geojson if postcode_geom
-            if (key === 'postcode_geom') {
-              postcode_anchors.forEach((geom, i) => {
-                const props = { id: 'postcode_anchors', title: i }
-                const feature = createFeature(geom, props)
-                szenarioGeojson.features.push(feature)
-              })
+            // create annotations with anchors from json and config
+            const layersWithAnchors = [
+              {
+                id: 'postcode_geom',
+                anchors: postcode_anchors,
+              },
+              {
+                id: 'postcode_buff_geom',
+                anchors: postcode_buff_anchors,
+              },
+            ]
+            if (layersWithAnchors.map((d) => d.id).includes(key)) {
+              const current = layersWithAnchors.find((d) => d.id === key)
+                .anchors
+              const coords = current.map((p) => p.coordinates)
+              const annotation = szenario.annotation.find((d) => d.id === key)
+              annotation.anchors = coords
+              annotation.isVertical = current.id === 'postcode_buff_geom'
+              szenario.anchors.push(annotation)
             }
           })
 
-          // szenario.postcode_point = postcode_point
-          // szenario.risk_zone_points = risk_zone_points
-
-          // szenario.postcode_anchors = postcode_anchors
           szenario.geojson = szenarioGeojson
           szenario.postcode = postcode
-          szenario.anchors = postcode_anchors.map((p) => p.coordinates)
+          szenario.denseSpace = dense_space.bbox ? dense_space : false
         })
 
         let zeitreihen = {
@@ -144,7 +121,7 @@ export const storyData = derived(
           germany: {},
           meta: {
             riskzones: risk_zones,
-            denseSpace: dense_space === 1 ? true : false,
+            denseSpace: dense_space.bbox === 1 ? true : false,
             hasOceanFlood: has_ocean_flood === 1 ? true : false,
           },
         }
