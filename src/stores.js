@@ -1,6 +1,11 @@
 import { writable, derived } from 'svelte/store'
+import bbox from '@turf/bbox'
 import { fetchJson, createZeitreihe, getStyle } from 'utils'
-import { createGeojson, createFeature } from 'components/Map3D/utils.js'
+import {
+  createGeojson,
+  createFeature,
+  createBoundingBox,
+} from 'components/Map3D/utils.js'
 import { zeitreiheDataKeys, s3UrlRisk, styles } from 'constants'
 
 export const data = writable(null)
@@ -15,10 +20,10 @@ let cache = {}
 export const storyData = derived(
   [data, activeZipcode],
   ([$data, $activeZipcode], set) => {
+    const zipcode =
+      $activeZipcode.length === 4 ? `0${$activeZipcode}` : $activeZipcode
     const getData = async () => {
-      const json = await fetchJson(
-        `${s3UrlRisk}postcode/${parseInt($activeZipcode)}.json`
-      )
+      const json = await fetchJson(`${s3UrlRisk}postcode/${zipcode}.json`)
       if ($data) {
         let dataObj = {}
         const { szenarien } = $data
@@ -39,6 +44,15 @@ export const storyData = derived(
           const szenarioGeojson = createGeojson()
           szenarioGeojson.mapbox_layers = mapbox_layers
           szenario.anchors = []
+
+          // add fit bounds of dense space to step, if verdichtungsräume is in mapbox_layers
+          if (mapbox_layers.includes('verdichtungsraeume') && dense_space) {
+            console.log(dense_space.bbox)
+
+            szenario.fitBounds = dense_space.bbox
+              ? dense_space.bbox.coordinates[0]
+              : false
+          }
 
           // create feature for each layer based on config
           layers.map((layer) => {
@@ -71,6 +85,7 @@ export const storyData = derived(
               })
               // else if geometry has only on object push to features
             } else {
+              // if the key layer is the mask
               const propsFill = {
                 id: `${key}-fill`,
                 ...style,
@@ -83,8 +98,22 @@ export const storyData = derived(
                 // level: geometry.level,
               }
 
+              if (key === 'postcode_buff_geom') {
+                const propsMask = {
+                  id: `${key}-mask`,
+                  ...style,
+                  // level: geometry.level,
+                }
+
+                const featureMask = createFeature(geometries, propsMask)
+                szenarioGeojson.features.push(createBoundingBox(featureMask))
+                szenario.fitBounds = bbox(featureMask)
+              }
+
               const featureFill = createFeature(geometries, propsFill)
               const featureContour = createFeature(geometries, propsContour)
+
+              // add white mask of postcode buffer shape feature here
               szenarioGeojson.features.push(featureFill)
               szenarioGeojson.features.push(featureContour)
             }
@@ -100,6 +129,7 @@ export const storyData = derived(
                 anchors: postcode_buff_anchors,
               },
             ]
+
             if (layersWithAnchors.map((d) => d.id).includes(key)) {
               const current = layersWithAnchors.find((d) => d.id === key)
                 .anchors
@@ -131,8 +161,6 @@ export const storyData = derived(
           zeitreihen.germany[datakey] = zeitreiheGermany
           zeitreihen.postcode[datakey] = zeitreihePostcode
         })
-        // @TODO define active dataset based on json stats (dense space, risk zones ...)
-
         dataObj.szenarien = szenarien
         dataObj.zeitreihen = zeitreihen
 

@@ -27,7 +27,7 @@
     "@turf/clean-coords": "^6.0.1",
     "@turf/distance": "^6.0.1",
     "@turf/helpers": "^6.1.4",
-    "@turf/union": "^6.0.3",
+    "@turf/union": "^6.3.0",
     "d3-array": "^2.11.0",
     "d3-dsv": "^2.0.0",
     "d3-format": "^2.0.0",

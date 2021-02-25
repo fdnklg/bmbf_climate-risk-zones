@@ -27,7 +27,7 @@ export const styles = {
   fluvial_flood: {
     fill: 'blue',
     stroke: 'blue',
-    'line-width': 0.75,
+    'line-width': 1,
     'fill-opacity': 0.05,
     'line-opacity': 0.1,
   },

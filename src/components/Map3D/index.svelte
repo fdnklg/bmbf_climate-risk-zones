@@ -5,9 +5,9 @@
     createGeojson,
     updateMapboxLayers,
     calcSelectedAnchor,
-    getFittingBounds,
     addLayer,
   } from './utils'
+
   import {
     paintFill,
     paintLine,
@@ -76,15 +76,6 @@
       map.on('load', () => {
         map.addSource('layers', { type: 'geojson', data: createGeojson() })
 
-        addLayer(map, 'fluvial_flood-fill', 'fill', 'layers', paintFill)
-        addLayer(
-          map,
-          'fluvial_flood-contour',
-          'line',
-          'layers',
-          paintLineFluvialFlood
-        )
-
         addLayer(map, 'postcode_buff_geom-fill', 'fill', 'layers', paintFill)
         addLayer(
           map,
@@ -94,8 +85,18 @@
           paintLineBuff
         )
 
+        addLayer(map, 'postcode_buff_geom-mask', 'fill', 'layers', paintFill)
         addLayer(map, 'postcode_geom-fill', 'fill', 'layers', paintFill)
         addLayer(map, 'postcode_geom-contour', 'line', 'layers', paintLine)
+
+        addLayer(map, 'fluvial_flood-fill', 'fill', 'layers', paintFill)
+        addLayer(
+          map,
+          'fluvial_flood-contour',
+          'line',
+          'layers',
+          paintLineFluvialFlood
+        )
 
         map.moveLayer('fluvial_flood-fill', 'bridge-rail')
         map.moveLayer('fluvial_flood-contour', 'bridge-rail')
@@ -103,6 +104,7 @@
         map.moveLayer('postcode_geom-contour', 'bridge-rail')
         map.moveLayer('postcode_buff_geom-fill', 'bridge-rail')
         map.moveLayer('postcode_buff_geom-contour', 'bridge-rail')
+        map.moveLayer('postcode_buff_geom-mask', 'bridge-rail')
       })
     }
 
@@ -122,8 +124,6 @@
     if (data && map) {
       const { geojson, mapbox_layers, padding, fitBounds, anchors } = data
       let paddingBounds = padding ? padding : window.innerWidth < 500 ? 20 : 50
-
-      let fitting = fitBounds ? fitBounds : getFittingBounds(data)
 
       let fittingBounds = fitBounds
         ? fitBounds

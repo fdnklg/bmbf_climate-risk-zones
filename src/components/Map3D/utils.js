@@ -1,5 +1,28 @@
 import { mapbox_layers as mapbox_layers_constant } from 'constants'
-import bbox from '@turf/bbox'
+import difference from 'turf-difference'
+import bboxPolygon from '@turf/bbox-polygon'
+
+export const createBoundingBox = (cutOutFeat) => {
+  let bboxEurope = [-5.2288281645, 42.0255985816, 25.622332041, 58.9956007543]
+  // let bboxEurope = [-430.3125, -85.513398, 443.671875, 85.051129]
+  let bboxEuropeFeat
+  console.log('bboxPolygon', bboxPolygon, cutOutFeat)
+  bboxEuropeFeat = difference(bboxPolygon.default(bboxEurope), cutOutFeat)
+
+  return {
+    type: 'Feature',
+    properties: {
+      id: 'postcode_buff_geom-mask',
+      fill: '#fff',
+      'fill-opacity': 0.85,
+      'stroke-opacity': 0,
+    },
+    geometry: {
+      type: 'Polygon',
+      coordinates: bboxEuropeFeat ? bboxEuropeFeat.geometry.coordinates : [],
+    },
+  }
+}
 
 export const createGeojson = () => {
   return {
@@ -86,7 +109,6 @@ export const updateMapboxLayers = (map, mapbox_layers) => {
 
 export function getFittingBounds(data) {
   // bbox(JSON.parse(JSON.stringify(geojson)));
-  console.log('getFittingBounds', data)
 }
 
 export function addLayer(map, id, type, source, paint) {

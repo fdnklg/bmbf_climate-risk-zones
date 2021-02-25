@@ -4,8 +4,6 @@
   export let annotation
 
   const { x, y } = annotation
-
-  console.log('x_scale, y_scale', x_scale, y_scale)
 </script>
 
 <style lang="scss">
