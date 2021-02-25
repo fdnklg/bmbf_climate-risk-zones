@@ -15,55 +15,52 @@ export const createFeature = (geom, properties) => {
   }
 }
 
+function percDiff(a, b) {
+  return 100 * Math.abs((a - b) / ((a + b) / 2))
+}
+
 export function calcSelectedAnchor(anchors) {
-  return anchors.reduce((previous, current, currentIndex) => {
-    const left = current.x
+  let filteredAnchors = []
+  const minOffsetX = 150
+  const minOffsetY = 200
+
+  anchors.forEach((anchor, i) => {
+    const { x, y } = anchor
+    const left = x
     const right = window.innerWidth - left
-    const top = current.y
+    const top = y
     const bottom = window.innerHeight - top
+    if (
+      (left > minOffsetX || right > minOffsetX) &&
+      (top > minOffsetY || bottom > minOffsetY)
+    ) {
+      const alignX = left * 1.2 < right ? 'left' : 'right'
+      const alignY = bottom > top ? 'top' : 'bottom'
 
-    const alignX = left * 2 > right ? 'right' : 'left'
-    const alignY = top > bottom ? 'bottom' : 'top'
+      const factorX = left > right ? left : right
+      const factorY = top > bottom ? top : bottom
 
-    const x = left > right ? right : left
-    const y = top > bottom ? bottom : top
-
-    const anchor = {
-      alignY: x < y * 2 ? alignY : false,
-      alignX: alignX,
-      factor: x * 3 * y,
-      x: x,
-      y: y,
+      const newAnchor = {
+        alignY: percDiff(top, bottom) < 30 ? false : alignY,
+        alignX,
+        factor: factorX * factorY,
+        x,
+        y,
+        dimensions: {
+          left,
+          right,
+          top,
+          bottom,
+        },
+      }
+      filteredAnchors.push(newAnchor)
     }
-
-    if (currentIndex === 1) return anchor
-    if (previous.factor < anchor.factor) return anchor
-    return previous
   })
-  /*
-          1. Überprüfe wo die position am shape liegt (links/rechts oder oben/unten).
 
-          1. Vergleiche die Werte zu horizontalen und vertikalen Rändern und wähle jeweils den kleineren.
-          2. Wähle das kleinere Wertepaar.
-          3. Vergleiche die Wertepaare untereinander und wähle das wertepaar mit den höchsten Werten.
-          4. Die position definiert vertikalen und horizontalen Versatz.
-
-          5. Finales Objekt:
-          {
-            alignX: 'left',
-            alignY: 'top',
-            x: 555,
-            y: 555,
-          }
-
-          rand rechts = breite - tooltip x position
-          rand unten = höhe - tooltip y position
-          rand oben = tooltip y position
-          rand links = tooltip x position
-
-          wenn rand links kleiner als rand rechts = 
-
-          */
+  const max = filteredAnchors.reduce((prev, current) => {
+    return prev.factor < current.factor ? prev : current
+  })
+  return max
 }
 
 export function rotateCamera(map, timestamp) {

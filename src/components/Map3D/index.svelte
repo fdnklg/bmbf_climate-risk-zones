@@ -39,23 +39,21 @@
 
       map.on('movestart', () => {
         flying = true
-        console.log('flying', flying)
         anchor.set(false)
       })
 
       map.on('moveend', () => {
         flying = false
         if (data) {
-          const { anchors } = data
-          const projectedAnchors = anchors.map((anchor) => map.project(anchor))
-          const selectedAnchor = calcSelectedAnchor(projectedAnchors)
-          anchor.set(selectedAnchor)
+          setTimeout(() => {
+            const { anchors } = data
+            const projectedAnchors = anchors.map((anchor) =>
+              map.project(anchor)
+            )
+            const selectedAnchor = calcSelectedAnchor(projectedAnchors)
+            anchor.set(selectedAnchor)
+          }, 100)
         }
-        // var tooltip = new mapbox.Popup()
-        //   .setLngLat(map.getCenter())
-        //   .setHTML('<h1>Hello World!</h1>')
-        //   .addTo(map)
-        // console.log('flying', flying)
       })
 
       map.on('load', () => {
@@ -80,32 +78,44 @@
         //   filter: ['==', 'id', 'riskzone_anchors'],
         // })
 
-        map.addLayer({
-          id: 'postcode_anchors',
-          type: 'symbol',
-          source: 'layers',
-          layout: {
-            'icon-image': 'mapbox-marker-icon-blue.svg',
-            // get the title name from the source's "title" property
-            'text-field': '.',
-            // 'text-offset': [3, 1.25],
-          },
-          // paint: {
-          //   'fill-color': ['get', 'fill'],
-          //   'fill-opacity': ['get', 'fill-opacity'],
-          // },
-          filter: ['==', 'id', 'postcode_anchors'],
-        })
+        // map.addLayer({
+        //   id: 'postcode_anchors',
+        //   type: 'symbol',
+        //   source: 'layers',
+        //   layout: {
+        //     'icon-image': 'mapbox-marker-icon-blue.svg',
+        //     // get the title name from the source's "title" property
+        //     'text-field': '.',
+        //     // 'text-offset': [3, 1.25],
+        //   },
+        //   // paint: {
+        //   //   'fill-color': ['get', 'fill'],
+        //   //   'fill-opacity': ['get', 'fill-opacity'],
+        //   // },
+        //   filter: ['==', 'id', 'postcode_anchors'],
+        // })
 
         map.addLayer({
-          id: 'postcode_geom',
+          id: 'postcode_geom-fill',
           type: 'fill',
           source: 'layers',
           paint: {
             'fill-color': ['get', 'fill'],
             'fill-opacity': ['get', 'fill-opacity'],
           },
-          filter: ['==', 'id', 'postcode_geom'],
+          filter: ['==', 'id', 'postcode_geom-fill'],
+        })
+
+        map.addLayer({
+          id: 'postcode_geom-contour',
+          type: 'line',
+          source: 'layers',
+          paint: {
+            'line-opacity': 1,
+            'line-color': ['get', 'stroke'],
+            'line-width': 1.5,
+          },
+          filter: ['==', 'id', 'postcode_geom-contour'],
         })
 
         map.addLayer({
@@ -120,7 +130,8 @@
         })
 
         map.moveLayer('fluvial_flood', 'bridge-rail')
-        map.moveLayer('postcode_geom', 'bridge-rail')
+        map.moveLayer('postcode_geom-fill', 'bridge-rail')
+        map.moveLayer('postcode_geom-contour', 'bridge-rail')
       })
     }
 
@@ -161,7 +172,7 @@
         // fit map to bounding box
         const boundGeoJson = map.fitBounds(fittingBounds, {
           padding: paddingBounds,
-          duration: 0,
+          duration: 500,
         })
       }
     }

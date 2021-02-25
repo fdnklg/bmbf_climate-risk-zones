@@ -18,6 +18,11 @@ export const zeitreiheDataKeys = [
   'summer_days',
 ]
 
+export const s3Url = 'https://locobss-story-co2.s3.eu-central-1.amazonaws.com/'
+export const s3UrlRisk =
+  'https://locobss-story-risk.s3.eu-central-1.amazonaws.com/'
+export const zipCodesUrl = `${s3Url}postcodes.txt`
+
 export const zeitreiheDataGradients = {
   air_temperature_max: ['#C7A168', '#B46250'],
   air_temperature_mean: ['#C7A168', '#B46250'],

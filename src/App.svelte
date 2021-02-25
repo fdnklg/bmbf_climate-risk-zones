@@ -2,7 +2,8 @@
   import { onMount } from 'svelte'
   import { zipcodes, data } from 'stores'
   import { loadFile } from 'utils'
-  import { metadata, zipcodesUrl, content } from 'config'
+  import { metadata, content } from 'config'
+  import { zipCodesUrl } from 'constants'
 
   import Zeitreihe from 'views/zeitreihe.svelte'
   import Szenarien from 'views/szenarien.svelte'
@@ -18,12 +19,7 @@
   }
 
   onMount(async () => {
-    const codes = await loadFile(zipcodesUrl)
-    // const randomZipcode = parseInt(
-    //   codes.columns[parseInt(codes.columns.length * Math.random())]
-    // )
-    // activeZipcode.set(randomZipcode)
-
+    const codes = await loadFile(zipCodesUrl)
     zipcodes.set(codes.columns)
     data.set(content)
   })

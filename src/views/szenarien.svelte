@@ -20,6 +20,9 @@
   $: currentData = $storyData
     ? $storyData.szenarien.find((d) => d.step == step)
     : false
+  afterUpdate(() => {
+    console.log($selectedAnchor, '$selectedAnchor')
+  })
 </script>
 
 <style lang="scss">

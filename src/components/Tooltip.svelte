@@ -1,21 +1,12 @@
 <script>
-  import { afterUpdate } from 'svelte'
   export let anchor
-  const alignClass = anchor.alignY
+  $: alignClass = anchor.alignY
     ? `align-${anchor.alignY}-${anchor.alignX}`
     : `align-${anchor.alignX}`
-  const layoutClass = anchor.alignY
+  $: layoutClass = anchor.alignY
     ? `layout-${anchor.alignY}`
     : `layout-${anchor.alignX}`
-  const annotationAlignClass = anchor.alignY ? anchor.alignY : anchor.alignX
-
-  afterUpdate(() => {
-    console.log(anchor)
-    console.log(
-      anchor.alignX === 'right' && anchor.alignY === 'top',
-      anchor.alignX === 'left' && anchor.alignY === 'top'
-    )
-  })
+  $: annotationAlignClass = anchor.alignY ? anchor.alignY : anchor.alignX
 </script>
 
 <style lang="scss">
@@ -25,6 +16,7 @@
     z-index: 10;
     display: flex;
     align-items: center;
+    max-width: 150px;
 
     &.layout-top,
     &.layout-bottom {
@@ -36,40 +28,39 @@
     background-color: black;
     border: 1px solid white;
     &.left {
-      width: 45px;
+      width: 35px;
       height: 1px;
       margin-left: 5px;
     }
 
     &.right {
-      width: 45px;
+      width: 35px;
       height: 1px;
       margin-right: 5px;
     }
     &.top {
-      height: 45px;
+      height: 35px;
       width: 1px;
       margin-top: 5px;
     }
 
     &.bottom {
-      height: 45px;
+      height: 35px;
       width: 1px;
       margin-bottom: 5px;
     }
   }
-
   .align-left {
+    text-align: right;
     transform: translate(-100%, -50%);
   }
-
   .align-right {
-    transform: translate(-0%, -50%);
+    transform: translate(0%, -50%);
     align-items: center;
   }
-
   .align-top-left {
     transform: translate(-100%, -100%);
+    text-align: right;
     .annotation-line {
       align-self: flex-end;
     }
@@ -82,22 +73,38 @@
     }
   }
   .align-bottom-left {
-    transform: translate(-100%, -50%);
+    text-align: right;
+    transform: translate(-100%, 0%);
+    .annotation-line {
+      align-self: flex-end;
+    }
+  }
+  .align-bottom-right {
+    transform: translate(0%, 0%);
+    .annotation-line {
+      align-self: flex-start;
+    }
   }
 
-  .align-bottom-right {
-    transform: translate(0%, -50%);
+  .dot {
+    position: absolute;
+    width: 4px;
+    height: 4px;
+    border-radius: 100%;
+    background-color: black;
   }
 </style>
+
+<!-- <div class="dot" style="left: {anchor.x}px; top: {anchor.y}px;" /> -->
 
 <div
   style="left: {anchor.x}px; top: {anchor.y}px;"
   class="container {layoutClass} {alignClass}">
-  {#if (anchor.alignX === 'left' && anchor.alignY === 'top') || (anchor.alignX === 'right' && anchor.alignY === 'top') || (anchor.alignX === 'left' && !anchor.alignY)}
+  {#if alignClass === 'align-top-right' || alignClass === 'align-top-left' || alignClass === 'align-left'}
     <slot />
   {/if}
   <div class="annotation-line {annotationAlignClass}" />
-  {#if (anchor.alignX === 'left' && anchor.alignY === 'bottom') || (anchor.alignX === 'right' && anchor.alignY === 'bottom') || (anchor.alignX === 'right' && !anchor.alignY)}
+  {#if alignClass === 'align-bottom-right' || alignClass === 'align-bottom-left' || alignClass === 'align-right'}
     <slot />
   {/if}
 </div>
