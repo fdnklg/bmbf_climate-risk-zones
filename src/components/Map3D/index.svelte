@@ -98,13 +98,13 @@
           paintLineFluvialFlood
         )
 
-        map.moveLayer('fluvial_flood-fill', 'bridge-rail')
-        map.moveLayer('fluvial_flood-contour', 'bridge-rail')
-        map.moveLayer('postcode_geom-fill', 'bridge-rail')
-        map.moveLayer('postcode_geom-contour', 'bridge-rail')
-        map.moveLayer('postcode_buff_geom-fill', 'bridge-rail')
-        map.moveLayer('postcode_buff_geom-contour', 'bridge-rail')
-        map.moveLayer('postcode_buff_geom-mask', 'bridge-rail')
+        map.moveLayer('fluvial_flood-fill', 'state-label')
+        map.moveLayer('fluvial_flood-contour', 'state-label')
+        map.moveLayer('postcode_geom-fill', 'state-label')
+        map.moveLayer('postcode_geom-contour', 'state-label')
+        map.moveLayer('postcode_buff_geom-fill', 'state-label')
+        map.moveLayer('postcode_buff_geom-contour', 'state-label')
+        map.moveLayer('postcode_buff_geom-mask', 'state-label')
       })
     }
 

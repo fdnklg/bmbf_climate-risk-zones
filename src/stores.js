@@ -1,6 +1,6 @@
 import { writable, derived } from 'svelte/store'
 import bbox from '@turf/bbox'
-import { fetchJson, createZeitreihe, getStyle } from 'utils'
+import { fetchJson, createZeitreihe } from 'utils'
 import {
   createGeojson,
   createFeature,
@@ -14,6 +14,7 @@ export const zipcodes = writable([])
 export const userInput = writable(false)
 export const activeKeyZeitreihe = writable('air_temperature_max')
 export const selectedAnchors = writable([])
+export const jsonData = writable(null)
 
 let cache = {}
 
@@ -47,8 +48,6 @@ export const storyData = derived(
 
           // add fit bounds of dense space to step, if verdichtungsräume is in mapbox_layers
           if (mapbox_layers.includes('verdichtungsraeume') && dense_space) {
-            console.log(dense_space.bbox)
-
             szenario.fitBounds = dense_space.bbox
               ? dense_space.bbox.coordinates[0]
               : false

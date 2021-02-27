@@ -6,7 +6,6 @@ export const createBoundingBox = (cutOutFeat) => {
   let bboxEurope = [-5.2288281645, 42.0255985816, 25.622332041, 58.9956007543]
   // let bboxEurope = [-430.3125, -85.513398, 443.671875, 85.051129]
   let bboxEuropeFeat
-  console.log('bboxPolygon', bboxPolygon, cutOutFeat)
   bboxEuropeFeat = difference(bboxPolygon.default(bboxEurope), cutOutFeat)
 
   return {

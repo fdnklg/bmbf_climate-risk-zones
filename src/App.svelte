@@ -1,13 +1,14 @@
 <script>
   import { onMount } from 'svelte'
-  import { zipcodes, data } from 'stores'
-  import { loadFile } from 'utils'
+  import { zipcodes, data, jsonData } from 'stores'
+  import { loadFile, loadTopojson } from 'utils'
   import { metadata, content } from 'config'
   import { zipCodesUrl } from 'constants'
 
   import Zeitreihe from 'views/zeitreihe.svelte'
   import Szenarien from 'views/szenarien.svelte'
   import Onboarding from 'views/onboarding.svelte'
+  import Animation from 'views/animation.svelte'
 
   import Header from 'components/Header.svelte'
   import Meta from 'core/components/Meta.svelte'
@@ -19,7 +20,21 @@
   }
 
   onMount(async () => {
+    const topo = await loadTopojson('data/timeseries.simple.topo.json')
     const codes = await loadFile(zipCodesUrl)
+    const kreiseExtent = topo.kreise.features.reduce(
+      (previous, current) => {
+        const max = Math.max(...current.properties.data)
+        const min = Math.min(...current.properties.data)
+        if (min < previous.min) previous.min = min
+        if (max > previous.max) previous.max = max
+        return previous
+      },
+      { min: Infinity, max: -Infinity }
+    )
+    topo.extent = kreiseExtent
+
+    jsonData.set(topo)
     zipcodes.set(codes.columns)
     data.set(content)
   })
@@ -46,7 +61,8 @@
 
 <div class="container">
   <Meta meta={metadata} />
-  <Header />
+  <!-- <Header /> -->
+  <Animation />
   <Section>
     Natürlich ist es am Ende des Tages nicht so einfach, denn neben Mobilität
     produzieren wir in all unseren anderen Lebensbereich ebenfalls CO2 und unser
@@ -54,8 +70,8 @@
     dieser Artikel darauf aufmerksam machen, welchen Einfluss unsere Wahl der
     Fortbewegungsmittel auf unseren CO2-Fußabdruck hat.
   </Section>
-  <Onboarding />
-  <Szenarien />
+  <!-- <Onboarding /> -->
+  <!-- <Szenarien /> -->
   <Section>
     Natürlich ist es am Ende des Tages nicht so einfach, denn neben Mobilität
     produzieren wir in all unseren anderen Lebensbereich ebenfalls CO2 und unser

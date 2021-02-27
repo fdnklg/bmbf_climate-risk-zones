@@ -31,6 +31,7 @@
     "d3-array": "^2.11.0",
     "d3-dsv": "^2.0.0",
     "d3-format": "^2.0.0",
+    "d3-geo": "^2.0.1",
     "d3-scale": "^3.2.3",
     "d3-shape": "^2.0.0",
     "mapbox-gl": "^2.0.1",
@@ -39,6 +40,7 @@
     "sirv-cli": "^1.0.0",
     "svelte-preprocess": "^4.6.0",
     "svelte-select": "^3.14.1",
+    "topojson-client": "^3.1.0",
     "turf-difference": "^3.0.12",
     "turf-point": "^2.0.1"
   }

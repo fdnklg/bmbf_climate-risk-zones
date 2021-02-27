@@ -32,7 +32,6 @@
 
     &.primary {
       background-color: $color-main;
-      margin-right: 20px;
 
       @include respond-max-screen-phablet {
         margin-right: 10px;

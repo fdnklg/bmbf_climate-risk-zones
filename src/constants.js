@@ -132,3 +132,15 @@ export const zeitreiheHeadlines = {
     metric: 'Tage',
   },
 }
+
+export const droughtColors = [
+  '#ffffe0',
+  '#ffe0a9',
+  '#ffbe84',
+  '#ff986d',
+  '#f47361',
+  '#e35056',
+  '#cb2f44',
+  '#ae112a',
+  '#8b0000',
+]

@@ -1,6 +1,7 @@
 import { dsvFormat } from 'd3-dsv'
 import { extent } from 'd3-array'
 import { zeitreiheDataGradients as gradient, styles } from 'constants'
+import { feature, mesh, merge } from 'topojson-client'
 
 export const translateRiskzone = {
   cold: '',
@@ -9,6 +10,77 @@ export const translateRiskzone = {
   mountain: '',
   premountain: '',
   warm: '',
+}
+
+const range = function (start, stop, step = 1) {
+  let numbers = []
+  for (let index = start; index < stop; index += step) {
+    numbers.push(index)
+  }
+  return numbers
+}
+
+export default range
+
+export async function loadTopojson(url) {
+  const data = await fetch(url)
+  const kreiseTopo = await data.json()
+
+  // @TODO Do the merging later!
+
+  const kreiseTopoKey = Object.keys(kreiseTopo.objects)[0]
+  const kreise = feature(kreiseTopo, kreiseTopoKey)
+
+  const kreiseMesh = mesh(kreiseTopo, kreiseTopo.objects[kreiseTopoKey])
+
+  // const states = {
+  //   type: 'FeatureCollection',
+  //   features: range(1, 17).map(function (i) {
+  //     return {
+  //       ...merge(
+  //         kreiseTopo,
+  //         kreiseTopo.objects[kreiseTopoKey].geometries.filter(function (d) {
+  //           const ags = parseInt(d.properties.ags.slice(0, -3))
+  //           return parseInt(ags) === i
+  //         })
+  //       ),
+  //       properties: {
+  //         ags: `${i}`,
+  //         state: STATE_LABELS[i],
+  //         center: stateCentroids[STATE_LABELS[i]],
+  //       },
+  //     }
+  //   }),
+  // }
+
+  // const statesMesh = mesh(
+  //   kreiseTopo,
+  //   kreiseTopo.objects[kreiseTopoKey],
+  //   mergeBundesland
+  // )
+
+  // const germany = merge(
+  //   kreiseTopo,
+  //   kreiseTopo.objects[kreiseTopoKey].geometries
+  // )
+
+  // kreise.features = kreise.features.map(function (d) {
+  //   return {
+  //     ...d,
+  //     properties: {
+  //       ...d.properties,
+  //       ...agsMeta[d.properties.ags],
+  //     },
+  //   }
+  // })
+
+  return {
+    // germany,
+    // states,
+    // statesMesh,
+    kreise,
+    kreiseMesh,
+  }
 }
 
 export const createZeitreihe = (data, datakey, sliceAt = false) => {
