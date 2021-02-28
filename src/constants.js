@@ -25,17 +25,17 @@ export const zipCodesUrl = `${s3Url}postcodes.txt`
 
 export const styles = {
   fluvial_flood: {
-    fill: 'blue',
-    stroke: 'blue',
-    'line-width': 1,
-    'fill-opacity': 0.05,
+    fill: '#3C76F2',
+    stroke: '#3C76F2',
+    'line-width': 1.5,
+    'fill-opacity': 0.15,
     'line-opacity': 0.1,
   },
   postcode_geom: {
     fill: 'white',
     stroke: 'black',
-    'line-width': 2,
-    'fill-opacity': 0.4,
+    'line-width': 2.5,
+    'fill-opacity': 0.6,
     'line-opacity': 1,
   },
   postcode_buff_geom: {

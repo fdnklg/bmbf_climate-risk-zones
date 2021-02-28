@@ -32,15 +32,15 @@ export const content = {
       showMinimap: true,
       layers: [
         {
-          key: 'fluvial_flood',
-        },
-        {
           key: 'postcode_geom',
           annotations: [
             {
               text: 'Fläche der von dir eingegebenen Postleitzahl.',
             },
           ],
+        },
+        {
+          key: 'fluvial_flood',
         },
       ],
     },
