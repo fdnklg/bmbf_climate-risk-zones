@@ -21,8 +21,6 @@ const range = function (start, stop, step = 1) {
   return numbers
 }
 
-export default range
-
 export async function loadTopojson(url) {
   const data = await fetch(url)
   const kreiseTopo = await data.json()

@@ -55,7 +55,7 @@
         flying = false
         if (data) {
           setTimeout(() => {
-            const { anchors } = data
+            let { anchors } = data
             if (anchors.length > 0) {
               // calc projected coords for annotation lat/lng coords
               let projectedAnnotations = []
@@ -70,7 +70,7 @@
               })
               selectedAnchors.set(projectedAnnotations)
             }
-          }, 100)
+          }, 50)
         }
       })
 
@@ -123,9 +123,10 @@
 
   const updateMap = () => {
     if (data && map) {
-      const { geojson, mapbox_layers, padding, fitBounds, risk_zone_ids } = data
-      console.log(data)
+      const { geojson, padding, fitBounds, risk_zone_ids, layers } = data
       let paddingBounds = padding ? padding : window.innerWidth < 500 ? 20 : 50
+
+      const mapbox_layers = layers.filter((d) => d.isMapbox).map((d) => d.key)
 
       let fittingBounds = fitBounds
         ? fitBounds
@@ -136,16 +137,17 @@
         source.setData(geojson)
         updateMapboxLayers(map, mapbox_layers)
 
-        if (mapbox_layers.includes('klimazonen')) {
-          risk_zone_ids.forEach((id) => {
-            map.setFilter('klimazonen', ['==', ['get', 'fid'], id])
-          })
-        }
         // fit map to bounding box
         const boundGeoJson = map.fitBounds(fittingBounds, {
           padding: paddingBounds,
           duration: 500,
         })
+
+        if (mapbox_layers.includes('klimazonen')) {
+          risk_zone_ids.forEach((id) => {
+            map.setFilter('klimazonen', ['==', ['get', 'fid'], id])
+          })
+        }
       }
     }
   }

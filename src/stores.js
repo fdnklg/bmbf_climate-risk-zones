@@ -1,6 +1,7 @@
 import { writable, derived } from 'svelte/store'
 import bbox from '@turf/bbox'
 import { fetchJson, createZeitreihe } from 'utils'
+import { addAnnotations } from 'annotation'
 import {
   createGeojson,
   createFeature,
@@ -32,6 +33,7 @@ export const storyData = derived(
           data_germany,
           data_postcode,
           risk_zones,
+          risk_zone_anchors,
           risk_zone_ids,
           dense_space,
           postcode,
@@ -41,17 +43,16 @@ export const storyData = derived(
           postcode_point,
         } = json
 
-        console.log(json)
-
         szenarien.map((szenario) => {
-          const { layers, mapbox_layers, annotation } = szenario
+          const { layers, annotation } = szenario
 
           const szenarioGeojson = createGeojson()
-          szenarioGeojson.mapbox_layers = mapbox_layers
           szenario.anchors = []
 
+          const layerKeys = layers.map((d) => d.key)
+
           // add fit bounds of dense space to step, if verdichtungsräume is in mapbox_layers
-          if (mapbox_layers.includes('verdichtungsraeume') && dense_space) {
+          if (layerKeys.includes('verdichtungsraeume') && dense_space) {
             szenario.fitBounds = dense_space.bbox
               ? dense_space.bbox.coordinates[0]
               : false
@@ -59,12 +60,12 @@ export const storyData = derived(
 
           // create feature for each layer based on config
           layers.map((layer) => {
-            const { key } = layer
+            const { key, isMapbox } = layer
             const style = styles[key]
             const geometries = json[key]
 
             // if geometries is an array create feature for each item and push it to array
-            if (geometries && geometries.length > 1) {
+            if (geometries && geometries.length > 1 && !isMapbox) {
               geometries.forEach((geometry) => {
                 const propsFill = {
                   id: `${key}-fill`,
@@ -87,7 +88,7 @@ export const storyData = derived(
                 szenarioGeojson.features.push(featureContour)
               })
               // else if geometry has only on object push to features
-            } else {
+            } else if (!isMapbox) {
               // if the key layer is the mask
               const propsFill = {
                 id: `${key}-fill`,
@@ -121,27 +122,7 @@ export const storyData = derived(
               szenarioGeojson.features.push(featureContour)
             }
 
-            // create annotations with anchors from json and config
-            const layersWithAnchors = [
-              {
-                id: 'postcode_geom',
-                anchors: postcode_anchors,
-              },
-              {
-                id: 'postcode_buff_geom',
-                anchors: postcode_buff_anchors,
-              },
-            ]
-
-            if (layersWithAnchors.map((d) => d.id).includes(key)) {
-              const current = layersWithAnchors.find((d) => d.id === key)
-                .anchors
-              const coords = current.map((p) => p.coordinates)
-              const annotation = szenario.annotation.find((d) => d.id === key)
-              annotation.anchors = coords
-              annotation.isVertical = current.id === 'postcode_buff_geom'
-              szenario.anchors.push(annotation)
-            }
+            addAnnotations(json, szenario, layer)
           })
 
           szenario.geojson = szenarioGeojson

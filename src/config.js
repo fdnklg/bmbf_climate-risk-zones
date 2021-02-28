@@ -29,99 +29,109 @@ export const content = {
   szenarien: [
     {
       step: '1.1',
-      mapbox_layers: [],
       showMinimap: true,
-      annotation: [
-        {
-          text: 'Fläche der von dir eingegebenen Postleitzahl.',
-          id: 'postcode_geom',
-        },
-      ],
       layers: [
         {
           key: 'fluvial_flood',
         },
         {
           key: 'postcode_geom',
+          annotations: [
+            {
+              text: 'Fläche der von dir eingegebenen Postleitzahl.',
+            },
+          ],
         },
       ],
     },
     {
       step: '1.2',
-      mapbox_layers: [], // names of data layers inside mapbox map
       showMinimap: true,
-      annotation: [
-        {
-          text: 'Fläche der von dir eingegebenen Postleitzahl.',
-          id: 'postcode_geom',
-        },
-        {
-          text: 'Das sind XX km Distanz.',
-          id: 'postcode_buff_geom',
-        },
-      ],
       padding: 70,
       layers: [
         {
           key: 'postcode_geom',
+          annotations: [
+            {
+              text: 'Fläche der von dir eingegebenen Postleitzahl.',
+            },
+          ],
         },
         {
           key: 'postcode_buff_geom',
+          annotations: [
+            {
+              text: 'Das sind XX km Distanz.',
+            },
+          ],
         },
       ],
     },
     {
       step: '1.3',
-      mapbox_layers: ['verdichtungsraeume'], // names of data layers inside mapbox map
       showMinimap: true,
-      annotation: [
-        {
-          text: 'Fläche der von dir eingegebenen Postleitzahl.',
-          id: 'postcode_geom',
-        },
-      ],
       padding: 100,
       layers: [
         {
+          key: 'verdichtungsraeume',
+          isMapbox: true,
+        },
+        {
           key: 'postcode_geom',
+          annotations: [
+            {
+              text: 'Fläche der von dir eingegebenen Postleitzahl.',
+            },
+          ],
         },
       ],
     },
     {
       step: '1.4',
-      mapbox_layers: ['klimazonen'],
-      annotation: [
-        {
-          text: 'Fläche der von dir eingegebenen Postleitzahl.',
-          id: 'postcode_geom',
-        },
-      ],
       fitBounds: [
         [5.98865807458, 47.3024876979],
         [15.0169958839, 54.983104153],
       ], // defines the focus of the bounding box
       layers: [
         {
+          key: 'klimazonen',
+          isMapbox: true,
+          annotations: [
+            {
+              text: 'Klimazone',
+            },
+          ],
+        },
+        {
           key: 'postcode_geom',
+          annotations: [
+            {
+              text: 'Fläche der von dir eingegebenen Postleitzahl.',
+              id: 'postcode_geom',
+            },
+          ],
         },
       ],
     },
     {
       step: '1.5',
-      mapbox_layers: ['hochwasser'], // names of data layers inside mapbox map
-      annotation: [
-        {
-          text: 'Fläche der von dir eingegebenen Postleitzahl.',
-          id: 'postcode_geom',
-        },
-      ],
       fitBounds: [
         [5.98865807458, 47.3024876979],
         [15.0169958839, 54.983104153],
       ], // defines the focus of the bounding box
       layers: [
         {
+          key: 'hochwasser',
+          isMapbox: true,
+        },
+        {
           key: 'postcode_geom',
+          annotations: [
+            {
+              text: 'Fläche der von dir eingegebenen Postleitzahl.',
+              id: 'postcode_geom',
+            },
+          ],
         },
       ],
     },

@@ -13,7 +13,7 @@
   function scrollToFirstScene() {
     animateScroll.scrollTo({
       element: `[id='anchor-1.1']`,
-      offset: -60,
+      offset: -80,
       duration: 1500,
       delay: 0,
     })
