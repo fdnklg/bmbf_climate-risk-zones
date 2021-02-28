@@ -1,5 +1,6 @@
 <script>
   import { geoPath, geoMercator } from 'd3-geo'
+  import { afterUpdate } from 'svelte'
   import { getColorScale } from './utils'
 
   export let data
@@ -8,18 +9,22 @@
   export let animated = false
   export let hasStroke = true
   export let dateIndex = 0
+  export let strokeWidth = 0.5
+  export let stroke = '#f5f5f5'
+  export let hasMarker = false
 
-  const proj = geoMercator().fitSize([width, height], data.kreise)
+  const proj = geoMercator().fitSize([width, height], data)
   const pathGen = geoPath().projection(proj)
 
-  const colorScale = getColorScale([0, 150])
+  const colorScale = getColorScale([0, 150]) //@TODO remove hardcoded range here
 
-  $: features = data.kreise.features.map((feat, i) => {
+  $: features = data.features.map((feat, i) => {
     const d = pathGen(feat)
-    const currentData = feat.properties.data[dateIndex]
+    const currentData = feat.properties.data
+      ? feat.properties.data[dateIndex]
+      : false
 
     const fill = currentData ? colorScale(currentData) : '#fff'
-    const stroke = hasStroke ? '#f5f5f5' : 'none'
 
     return {
       d,
@@ -27,6 +32,8 @@
       stroke,
     }
   })
+
+  $: marker = hasMarker ? proj(hasMarker.coordinates) : false
 </script>
 
 <style lang="scss">
@@ -39,8 +46,11 @@
       <path
         d={feature.d}
         fill={feature.fill}
-        stroke-width=".5"
-        stroke={feature.stroke} />
+        stroke-width={strokeWidth}
+        stroke={hasStroke ? feature.stroke : null} />
     {/each}
+    {#if marker}
+      <circle cx={marker[0]} cy={marker[1]} r="3" fill="#080e2f" />
+    {/if}
   </svg>
 </div>

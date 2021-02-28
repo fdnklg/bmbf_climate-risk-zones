@@ -1,6 +1,6 @@
 <script>
   import { afterUpdate } from 'svelte'
-  import { storyData, selectedAnchors } from 'stores'
+  import { storyData, selectedAnchors, jsonData } from 'stores'
 
   import IntersectionObserver from 'core/components/Intersectionobserver.svelte'
   import Map3D from 'components/Map3D/index.svelte'
@@ -9,9 +9,11 @@
   import Tile from 'components/Tile/Tile.svelte'
   import TooltipContent from 'components/TooltipContent.svelte'
   import Anchor from 'components/Anchor.svelte'
+  import StaticMap from 'components/AnimatedMaps/StaticMap.svelte'
 
   let step
   $: data = $storyData ? $storyData.szenarien : null
+  $: mapData = $jsonData ? $jsonData.germany : null
 
   function handleActiveStep(e) {
     step = e.detail
@@ -20,6 +22,9 @@
   $: currentData = $storyData
     ? $storyData.szenarien.find((d) => d.step == step)
     : false
+
+  $: marker = currentData ? currentData.marker : false
+  $: showMinimap = currentData ? currentData.showMinimap : false
 </script>
 
 <style lang="scss">
@@ -35,6 +40,14 @@
       margin-left: 10px;
     }
   }
+
+  .minimap-container {
+    heigth: 150px;
+    width: 115px;
+    position: absolute;
+    bottom: 40px;
+    right: 40px;
+  }
   .extra {
     margin-bottom: 75vh;
     overflow: scroll;
@@ -49,9 +62,20 @@
 </style>
 
 <div class="szenarien container">
-  {#if data}
+  {#if data && mapData}
     <div class="sticky">
       <Map3D data={currentData} />
+      {#if showMinimap}
+        <div class="minimap-container">
+          <StaticMap
+            width={115}
+            height={150}
+            hasMarker={marker}
+            strokeWidth={1}
+            stroke="#808080"
+            data={mapData} />
+        </div>
+      {/if}
       {#each $selectedAnchors as d}
         <Tooltip anchor={d.coords}>
           <TooltipContent data={d.text} />

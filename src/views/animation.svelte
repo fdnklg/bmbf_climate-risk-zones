@@ -65,7 +65,7 @@
     <ColorLegend />
     <div class="map-container">
       <div class="year-label">{1995 + dateIndex}</div>
-      <StaticMap {dateIndex} data={$jsonData} />
+      <StaticMap {dateIndex} data={$jsonData.kreise} />
     </div>
   {/if}
   <div class="footer">

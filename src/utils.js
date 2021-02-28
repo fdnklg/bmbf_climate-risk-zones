@@ -2,6 +2,7 @@ import { dsvFormat } from 'd3-dsv'
 import { extent } from 'd3-array'
 import { zeitreiheDataGradients as gradient, styles } from 'constants'
 import { feature, mesh, merge } from 'topojson-client'
+import { createFeature, cerateGeo } from 'components/Map3D/utils.js'
 
 export const translateRiskzone = {
   cold: '',
@@ -59,10 +60,17 @@ export async function loadTopojson(url) {
   //   mergeBundesland
   // )
 
-  // const germany = merge(
-  //   kreiseTopo,
-  //   kreiseTopo.objects[kreiseTopoKey].geometries
-  // )
+  const germanyPath = merge(
+    kreiseTopo,
+    kreiseTopo.objects[kreiseTopoKey].geometries
+  )
+
+  const germany = createFeature(germanyPath, {})
+
+  const germanyFeature = {
+    type: 'FeatureCollection',
+    features: [germany],
+  }
 
   // kreise.features = kreise.features.map(function (d) {
   //   return {
@@ -75,7 +83,7 @@ export async function loadTopojson(url) {
   // })
 
   return {
-    // germany,
+    germany: germanyFeature,
     // states,
     // statesMesh,
     kreise,

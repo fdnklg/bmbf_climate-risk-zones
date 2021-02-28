@@ -32,12 +32,16 @@ export const storyData = derived(
           data_germany,
           data_postcode,
           risk_zones,
+          risk_zone_ids,
           dense_space,
           postcode,
           has_ocean_flood,
           postcode_anchors,
           postcode_buff_anchors,
+          postcode_point,
         } = json
+
+        console.log(json)
 
         szenarien.map((szenario) => {
           const { layers, mapbox_layers, annotation } = szenario
@@ -142,7 +146,9 @@ export const storyData = derived(
 
           szenario.geojson = szenarioGeojson
           szenario.postcode = postcode
+          szenario.marker = postcode_point
           szenario.denseSpace = dense_space.bbox ? dense_space : false
+          szenario.risk_zone_ids = risk_zone_ids
         })
 
         let zeitreihen = {

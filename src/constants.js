@@ -144,3 +144,5 @@ export const droughtColors = [
   '#ae112a',
   '#8b0000',
 ]
+
+export const klimazonenIds = [1, 40, 99, 297, 2892, 4089]

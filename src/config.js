@@ -30,6 +30,7 @@ export const content = {
     {
       step: '1.1',
       mapbox_layers: [],
+      showMinimap: true,
       annotation: [
         {
           text: 'Fläche der von dir eingegebenen Postleitzahl.',
@@ -48,6 +49,7 @@ export const content = {
     {
       step: '1.2',
       mapbox_layers: [], // names of data layers inside mapbox map
+      showMinimap: true,
       annotation: [
         {
           text: 'Fläche der von dir eingegebenen Postleitzahl.',
@@ -71,6 +73,7 @@ export const content = {
     {
       step: '1.3',
       mapbox_layers: ['verdichtungsraeume'], // names of data layers inside mapbox map
+      showMinimap: true,
       annotation: [
         {
           text: 'Fläche der von dir eingegebenen Postleitzahl.',
@@ -93,7 +96,10 @@ export const content = {
           id: 'postcode_geom',
         },
       ],
-      padding: 300,
+      fitBounds: [
+        [5.98865807458, 47.3024876979],
+        [15.0169958839, 54.983104153],
+      ], // defines the focus of the bounding box
       layers: [
         {
           key: 'postcode_geom',

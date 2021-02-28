@@ -1,6 +1,7 @@
 <script>
   import { onMount, afterUpdate, setContext } from 'svelte'
   import { selectedAnchors } from 'stores'
+  import { klimazonenIds } from 'constants'
   import {
     createGeojson,
     updateMapboxLayers,
@@ -122,7 +123,8 @@
 
   const updateMap = () => {
     if (data && map) {
-      const { geojson, mapbox_layers, padding, fitBounds, anchors } = data
+      const { geojson, mapbox_layers, padding, fitBounds, risk_zone_ids } = data
+      console.log(data)
       let paddingBounds = padding ? padding : window.innerWidth < 500 ? 20 : 50
 
       let fittingBounds = fitBounds
@@ -133,6 +135,12 @@
       if (source) {
         source.setData(geojson)
         updateMapboxLayers(map, mapbox_layers)
+
+        if (mapbox_layers.includes('klimazonen')) {
+          risk_zone_ids.forEach((id) => {
+            map.setFilter('klimazonen', ['==', ['get', 'fid'], id])
+          })
+        }
         // fit map to bounding box
         const boundGeoJson = map.fitBounds(fittingBounds, {
           padding: paddingBounds,
