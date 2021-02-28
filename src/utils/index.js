@@ -139,13 +139,6 @@ export const loadFile = async (filePath, delimiter = ',') => {
   return csv.parse(text)
 }
 
-export function addPropAndMap(propValue, propKey, array) {
-  return array.map((p) => {
-    p.properties = { [propKey]: propValue }
-    return p
-  })
-}
-
 export const loadJson = async (filePath) => {
   const res = await fetch(filePath)
   return res.json()

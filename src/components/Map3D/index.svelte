@@ -47,15 +47,13 @@
       })
 
       map.on('movestart', () => {
-        flying = true
         selectedAnchors.set([])
       })
 
       map.on('moveend', () => {
-        flying = false
         if (data) {
           setTimeout(() => {
-            let { anchors } = data
+            let { anchors, postcodeShape } = data
             if (anchors.length > 0) {
               // calc projected coords for annotation lat/lng coords
               let projectedAnnotations = []

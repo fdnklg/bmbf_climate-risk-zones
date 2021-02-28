@@ -28,12 +28,11 @@ export const storyData = derived(
       const json = await fetchJson(`${s3UrlRisk}postcode/${zipcode}.json`)
       if ($data) {
         let dataObj = {}
-        const { szenarien } = $data
+        let { szenarien } = $data
         const {
           data_germany,
           data_postcode,
           risk_zones,
-          risk_zone_anchors,
           risk_zone_ids,
           dense_space,
           postcode,
@@ -43,8 +42,25 @@ export const storyData = derived(
           postcode_point,
         } = json
 
+        const isDenseSpace = dense_space.bbox
+        const hasOceanFlood = has_ocean_flood === 1
+
+        // remove steps from config if json is no dense space
+        if (!isDenseSpace) {
+          szenarien = szenarien.filter(
+            (d) => !d.layers.map((l) => l.key).includes('verdichtungsraeume')
+          )
+        }
+
+        // remove steps from config if json has no ocean floods
+        if (!hasOceanFlood) {
+          szenarien = szenarien.filter(
+            (d) => !d.layers.map((l) => l.key).includes('sturmfluten')
+          )
+        }
+
         szenarien.map((szenario) => {
-          const { layers, annotation } = szenario
+          const { layers } = szenario
 
           const szenarioGeojson = createGeojson()
           szenario.anchors = []
@@ -52,10 +68,20 @@ export const storyData = derived(
           const layerKeys = layers.map((d) => d.key)
 
           // add fit bounds of dense space to step, if verdichtungsräume is in mapbox_layers
-          if (layerKeys.includes('verdichtungsraeume') && dense_space) {
-            szenario.fitBounds = dense_space.bbox
+          if (layerKeys.includes('verdichtungsraeume') && isDenseSpace) {
+            szenario.fitBounds = isDenseSpace
               ? dense_space.bbox.coordinates[0]
               : false
+          }
+
+          if (layerKeys.includes('sturmfluten') && has_ocean_flood === 1) {
+            szenario.fitBounds = [
+              [6.4319443594, 53.3586760007],
+              [10.5471061207, 53.3586760007],
+              [10.5471061207, 54.8549497937],
+              [6.4319443594, 54.8549497937],
+              [6.4319443594, 53.3586760007],
+            ]
           }
 
           // create feature for each layer based on config
@@ -117,6 +143,9 @@ export const storyData = derived(
               const featureFill = createFeature(geometries, propsFill)
               const featureContour = createFeature(geometries, propsContour)
 
+              if (key === 'postcode_geom') {
+                szenario.postcodeShape = featureFill
+              }
               // add white mask of postcode buffer shape feature here
               szenarioGeojson.features.push(featureFill)
               szenarioGeojson.features.push(featureContour)

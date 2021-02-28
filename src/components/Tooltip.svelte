@@ -26,7 +26,8 @@
 
   .annotation-line {
     background-color: black;
-    border: 1px solid white;
+    outline: 1px solid white;
+    box-sizing: content-box;
     &.left {
       width: 35px;
       height: 1px;

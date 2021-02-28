@@ -20,7 +20,10 @@
   }
 
   onMount(async () => {
-    const topo = await loadTopojson('data/timeseries.simple.topo.json')
+    const topo = await loadTopojson(
+      'data/timeseries_air_temperature_max_max.simple.topo.json'
+    )
+    console.log(topo)
     const codes = await loadFile(zipCodesUrl)
     const kreiseExtent = topo.kreise.features.reduce(
       (previous, current) => {
@@ -61,6 +64,7 @@
 
 <div class="container">
   <Meta meta={metadata} />
+  <!-- <Animation /> -->
   <!-- <Header /> -->
   <!-- <Section>
     Natürlich ist es am Ende des Tages nicht so einfach, denn neben Mobilität
@@ -82,5 +86,4 @@
     produzieren wir in all unseren anderen Lebensbereich ebenfalls CO2 und unser
     gesamter Fußabdruck setzt sich aus all dem zusammen.
   </Section>
-  <!-- <Animation /> -->
 </div>

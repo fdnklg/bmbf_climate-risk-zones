@@ -70,7 +70,6 @@ export const content = {
     {
       step: '1.3',
       showMinimap: true,
-      padding: 100,
       layers: [
         {
           key: 'verdichtungsraeume',
@@ -88,6 +87,24 @@ export const content = {
     },
     {
       step: '1.4',
+      showMinimap: true,
+      layers: [
+        {
+          key: 'sturmfluten',
+          isMapbox: true,
+        },
+        {
+          key: 'postcode_geom',
+          annotations: [
+            {
+              text: 'Fläche der von dir eingegebenen Postleitzahl.',
+            },
+          ],
+        },
+      ],
+    },
+    {
+      step: '1.5',
       fitBounds: [
         [5.98865807458, 47.3024876979],
         [15.0169958839, 54.983104153],
@@ -114,7 +131,7 @@ export const content = {
       ],
     },
     {
-      step: '1.5',
+      step: '1.6',
       fitBounds: [
         [5.98865807458, 47.3024876979],
         [15.0169958839, 54.983104153],
