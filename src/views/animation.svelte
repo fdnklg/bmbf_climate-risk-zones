@@ -3,12 +3,13 @@
 
   import StaticMap from 'components/AnimatedMaps/StaticMap.svelte'
   import Title from 'components/Title.svelte'
-  import Button from 'components/Button.svelte'
+  import ButtonRound from 'components/ButtonRound.svelte'
   import ColorLegend from 'components/AnimatedMaps/ColorLegend.svelte'
   import Source from 'components/Source.svelte'
   import TimeSeriesSlider from 'components/TimeSeriesSlider.svelte'
+  import { afterUpdate } from 'svelte'
 
-  $: isActive = true
+  $: isActive = false
   $: btnLabel = isActive ? 'Pausieren' : 'Abspielen'
 
   $: dateLength = $jsonData
@@ -19,7 +20,7 @@
 
   $: {
     clearInterval(interval)
-    interval = setInterval(updateDate, 1000)
+    if (isActive) interval = setInterval(updateDate, 750)
   }
 
   function updateDate() {
@@ -32,18 +33,22 @@
 
   function handleToggle() {
     clearInterval(interval)
-    if (!isActive) interval = setInterval(updateDate, 1000)
+    if (!isActive) interval = setInterval(updateDate, 750)
     isActive = !isActive
   }
 
   let dateIndex = 0
+
+  afterUpdate(() => {
+    console.log(dateLength)
+  })
 </script>
 
 <style lang="scss">
   @import 'src/style/root.scss';
   .container {
     margin: auto;
-    margin-bottom: 40px;
+    padding: 40px;
 
     @include respond-max-screen-phablet {
       width: calc(100% - 40px);
@@ -52,9 +57,12 @@
   .footer {
     width: 100%;
     display: flex;
-    flex-direction: column;
-    justify-content: center;
+    justify-content: space-between;
     align-items: center;
+
+    &:first-child {
+      width: 50%;
+    }
   }
   .year-label {
     font-size: $font-size-m;
@@ -69,13 +77,19 @@
 </style>
 
 <div class="container animation">
-  <Title>Deutschlands Böden <br /> werden immer trockener</Title>
+  <Title>Es wird immer heißer</Title>
   {#if $jsonData}
-    <ColorLegend />
+    <ColorLegend extent={$jsonData.meta.extentGermany} />
     <div class="map-container">
-      <div class="year-label">{2020 - dateLength + dateIndex}</div>
-      <StaticMap {dateIndex} meta={$jsonData.meta} data={$jsonData.kreise} />
+      <StaticMap
+        width={400}
+        height={550}
+        {dateIndex}
+        meta={$jsonData.meta}
+        data={$jsonData.kreise} />
       <TimeSeriesSlider
+        data={$jsonData.meta.avgGermany}
+        meta={$jsonData.meta}
         min={0}
         max={dateLength}
         value={dateIndex}
@@ -83,8 +97,10 @@
     </div>
   {/if}
   <div class="footer">
-    <Button handleClick={handleToggle}>{btnLabel}</Button>
     <Source
       data={{ label: 'Helmholtz Zentrum für Umweltforschung (UFZ)', url: 'https://google.com' }} />
+    <ButtonRound
+      type={isActive ? 'pause' : 'play'}
+      handleClick={handleToggle} />
   </div>
 </div>

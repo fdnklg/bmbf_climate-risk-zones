@@ -172,7 +172,6 @@ export const zeitreiheHeadlines = {
 }
 
 export const droughtColors = [
-  '#ffffe0',
   '#ffe0a9',
   '#ffbe84',
   '#ff986d',

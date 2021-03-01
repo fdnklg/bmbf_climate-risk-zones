@@ -6,34 +6,22 @@ import { createFeature } from 'components/Map3D/utils.js'
 import { STATE_LABELS, stateCentroids } from 'constants'
 
 export function range(start, end, step = 1) {
-  // Test that the first 3 arguments are finite numbers.
-  // Using Array.prototype.every() and Number.isFinite().
   const allNumbers = [start, end, step].every(Number.isFinite)
 
-  // Throw an error if any of the first 3 arguments is not a finite number.
   if (!allNumbers) {
     throw new TypeError('range() expects only finite numbers as arguments.')
   }
 
-  // Ensure the step is always a positive number.
   if (step <= 0) {
     throw new Error('step must be a number greater than 0.')
   }
 
-  // When the start number is greater than the end number,
-  // modify the step for decrementing instead of incrementing.
   if (start > end) {
     step = -step
   }
 
-  // Determine the length of the array to be returned.
-  // The length is incremented by 1 after Math.floor().
-  // This ensures that the end number is listed if it falls within the range.
   const length = Math.floor(Math.abs((end - start) / step)) + 1
 
-  // Fill up a new array with the range numbers
-  // using Array.from() with a mapping function.
-  // Finally, return the new array.
   return Array.from(Array(length), (x, index) => start + index * step)
 }
 
@@ -62,14 +50,63 @@ export function mergeBundesland(a, b) {
   return exteriorBorder || !sameBundesland
 }
 
+function createAvg(data) {
+  const total = data[0].length - 1
+  let averages = []
+  range(0, total).map((index) => {
+    let values = []
+    data.forEach((kreis) => {
+      const value = kreis[index]
+      values.push(value)
+    })
+    const sum = values.reduce((a, b) => a + b, 0)
+    const avg = sum / total
+    averages.push(avg)
+  })
+  return averages
+}
+
+function addRollingAvg(data, days = 7) {
+  const countData = new Array(days).fill(0)
+  for (let index = 0; index < data.length; index++) {
+    countData.push(Math.max(data[index], 0))
+    countData.shift()
+    data[index] = getMean(countData)
+  }
+}
+
+function sum(sum, element) {
+  return sum + element
+}
+
+function getMean(array) {
+  return array.reduce(sum) / array.length
+}
+
+export function round(value, precision) {
+  var multiplier = Math.pow(10, precision || 0)
+  return Math.round(value * multiplier) / multiplier
+}
+
 export async function loadTopojson(url) {
   const data = await fetch(url)
   const kreiseTopo = await data.json()
 
   const kreiseTopoKey = Object.keys(kreiseTopo.objects)[0]
-  const kreise = feature(kreiseTopo, kreiseTopoKey)
+  let kreise = feature(kreiseTopo, kreiseTopoKey)
 
-  const kreiseMesh = mesh(kreiseTopo, kreiseTopo.objects[kreiseTopoKey])
+  kreise.features.forEach((feature) => {
+    const data = feature.properties.data
+    feature.properties.data = data.map((d) => d / 10)
+  })
+
+  let avgGermany = createAvg(kreise.features.map((d) => d.properties.data))
+  addRollingAvg(avgGermany)
+  avgGermany.splice(0, 6)
+
+  kreise.features.forEach((feature) => {
+    feature.properties.data.splice(0, 6)
+  })
 
   const states = {
     type: 'FeatureCollection',
@@ -92,14 +129,13 @@ export async function loadTopojson(url) {
   }
 
   const meta = Object.assign({}, kreise.features[0].properties)
+  meta.value_max = meta.value_max / 10
+  meta.value_min = meta.value_min / 10
+  meta.avgGermany = avgGermany
+  meta.extentGermany = extent(avgGermany)
+  meta.year_min = meta.year_min + 6
   delete meta.ags
   delete meta.data
-
-  // const statesMesh = mesh(
-  //   kreiseTopo,
-  //   kreiseTopo.objects[kreiseTopoKey],
-  //   mergeBundesland
-  // )
 
   const germanyPath = merge(
     kreiseTopo,
@@ -127,7 +163,6 @@ export async function loadTopojson(url) {
     states,
     // statesMesh,
     kreise,
-    kreiseMesh,
     meta,
   }
 }

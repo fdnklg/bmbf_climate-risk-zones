@@ -7,3 +7,7 @@
     width: calc(100% - 40px);
   }
 }
+
+@mixin ui-shadow {
+  box-shadow: rgba(0, 0, 0, 0.8) 0px 2.8px 2.2px;
+}

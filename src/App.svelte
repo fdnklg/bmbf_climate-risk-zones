@@ -22,7 +22,7 @@
 
   onMount(async () => {
     const topo = await loadTopojson(
-      'data/timeseries_air_temperature_max_max.simple.topo.json'
+      'data/timeseries_air_temperature_mean_avg.simple.topo.json'
     )
     const codes = await loadFile(zipCodesUrl)
     jsonData.set(topo)

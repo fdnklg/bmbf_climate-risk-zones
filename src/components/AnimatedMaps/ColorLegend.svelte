@@ -1,10 +1,12 @@
 <script>
   import { getColorScale } from './utils'
 
-  const textMin = 'Ungewöhnliche Trockenheit'
-  const textMax = 'Außergewöhnliche Dürre'
-  const colorScale = getColorScale([0, 180]) // @TODO set correct extent
-  const data = [20, 40, 60, 80, 100, 120, 140, 160, 180]
+  export let extent = [0, 100]
+
+  const textMin = 'Niedrig'
+  const textMax = 'Hoch'
+  const colorScale = getColorScale(extent)
+  const data = [20, 22, 24, 26, 28, 30, 32]
 </script>
 
 <style lang="scss">
