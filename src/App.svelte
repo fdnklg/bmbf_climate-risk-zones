@@ -9,6 +9,7 @@
   import Szenarien from 'views/szenarien.svelte'
   import Onboarding from 'views/onboarding.svelte'
   import Animation from 'views/animation.svelte'
+  import Series from 'views/series.svelte'
 
   import Header from 'components/Header.svelte'
   import Meta from 'core/components/Meta.svelte'
@@ -23,20 +24,7 @@
     const topo = await loadTopojson(
       'data/timeseries_air_temperature_max_max.simple.topo.json'
     )
-    console.log(topo)
     const codes = await loadFile(zipCodesUrl)
-    const kreiseExtent = topo.kreise.features.reduce(
-      (previous, current) => {
-        const max = Math.max(...current.properties.data)
-        const min = Math.min(...current.properties.data)
-        if (min < previous.min) previous.min = min
-        if (max > previous.max) previous.max = max
-        return previous
-      },
-      { min: Infinity, max: -Infinity }
-    )
-    topo.extent = kreiseExtent
-
     jsonData.set(topo)
     zipcodes.set(codes.columns)
     data.set(content)
@@ -64,7 +52,8 @@
 
 <div class="container">
   <Meta meta={metadata} />
-  <!-- <Animation /> -->
+  <Animation />
+  <!-- <Series /> -->
   <!-- <Header /> -->
   <!-- <Section>
     Natürlich ist es am Ende des Tages nicht so einfach, denn neben Mobilität
@@ -73,8 +62,8 @@
     dieser Artikel darauf aufmerksam machen, welchen Einfluss unsere Wahl der
     Fortbewegungsmittel auf unseren CO2-Fußabdruck hat.
   </Section> -->
-  <Onboarding />
-  <Szenarien />
+  <!-- <Onboarding />
+  <Szenarien /> -->
   <Section>
     Natürlich ist es am Ende des Tages nicht so einfach, denn neben Mobilität
     produzieren wir in all unseren anderen Lebensbereich ebenfalls CO2 und unser

@@ -1,42 +1,40 @@
 <script>
   import { jsonData } from 'stores'
+  import { afterUpdate } from 'svelte'
+
+  import { range } from 'utils'
 
   import StaticMap from 'components/AnimatedMaps/StaticMap.svelte'
   import Title from 'components/Title.svelte'
   import Button from 'components/Button.svelte'
   import ColorLegend from 'components/AnimatedMaps/ColorLegend.svelte'
   import Source from 'components/Source.svelte'
-  import TimeSeriesSlider from 'components/TimeSeriesSlider.svelte'
 
   $: isActive = true
   $: btnLabel = isActive ? 'Pausieren' : 'Abspielen'
 
   $: dateLength = $jsonData
-    ? $jsonData.kreise.features[0].properties.data.length - 1
-    : 0
+    ? $jsonData.kreise.features[0].properties.data.length
+    : false
 
-  let interval
+  $: dateIndices = dateLength ? range(0, dateLength) : false
 
-  $: {
-    clearInterval(interval)
-    interval = setInterval(updateDate, 1000)
-  }
-
-  function updateDate() {
-    dateIndex === dateLength ? (dateIndex = 0) : dateIndex++
-  }
-
-  function handleYear(e) {
-    dateIndex = e.detail
-  }
+  $: dateIndex = 0
 
   function handleToggle() {
-    clearInterval(interval)
-    if (!isActive) interval = setInterval(updateDate, 1000)
+    if (isActive) clearInterval(interval)
+    if (!isActive) {
+      interval = setInterval(() => {
+        dateIndex === range - 1 ? (dateIndex = 0) : dateIndex++
+        // @TODO still hard coded, make dynamic later;
+      }, 1000)
+    }
     isActive = !isActive
   }
 
-  let dateIndex = 0
+  afterUpdate(() => {
+    console.log(dateIndices)
+  })
 </script>
 
 <style lang="scss">
@@ -66,20 +64,29 @@
   .map-container {
     margin: 20px 0;
   }
+  .maps-wrapper {
+    display: flex;
+    flex-wrap: wrap;
+  }
 </style>
 
 <div class="container animation">
   <Title>Deutschlands Böden <br /> werden immer trockener</Title>
   {#if $jsonData}
     <ColorLegend />
-    <div class="map-container">
-      <div class="year-label">{2020 - dateLength + dateIndex}</div>
-      <StaticMap {dateIndex} meta={$jsonData.meta} data={$jsonData.kreise} />
-      <TimeSeriesSlider
-        min={0}
-        max={dateLength}
-        value={dateIndex}
-        on:year={handleYear} />
+    <div class="maps-wrapper">
+      {#each dateIndices as index}
+        <div class="map-container">
+          <div class="year-label">{2020 - dateLength + index}</div>
+          <StaticMap
+            width={100}
+            height={120}
+            strokeWidth={0.25}
+            dateIndex={index}
+            meta={$jsonData.meta}
+            data={$jsonData.kreise} />
+        </div>
+      {/each}
     </div>
   {/if}
   <div class="footer">

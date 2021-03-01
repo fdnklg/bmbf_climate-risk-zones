@@ -4,6 +4,7 @@
   import { getColorScale } from './utils'
 
   export let data
+  export let meta
   export let width = 500
   export let height = 650
   export let animated = false
@@ -13,10 +14,12 @@
   export let stroke = '#f5f5f5'
   export let hasMarker = false
 
+  const { value_min, value_max } = meta
+
   const proj = geoMercator().fitSize([width, height], data)
   const pathGen = geoPath().projection(proj)
 
-  const colorScale = getColorScale([0, 150]) //@TODO remove hardcoded range here
+  const colorScale = getColorScale([value_min, value_max]) //@TODO remove hardcoded range here
 
   $: features = data.features.map((feat, i) => {
     const d = pathGen(feat)

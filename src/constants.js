@@ -60,6 +60,44 @@ export const zeitreiheDataGradients = {
   precipitation: ['#7ACB9A', '#9681B0'],
 }
 
+export const stateCentroids = {
+  'Baden-Württemberg': [9.7 - 0.6, 48.8 - 0.3],
+  Bayern: [12.3 - 0.6, 49 - 0.3],
+  Berlin: [13.4, 52.45],
+  Brandenburg: [13.7, 51.9],
+  Bremen: [8.67, 53.1],
+  Hamburg: [9.98, 53.5],
+  Hessen: [9.8 - 0.6, 50.9 - 0.3],
+  'Mecklenburg-Vorpommern': [13.3 - 0.6, 54 - 0.3],
+  Niedersachsen: [9.4, 52.5],
+  'Nordrhein-Westfalen': [8.2 - 0.6, 51.7 - 0.3],
+  'Rheinland-Pfalz': [7.1, 50.2],
+  Saarland: [7, 49.3],
+  'Sachsen-Anhalt': [11.5, 52],
+  Sachsen: [13.9 - 0.6, 51.2 - 0.3],
+  'Schleswig-Holstein': [9.3, 54.15],
+  Thüringen: [11.7 - 0.6, 50.9 - 0.3],
+}
+
+export const STATE_LABELS = {
+  1: 'Schleswig-Holstein',
+  2: 'Hamburg',
+  3: 'Niedersachsen',
+  4: 'Bremen',
+  5: 'Nordrhein-Westfalen',
+  6: 'Hessen',
+  7: 'Rheinland-Pfalz',
+  8: 'Baden-Württemberg',
+  9: 'Bayern',
+  10: 'Saarland',
+  11: 'Berlin',
+  12: 'Brandenburg',
+  13: 'Mecklenburg-Vorpommern',
+  14: 'Sachsen',
+  15: 'Sachsen-Anhalt',
+  16: 'Thüringen',
+}
+
 export const zeitreiheHeadlines = {
   air_temperature_max: {
     min: 'Mindest-',
