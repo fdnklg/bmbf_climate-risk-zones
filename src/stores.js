@@ -115,6 +115,7 @@ export const storyData = derived(
               })
               // else if geometry has only on object push to features
             } else if (!isMapbox) {
+
               // if the key layer is the mask
               const propsFill = {
                 id: `${key}-fill`,
@@ -154,6 +155,8 @@ export const storyData = derived(
             addAnnotations(json, szenario, layer)
           })
 
+          szenarioGeojson.features = szenarioGeojson.features.filter((g) => !Array.isArray(g.geometry));
+
           szenario.geojson = szenarioGeojson
           szenario.postcode = postcode
           szenario.marker = postcode_point
@@ -170,14 +173,16 @@ export const storyData = derived(
             hasOceanFlood: has_ocean_flood === 1 ? true : false,
           },
         }
+
         zeitreiheDataKeys.map((datakey) => {
           const zeitreiheGermany = createZeitreihe(data_germany, datakey, 50)
           const zeitreihePostcode = createZeitreihe(data_postcode, datakey, 50)
           zeitreihen.germany[datakey] = zeitreiheGermany
           zeitreihen.postcode[datakey] = zeitreihePostcode
         })
-        dataObj.szenarien = szenarien
+
         dataObj.zeitreihen = zeitreihen
+        dataObj.szenarien = szenarien
 
         set(dataObj)
       }

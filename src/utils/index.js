@@ -2,7 +2,7 @@ import { dsvFormat } from 'd3-dsv'
 import { extent } from 'd3-array'
 import { zeitreiheDataGradients as gradient, styles } from 'constants'
 import { feature, mesh, merge } from 'topojson-client'
-import { createFeature, cerateGeo } from 'components/Map3D/utils.js'
+import { createFeature } from 'components/Map3D/utils.js'
 
 export const translateRiskzone = {
   cold: '',
