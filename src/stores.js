@@ -37,6 +37,7 @@ export const storyData = derived(
           dense_space,
           postcode,
           has_ocean_flood,
+          fluvial_flood,
           postcode_anchors,
           postcode_buff_anchors,
           postcode_point,
@@ -44,6 +45,7 @@ export const storyData = derived(
 
         const isDenseSpace = dense_space.bbox
         const hasOceanFlood = has_ocean_flood === 1
+        const hasFluvialFlood = fluvial_flood.length > 0
 
         // remove steps from config if json is no dense space
         if (!isDenseSpace) {
@@ -52,6 +54,12 @@ export const storyData = derived(
           )
         }
 
+        // remove steps from config if json has no fluvial floods
+        if (!hasFluvialFlood) {
+          szenarien = szenarien.filter(
+            (d) => !d.layers.map((l) => l.key).includes('fluvial_flood')
+          )
+        }
         // remove steps from config if json has no ocean floods
         if (!hasOceanFlood) {
           szenarien = szenarien.filter(
@@ -115,7 +123,6 @@ export const storyData = derived(
               })
               // else if geometry has only on object push to features
             } else if (!isMapbox) {
-
               // if the key layer is the mask
               const propsFill = {
                 id: `${key}-fill`,
@@ -154,8 +161,6 @@ export const storyData = derived(
 
             addAnnotations(json, szenario, layer)
           })
-
-          szenarioGeojson.features = szenarioGeojson.features.filter((g) => !Array.isArray(g.geometry));
 
           szenario.geojson = szenarioGeojson
           szenario.postcode = postcode
