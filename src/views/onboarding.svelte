@@ -27,7 +27,7 @@
     <div class="wrapper">
       <TileParagraph
         subtitleClassname="input-hint"
-        title="In welchem Raum bist du unterwegs?"
+        title="Für welche Region interessierst du dich?"
         subtitle="Gib <strong>deine Postleitzahl ein und bestätige.</strong> Oder fahre mit einer <strong>zufälligen
       Postleitzahl</strong> fort." />
       <Input className={inputClass} />

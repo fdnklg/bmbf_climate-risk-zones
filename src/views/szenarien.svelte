@@ -26,11 +26,14 @@
   $: marker = currentData ? currentData.marker : false
   $: showMinimap = currentData ? currentData.showMinimap : false
 
-  afterUpdate(() => {
-    if (currentData) {
-      console.log('currentData', currentData)
+  const setText = (txt) => {
+    if (typeof txt === 'string') {
+      return txt
+    } else {
+      // HIER SOLLEN DIE JSON DATEN ÜBERGEBEN WERDEN....
+      return txt($storyData)
     }
-  })
+  }
 </script>
 
 <style lang="scss">
@@ -95,14 +98,12 @@
             rootMargin={`-${0.25 * 100}% 0% -${100 - 0.55 * 100}% 0%`}
             on:step={handleActiveStep}
             bind:step={item.step}>
-            {#if item.text}
-              <Tile isMap={true} active={item.step === step}>
-                <h3 class="tile-title">item.text.title</h3>
-                <p class="tile-paragraph">
-                  {@html item.text.paragraph}
-                </p>
-              </Tile>
-            {/if}
+            <Tile isMap={true} active={item.step === step}>
+              <h3 class="tile-title">{setText(item.text.title)}</h3>
+              <p class="tile-paragraph">
+                {@html setText(item.text.paragraph)}
+              </p>
+            </Tile>
           </IntersectionObserver>
         </Anchor>
       </div>

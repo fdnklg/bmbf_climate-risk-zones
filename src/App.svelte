@@ -52,14 +52,16 @@
 
 <div class="container">
   <Meta meta={metadata} />
-  <!-- <Header />
+  <Header />
   <Section>
-    Natürlich ist es am Ende des Tages nicht so einfach, denn neben Mobilität
-    produzieren wir in all unseren anderen Lebensbereich ebenfalls CO2 und unser
-    gesamter Fußabdruck setzt sich aus all dem zusammen. Nichtsdesto trotz soll
-    dieser Artikel darauf aufmerksam machen, welchen Einfluss unsere Wahl der
-    Fortbewegungsmittel auf unseren CO2-Fußabdruck hat.
-  </Section> --->
+    Steigende Temperaturen, vermehrte Extremwettereignisse und andere
+    Veränderungen, welche sich auf den fortschreitenden Klimawandel zurückführen
+    lassen, haben einen direkten Einfluss auf unsere Umwelt und auf unser
+    alltägliches Leben. Die Auswirkungen bekommen somit nicht nur unsere Tier-
+    und Pflanzenwelt zu spüren, sondern auch wir selber, die durch
+    Extremwetterlagen genauso belastet werden, wie z.B. auch die Land- und
+    Forstwirtschaft. Erfahre mehr Details für deine spezifische Region:
+  </Section>
   <Onboarding />
   <Szenarien />
   <Section>
@@ -73,5 +75,5 @@
     gesamter Fußabdruck setzt sich aus all dem zusammen.
   </Section>
   <Zeitreihe />
-  <!-- <Animation /> -->
+  <Animation />
 </div>
