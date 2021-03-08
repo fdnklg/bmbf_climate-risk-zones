@@ -10,7 +10,6 @@ import {
 import { zeitreiheDataKeys, s3UrlRisk, styles } from 'constants'
 
 export const data = writable(null)
-export const jsonCache = writable(null)
 export const activeZipcode = writable(null)
 export const zipcodes = writable([])
 export const userInput = writable(false)
@@ -26,7 +25,6 @@ export const storyData = derived(
         $activeZipcode.length === 4 ? `0${$activeZipcode}` : $activeZipcode
       const getData = async () => {
         const json = await fetchJson(`${s3UrlRisk}postcode/${zipcode}.json`)
-        jsonCache.set(json)
         if ($data) {
           console.log($data);
           let dataObj = {}
