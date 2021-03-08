@@ -49,7 +49,6 @@
 
   afterUpdate(() => {
     dispatch('year', value)
-    console.log(dataLine)
   })
 </script>
 

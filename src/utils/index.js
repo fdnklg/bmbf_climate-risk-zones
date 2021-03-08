@@ -95,6 +95,7 @@ export async function loadTopojson(url) {
   const kreiseTopoKey = Object.keys(kreiseTopo.objects)[0]
   let kreise = feature(kreiseTopo, kreiseTopoKey)
 
+  // divide values by 10 to get temperature
   kreise.features.forEach((feature) => {
     const data = feature.properties.data
     feature.properties.data = data.map((d) => d / 10)
@@ -133,7 +134,7 @@ export async function loadTopojson(url) {
   meta.value_min = meta.value_min / 10
   meta.avgGermany = avgGermany
   meta.extentGermany = extent(avgGermany)
-  meta.year_min = meta.year_min + 6
+  meta.year_min = meta.year_min + 6 // @TODO don't do this hardcoded!
   delete meta.ags
   delete meta.data
 
@@ -167,6 +168,21 @@ export async function loadTopojson(url) {
   }
 }
 
+export const mergeZeitreihen = (postcode, germany) => {
+  let merged = []
+  germany.data.forEach((data, i) => {
+    merged.push({
+      year: data.year,
+      min: data.min,
+      max: data.max,
+      avgPostcode: postcode.data[i].avg,
+      avgGermany: data.avg,
+    })
+  })
+  germany.data = merged
+  return germany
+}
+
 export const createZeitreihe = (data, datakey, sliceAt = false) => {
   const zeitreihe = data.find((d) => d.type === datakey)
   const { values } = zeitreihe
@@ -178,12 +194,13 @@ export const createZeitreihe = (data, datakey, sliceAt = false) => {
       sortedValues.length - 1
     )
   }
+
   const zeitreiheData = sortedValues.reduce(
     (prev, curr, currIndex, array) => {
       if (currIndex === array.length - 1) {
         const yearExtent = extent(array.map((d) => d[0]))
-        const minValues = array.map((d) => d[1])
-        const maxValues = array.map((d) => d[3])
+        const minValues = array.map((d) => d[1] / 10)
+        const maxValues = array.map((d) => d[3] / 10)
         const valuesExtent = extent([...minValues, ...maxValues])
         prev.meta.extentY = valuesExtent
         prev.meta.extentX = yearExtent
@@ -191,9 +208,9 @@ export const createZeitreihe = (data, datakey, sliceAt = false) => {
       }
       prev.data.push({
         year: curr[0],
-        min: curr[1],
-        avg: curr[2],
-        max: curr[3],
+        min: curr[1] / 10,
+        avg: curr[2] / 10,
+        max: curr[3] / 10,
       })
       return prev
     },

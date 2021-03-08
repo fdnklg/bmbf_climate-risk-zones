@@ -138,7 +138,7 @@
         // fit map to bounding box
         const boundGeoJson = map.fitBounds(fittingBounds, {
           padding: paddingBounds,
-          duration: 500,
+          duration: 1500,
         })
 
         if (mapbox_layers.includes('klimazonen')) {

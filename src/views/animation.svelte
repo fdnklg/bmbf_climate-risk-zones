@@ -7,6 +7,7 @@
   import ColorLegend from 'components/AnimatedMaps/ColorLegend.svelte'
   import Source from 'components/Source.svelte'
   import TimeSeriesSlider from 'components/TimeSeriesSlider.svelte'
+  import { getColorScale } from 'components/AnimatedMaps/utils.js'
   import { afterUpdate } from 'svelte'
 
   $: isActive = false
@@ -39,9 +40,9 @@
 
   let dateIndex = 0
 
-  afterUpdate(() => {
-    console.log(dateLength)
-  })
+  $: colorScale = $jsonData
+    ? getColorScale([$jsonData.meta.value_min, $jsonData.meta.value_max])
+    : false //@TODO remove hardcoded range here
 </script>
 
 <style lang="scss">
@@ -78,13 +79,14 @@
 
 <div class="container animation">
   <Title>Es wird immer heißer</Title>
-  {#if $jsonData}
+  {#if $jsonData && $jsonData.meta}
     <ColorLegend extent={$jsonData.meta.extentGermany} />
     <div class="map-container">
       <StaticMap
         width={400}
         height={550}
         {dateIndex}
+        {colorScale}
         meta={$jsonData.meta}
         data={$jsonData.kreise} />
       <TimeSeriesSlider

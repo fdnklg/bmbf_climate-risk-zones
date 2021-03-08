@@ -1,6 +1,6 @@
 import { writable, derived } from 'svelte/store'
 import bbox from '@turf/bbox'
-import { fetchJson, createZeitreihe } from 'utils'
+import { fetchJson, createZeitreihe, mergeZeitreihen } from 'utils'
 import { addAnnotations } from 'annotation'
 import {
   createGeojson,
@@ -172,6 +172,7 @@ export const storyData = derived(
         let zeitreihen = {
           postcode: {},
           germany: {},
+          merged: {},
           meta: {
             riskzones: risk_zones,
             denseSpace: dense_space.bbox === 1 ? true : false,
@@ -182,8 +183,17 @@ export const storyData = derived(
         zeitreiheDataKeys.map((datakey) => {
           const zeitreiheGermany = createZeitreihe(data_germany, datakey, 50)
           const zeitreihePostcode = createZeitreihe(data_postcode, datakey, 50)
+          // set same extent for postcode
+          zeitreihePostcode.meta.extentY = zeitreiheGermany.meta.extentY
+
+          const mergedZeitreihen = mergeZeitreihen(
+            zeitreihePostcode,
+            zeitreiheGermany
+          )
+
           zeitreihen.germany[datakey] = zeitreiheGermany
           zeitreihen.postcode[datakey] = zeitreihePostcode
+          zeitreihen.merged[datakey] = mergedZeitreihen
         })
 
         dataObj.zeitreihen = zeitreihen

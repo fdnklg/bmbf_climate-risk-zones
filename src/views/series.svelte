@@ -33,7 +33,7 @@
   }
 
   afterUpdate(() => {
-    console.log(dateIndices)
+    console.log('$jsonData', $jsonData)
   })
 </script>
 

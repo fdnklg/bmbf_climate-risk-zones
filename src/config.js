@@ -157,8 +157,9 @@ export const content = {
   zeitreiheSteps: [
     {
       step: '2.1',
-      data: 'germany',
+      data: 'merged',
       datakey: 'air_temperature_max',
+      show: ['min', 'minToMax'],
       text: {
         title: 'Überschrift hier',
         paragraph:
@@ -167,72 +168,35 @@ export const content = {
     },
     {
       step: '2.2',
-      data: 'postcode',
-      datakey: 'frost_days',
+      data: 'merged',
+      datakey: 'air_temperature_max',
+      show: ['min', 'minToMax'],
       text: {
         title: 'Überschrift hier',
         paragraph:
-          'Natürlich ist es am Ende des <strong>Tages</strong> nicht so einfach, denn neben Mobilität produzieren wir in all unseren anderen Lebensbereich ebenfalls CO2 und unser gesamter Fußabdruck setzt sich aus all dem zusammen.',
+          'Natürlich ist es am Ende des Tages nicht so einfach, denn neben Mobilität produzieren wir in all unseren anderen Lebensbereich ebenfalls CO2 und unser gesamter Fußabdruck setzt sich aus all dem zusammen.',
       },
     },
     {
       step: '2.3',
-      data: 'germany',
-      datakey: 'hot_days',
+      data: 'merged',
+      datakey: 'air_temperature_max',
+      show: ['min', 'max', 'yPostcode', 'yGermany'],
       text: {
         title: 'Überschrift hier',
         paragraph:
-          'Natürlich ist es am Ende des <strong>Tages</strong> nicht so einfach, denn neben Mobilität produzieren wir in all unseren anderen Lebensbereich ebenfalls CO2 und unser gesamter Fußabdruck setzt sich aus all dem zusammen.',
+          'Natürlich ist es am Ende des Tages nicht so einfach, denn neben Mobilität produzieren wir in all unseren anderen Lebensbereich ebenfalls CO2 und unser gesamter Fußabdruck setzt sich aus all dem zusammen.',
       },
     },
     {
       step: '2.4',
-      data: 'germany',
-      datakey: 'frost_days',
+      data: 'merged',
+      datakey: 'air_temperature_max',
+      show: ['yPostcode', 'yGermany'],
       text: {
         title: 'Überschrift hier',
         paragraph:
-          'Natürlich ist es am Ende des <strong>Tages</strong> nicht so einfach, denn neben Mobilität produzieren wir in all unseren anderen Lebensbereich ebenfalls CO2 und unser gesamter Fußabdruck setzt sich aus all dem zusammen.',
-      },
-    },
-    {
-      step: '2.5',
-      data: 'germany',
-      datakey: 'ice_days',
-      text: {
-        title: 'Überschrift hier',
-        paragraph:
-          'Natürlich ist es am Ende des <strong>Tages</strong> nicht so einfach, denn neben Mobilität produzieren wir in all unseren anderen Lebensbereich ebenfalls CO2 und unser gesamter Fußabdruck setzt sich aus all dem zusammen.',
-      },
-    },
-    {
-      step: '2.6',
-      data: 'germany',
-      datakey: 'snowcover_days',
-      text: {
-        title: 'Überschrift hier',
-        paragraph:
-          'Natürlich ist es am Ende des <strong>Tages</strong> nicht so einfach, denn neben Mobilität produzieren wir in all unseren anderen Lebensbereich ebenfalls CO2 und unser gesamter Fußabdruck setzt sich aus all dem zusammen.',
-      },
-    },
-    {
-      step: '2.7',
-      data: 'germany',
-      datakey: 'precipGE30mm_days',
-      text: {
-        title: 'Überschrift hier',
-        paragraph:
-          'Natürlich ist es am Ende des <strong>Tages</strong> nicht so einfach, denn neben Mobilität produzieren wir in all unseren anderen Lebensbereich ebenfalls CO2 und unser gesamter Fußabdruck setzt sich aus all dem zusammen.',
-      },
-    },
-    {
-      step: '2.8',
-      data: 'germany',
-      datakey: 'precipitation',
-      text: {
-        title: 'Überschrift hier',
-        paragraph:
-          'Natürlich ist es am Ende des <strong>Tages</strong> nicht so einfach, denn neben Mobilität produzieren wir in all unseren anderen Lebensbereich ebenfalls CO2 und unser gesamter Fußabdruck setzt sich aus all dem zusammen.',
+          'Natürlich ist es am Ende des Tages nicht so einfach, denn neben Mobilität produzieren wir in all unseren anderen Lebensbereich ebenfalls CO2 und unser gesamter Fußabdruck setzt sich aus all dem zusammen.',
       },
     },
   ],

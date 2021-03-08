@@ -52,27 +52,26 @@
 
 <div class="container">
   <Meta meta={metadata} />
-  <Animation />
-  <!-- <Series /> -->
-  <!-- <Header /> -->
-  <!-- <Section>
+  <!-- <Header />
+  <Section>
     Natürlich ist es am Ende des Tages nicht so einfach, denn neben Mobilität
     produzieren wir in all unseren anderen Lebensbereich ebenfalls CO2 und unser
     gesamter Fußabdruck setzt sich aus all dem zusammen. Nichtsdesto trotz soll
     dieser Artikel darauf aufmerksam machen, welchen Einfluss unsere Wahl der
     Fortbewegungsmittel auf unseren CO2-Fußabdruck hat.
-  </Section> -->
-  <!-- <Onboarding />
-  <Szenarien /> -->
+  </Section> --->
+  <Onboarding />
+  <Szenarien />
+  <Section>
+    Natürlich ist es am Ende des Tages nicht so einfach, denn neben Mobilität
+    produzieren wir in all unseren anderen Lebensbereich ebenfalls CO2 und unser
+    gesamter Fußabdruck setzt sich aus all dem zusammen.
+  </Section>
   <Section>
     Natürlich ist es am Ende des Tages nicht so einfach, denn neben Mobilität
     produzieren wir in all unseren anderen Lebensbereich ebenfalls CO2 und unser
     gesamter Fußabdruck setzt sich aus all dem zusammen.
   </Section>
   <Zeitreihe />
-  <Section>
-    Natürlich ist es am Ende des Tages nicht so einfach, denn neben Mobilität
-    produzieren wir in all unseren anderen Lebensbereich ebenfalls CO2 und unser
-    gesamter Fußabdruck setzt sich aus all dem zusammen.
-  </Section>
+  <!-- <Animation /> -->
 </div>

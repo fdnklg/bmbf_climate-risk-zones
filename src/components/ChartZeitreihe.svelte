@@ -8,15 +8,37 @@
   import ZeitreiheHeader from './Chart/ZeitreiheHeader.svelte'
   import Footer from './Chart/Footer.svelte'
   import Point from './Chart/Point.svelte'
+  import AnimatedPoint from './Chart/AnimatedPoint.svelte'
+  import AnimatedExtent from './Chart/AnimatedExtent.svelte'
   import Svg from './Chart/Svg.svelte'
   import Line from './Chart/Line.svelte'
   import Meta from '../core/components/Meta.svelte'
-
-  import { zeitreiheHeadlines as headlines } from 'constants'
+  import { afterUpdate } from 'svelte'
 
   let domNode
 
   let closest
+
+  /*
+  Step === 2.1 && scrollUp
+  - animation: y1 -> y0
+
+  Step === 2.1 && scrollDown
+  - !animation
+  - y0
+
+  Step === 2.2 && scrollDown
+  - animation: y0 -> y1
+  - y, y1
+
+  Step === 2.2 && scrollUp
+  - !animation
+  - y, y1
+
+  Step > 2.2
+  - !animation
+  - y, y1
+  */
 
   const get = {
     xMin: (d) => d.meta.extentX[0],
@@ -26,23 +48,44 @@
   }
 
   export let step = '2.1'
+  export let scrollingDown
+
+  let animated = false
+  $: {
+    if (step === '2.2' && scrollingDown) {
+      animated = true
+    } else if (step === '2.1' && !scrollingDown) {
+      animated = true
+    } else {
+      animated = false
+    }
+  }
 
   $: zeitreihe = $zeitreihenData
     ? $zeitreihenData.find((item) => item.step === step)
     : false
 
-  function getBars(d) {
-    return d.data.map((d) => ({
+  function positions(d) {
+    return d.data.map((d, i) => ({
+      id: `${d.i}-${d.year}`,
       x: d.year,
       y1: d.min,
       y2: d.max,
-      y: d.avg,
+      yPostcode: d.avgPostcode,
+      yGermany: d.avgGermany,
     }))
   }
 
   let data = []
 
-  $: data = zeitreihe ? getBars(zeitreihe) : null
+  $: data = zeitreihe ? positions(zeitreihe) : null
+
+  $: hasShow = zeitreihe.show
+  $: showYPostcode = hasShow ? zeitreihe.show.includes('yPostcode') : false
+  $: showYGermany = hasShow ? zeitreihe.show.includes('yGermany') : false
+  $: showMinToMax = hasShow ? zeitreihe.show.includes('minToMax') : false
+  $: showMin = hasShow ? zeitreihe.show.includes('min') : false
+  $: showMax = hasShow ? zeitreihe.show.includes('max') : false
 </script>
 
 <style lang="scss">
@@ -205,6 +248,11 @@
       opacity: 1;
     }
 
+    .extent-line {
+      width: 1px;
+      background-color: black;
+    }
+
     .legend-line {
       height: 3px;
       border-radius: 8px;
@@ -262,24 +310,45 @@
           </div>
         </Grid>
         <div class="background">
-          <Columns {data} width={0.1}>
-            <div
-              class="column data"
-              style="width: 1px; background: linear-gradient(0deg, {zeitreihe.meta.gradient[0]}, {zeitreihe.meta.gradient[1]});" />
-          </Columns>
-
-          {#each data as d}
-            <Point x={d.x} y={d.y2}>
+          {#each data as d, i}
+            <AnimatedExtent
+              x={d.x}
+              y={d.y1}
+              y1={d.y2}
+              {animated}
+              {scrollingDown}
+              index={i}>
+              <div slot="box" class="extent-line" />
               <div
-                style="background-color: {zeitreihe.meta.gradient[1]}"
-                class="annotation-dot" />
-            </Point>
-            <Point x={d.x} y={d.y1}>
-              <div
+                slot="pointStart"
                 style="background-color: {zeitreihe.meta.gradient[0]}"
                 class="annotation-dot" />
-            </Point>
+              <div
+                slot="pointEnd"
+                style="background-color: {zeitreihe.meta.gradient[1]}"
+                class="annotation-dot" />
+            </AnimatedExtent>
           {/each}
+
+          {#if showMax}
+            {#each data as d, i}
+              <Point x={d.x} y={d.y2}>
+                <div
+                  style="background-color: {zeitreihe.meta.gradient[0]}"
+                  class="annotation-dot" />
+              </Point>
+            {/each}
+          {/if}
+
+          {#if showMin}
+            {#each data as d, i}
+              <Point x={d.x} y={d.y1}>
+                <div
+                  style="background-color: {zeitreihe.meta.gradient[1]}"
+                  class="annotation-dot" />
+              </Point>
+            {/each}
+          {/if}
         </div>
         {#if !closest}
           <Grid vertical count={5} let:value>
@@ -289,12 +358,31 @@
         {/if}
 
         <Svg>
-          <Line {data} let:d>
-            <path style="stroke: white; stroke-width: 6px;" class="line" {d} />
-          </Line>
-          <Line {data} let:d>
-            <path style="stroke: black; stroke-width: 2px;" class="line" {d} />
-          </Line>
+          {#if showYPostcode}
+            <Line {data} y={(d) => d.yPostcode} let:d>
+              <path
+                style="stroke: white; stroke-width: 6px;"
+                class="line"
+                {d} />
+            </Line>
+            <Line {data} y={(d) => d.yPostcode} let:d>
+              <path style="stroke: grey; stroke-width: 2px;" class="line" {d} />
+            </Line>
+          {/if}
+          {#if showYGermany}
+            <Line {data} y={(d) => d.yGermany} let:d>
+              <path
+                style="stroke: white; stroke-width: 6px;"
+                class="line"
+                {d} />
+            </Line>
+            <Line {data} y={(d) => d.yGermany} let:d>
+              <path
+                style="stroke: black; stroke-width: 2px;"
+                class="line"
+                {d} />
+            </Line>
+          {/if}
         </Svg>
 
         {#if closest}

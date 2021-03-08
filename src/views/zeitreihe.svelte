@@ -7,13 +7,20 @@
   import ChartZeitreihe from 'components/ChartZeitreihe.svelte'
   import LayoutScrollytelling from 'components/LayoutScrollytelling.svelte'
   import IntersectionObserver from 'core/components/Intersectionobserver.svelte'
-  import ButtonGroup from 'components/ButtonGroup.svelte'
+  import { afterUpdate } from 'svelte'
+
+  function isScrollingDown(current, before) {
+    if (before) return parseFloat(before) > parseFloat(current)
+    return true
+  }
 
   let step
+  let scrollingDown
   $: currentData = $zeitreihenData ? $zeitreihenData : null
 
   function handleActiveStep(e) {
     const stepCurrent = e.detail
+    scrollingDown = isScrollingDown(step, stepCurrent)
     step = stepCurrent
     // activeAnchor.set(stepCurrent)
   }
@@ -52,8 +59,7 @@
   {#if currentData}
     <LayoutScrollytelling>
       <div class="sticky" slot="vis">
-        <!-- <ButtonGroup /> -->
-        <ChartZeitreihe {step} />
+        <ChartZeitreihe {scrollingDown} {step} />
       </div>
       <div class="wrapper" slot="text">
         {#each currentData as item}

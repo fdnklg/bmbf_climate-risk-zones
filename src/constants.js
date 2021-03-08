@@ -18,9 +18,12 @@ export const zeitreiheDataKeys = [
   'summer_days',
 ]
 
+const isLocal = false
+
 export const s3Url = 'https://locobss-story-co2.s3.eu-central-1.amazonaws.com/'
-export const s3UrlRisk =
-  'https://locobss-story-risk.s3.eu-central-1.amazonaws.com/'
+export const s3UrlRisk = isLocal
+  ? 'data/'
+  : 'https://locobss-story-risk.s3.eu-central-1.amazonaws.com/'
 export const zipCodesUrl = `${s3Url}postcodes.txt`
 
 export const styles = {

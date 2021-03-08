@@ -1,7 +1,6 @@
 <script>
   import { geoPath, geoMercator } from 'd3-geo'
   import { afterUpdate } from 'svelte'
-  import { getColorScale } from './utils'
 
   export let data
   export let meta
@@ -13,13 +12,10 @@
   export let strokeWidth = 0.5
   export let stroke = '#f5f5f5'
   export let hasMarker = false
-
-  const { value_min, value_max } = meta
+  export let colorScale
 
   const proj = geoMercator().fitSize([width, height], data)
   const pathGen = geoPath().projection(proj)
-
-  const colorScale = getColorScale([value_min, value_max]) //@TODO remove hardcoded range here
 
   $: features = data.features.map((feat, i) => {
     const d = pathGen(feat)
