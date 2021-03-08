@@ -24,7 +24,7 @@
     : false
 
   $: marker = currentData ? currentData.marker : false
-  $: showMinimap = currentData ? currentData.showMinimap : false
+  $: showMinimap = false; // currentData ? currentData.showMinimap : false
 </script>
 
 <style lang="scss">

@@ -1,10 +1,10 @@
 <script>
-  import { storyData } from 'stores'
+  // import { storyData } from 'stores'
   import { content } from 'config'
 
   const { project } = content
 
-  import Map3D from 'components/Map3D/index.svelte'
+  import IntroMap from 'components/Map3D/IntroMap.svelte'
   import Icon from 'components/Icon.svelte'
 
   // const szenarioIndices = [2, 3, 4]
@@ -12,7 +12,7 @@
 
   // export let duration = 6000
   // let szenarioIndex = 0
-  $: current = $storyData ? $storyData.szenarien[2] : false
+  // $: current = $storyData ? $storyData.szenarien[2] : false
 
   // onInterval(() => {
   //   szenarioIndex =
@@ -133,9 +133,7 @@
 <header>
   <div class="container">
     <div class="map-wrapper">
-      {#if current}
-        <Map3D />
-      {/if}
+      <IntroMap />
     </div>
     <div class="gradient" />
     <div class="intro">
