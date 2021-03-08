@@ -30,12 +30,7 @@
     if (typeof txt === 'string') {
       return txt
     } else {
-<<<<<<< HEAD
-      // HIER SOLLEN DIE JSON DATEN ÜBERGEBEN WERDEN....
-      return txt($storyData)
-=======
-      return txt($jsonCache);
->>>>>>> 7daf8f62a7622088f07adbe845b7fe999273125d
+      return txt($storyData);
     }
   }
 </script>
