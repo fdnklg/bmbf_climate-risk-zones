@@ -1,6 +1,6 @@
 <script>
   import { afterUpdate } from 'svelte'
-  import { storyData, selectedAnchors, jsonData } from 'stores'
+  import { storyData, selectedAnchors, jsonData, jsonCache } from 'stores'
 
   import IntersectionObserver from 'core/components/Intersectionobserver.svelte'
   import Map3D from 'components/Map3D/index.svelte'
@@ -30,8 +30,7 @@
     if (typeof txt === 'string') {
       return txt;
     } else {
-      // HIER SOLLEN DIE JSON DATEN ÜBERGEBEN WERDEN....
-      return txt($storyData);
+      return txt($jsonCache);
     }
   };
 </script>
