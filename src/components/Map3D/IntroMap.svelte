@@ -43,7 +43,7 @@
           paint: {
             'line-opacity': 1,
             'line-color': '#fff',
-            'line-width': 1,
+            'line-width': 0.5,
           }
         }, 'verdichtungsraeume');
       });
