@@ -3,9 +3,9 @@ export const s3Url = 'https://locobss-story-co2.s3.eu-central-1.amazonaws.com/'
 export const content = {
   project: {
     lang: 'de',
-    title: 'Risikogebiete in Deutschland',
+    title: 'Klimawandelrisiken in Deutschland',
     description:
-      'Unsere individuelle Mobilität hat einen spürbaren Einfluss auf den Klimawandel. Erfahre mehr darüber, wie nachhaltig deine Form der Mobilität ist.',
+      'Der Klimawandel ist längst in Deutschland angekommen. In den nächsten Jahren und Jahrzehnten, werden wir die Auswirkungen immer deutlicher spüren. Die lokalen Risiken sind stark davon abhängig wo man in Deutschland wohnt. Finde auf dieser Seite heraus, welchen Herausforderungen sich deine Region stellen muss.',
     socialImgUrl:
       'https://fabiandinklage.com/public/images/demos/demos-tooltip-3840x2040.jpg',
   },
