@@ -1,5 +1,6 @@
 <script>
   import { zeitreihenData } from 'stores'
+  import { draw } from 'svelte/transition'
 
   import Chart from './Chart/Chart.svelte'
   import Quadtree from './Chart/Quadtree.svelte'
@@ -310,7 +311,7 @@
           </div>
         </Grid>
         <div class="background">
-          {#each data as d, i}
+          {#each data as d, i (d.id)}
             <AnimatedExtent
               x={d.x}
               y={d.y1}
@@ -329,26 +330,6 @@
                 class="annotation-dot" />
             </AnimatedExtent>
           {/each}
-
-          {#if showMax}
-            {#each data as d, i}
-              <Point x={d.x} y={d.y2}>
-                <div
-                  style="background-color: {zeitreihe.meta.gradient[0]}"
-                  class="annotation-dot" />
-              </Point>
-            {/each}
-          {/if}
-
-          {#if showMin}
-            {#each data as d, i}
-              <Point x={d.x} y={d.y1}>
-                <div
-                  style="background-color: {zeitreihe.meta.gradient[1]}"
-                  class="annotation-dot" />
-              </Point>
-            {/each}
-          {/if}
         </div>
         {#if !closest}
           <Grid vertical count={5} let:value>
@@ -361,12 +342,19 @@
           {#if showYPostcode}
             <Line {data} y={(d) => d.yPostcode} let:d>
               <path
+                in:draw={{ duration: 500 }}
+                out:draw={{ duration: 500 }}
                 style="stroke: white; stroke-width: 6px;"
                 class="line"
                 {d} />
             </Line>
             <Line {data} y={(d) => d.yPostcode} let:d>
-              <path style="stroke: grey; stroke-width: 2px;" class="line" {d} />
+              <path
+                in:draw={{ duration: 500 }}
+                out:draw={{ duration: 500 }}
+                style="stroke: grey; stroke-width: 2px;"
+                class="line"
+                {d} />
             </Line>
           {/if}
           {#if showYGermany}
@@ -374,12 +362,16 @@
               <path
                 style="stroke: white; stroke-width: 6px;"
                 class="line"
+                in:draw={{ duration: 500 }}
+                out:draw={{ duration: 500 }}
                 {d} />
             </Line>
             <Line {data} y={(d) => d.yGermany} let:d>
               <path
                 style="stroke: black; stroke-width: 2px;"
                 class="line"
+                in:draw={{ duration: 500 }}
+                out:draw={{ duration: 500 }}
                 {d} />
             </Line>
           {/if}

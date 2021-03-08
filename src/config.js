@@ -33,14 +33,16 @@ export const content = {
       padding: 70,
       text: {
         title: 'Deine Region',
-        paragraph: 'Um deine Region besser untersuchen zu können, haben wir ein 5km Einzugsgebiet um deine Postleitzahl gelegt.'
+        paragraph:
+          'Um deine Region besser untersuchen zu können, haben wir ein 5km Einzugsgebiet um deine Postleitzahl gelegt.',
       },
       layers: [
         {
           key: 'postcode_geom',
           annotations: [
             {
-              text: (json) => `Gebiet der Postleitzahl <strong>${json.postcode}</strong>.`,
+              text: (json) =>
+                `Gebiet der Postleitzahl <strong>${json.postcode}</strong>.`,
             },
           ],
         },
@@ -62,10 +64,9 @@ export const content = {
       ], // defines the focus of the bounding box
       text: {
         title: (json) => {
-          console.log(json);
           return `Klimazone ${json.postcode}`
         },
-        paragraph: 'Deine Postleitzahl'
+        paragraph: 'Deine Postleitzahl',
       },
       layers: [
         {
@@ -74,25 +75,25 @@ export const content = {
           annotations: [
             {
               text: (json) => {
-                switch(json.risk_zones[0]) {
+                switch (json.risk_zones[0]) {
                   case 'cold':
-                    return 'Kühles Klima';
-                    break;
+                    return 'Kühles Klima'
+                    break
                   case 'warm':
-                    return 'Warmes Klima';
-                    break;
+                    return 'Warmes Klima'
+                    break
                   case 'dry':
-                    return 'Trockenes Klima';
-                    break;
+                    return 'Trockenes Klima'
+                    break
                   case 'premountain':
-                    return 'Gebirgsvorlandklima';
-                    break;
+                    return 'Gebirgsvorlandklima'
+                    break
                   case 'midmountain':
-                    return 'Mittelgebirgsklima';
-                    break;
+                    return 'Mittelgebirgsklima'
+                    break
                   case 'mountain':
-                    return 'Gebirgsklima';
-                    break;
+                    return 'Gebirgsklima'
+                    break
                   default:
                     return 'Klimazone'
                 }
@@ -116,7 +117,7 @@ export const content = {
       showMinimap: true,
       text: {
         title: '',
-        paragraph: ''
+        paragraph: '',
       },
       layers: [
         {
@@ -137,7 +138,7 @@ export const content = {
       showMinimap: true,
       text: {
         title: '',
-        paragraph: ''
+        paragraph: '',
       },
       layers: [
         {
@@ -159,7 +160,7 @@ export const content = {
       showMinimap: true,
       text: {
         title: '',
-        paragraph: ''
+        paragraph: '',
       },
       layers: [
         {
@@ -176,7 +177,7 @@ export const content = {
         },
       ],
     },
-    
+
     {
       step: '1.6',
       fitBounds: [
@@ -185,7 +186,7 @@ export const content = {
       ], // defines the focus of the bounding box
       text: {
         title: '',
-        paragraph: ''
+        paragraph: '',
       },
       layers: [
         {
@@ -232,7 +233,7 @@ export const content = {
       step: '2.3',
       data: 'merged',
       datakey: 'air_temperature_max',
-      show: ['min', 'max', 'yPostcode', 'yGermany'],
+      show: ['min', 'max', 'yGermany'],
       text: {
         title: 'Überschrift hier',
         paragraph:
@@ -243,7 +244,7 @@ export const content = {
       step: '2.4',
       data: 'merged',
       datakey: 'air_temperature_max',
-      show: ['yPostcode', 'yGermany'],
+      show: ['yPostcode', 'yPostcode', 'yGermany'],
       text: {
         title: 'Überschrift hier',
         paragraph:

@@ -1,14 +1,15 @@
 <script>
   import { getChartContext } from './Chart.svelte'
   import { tweened } from 'svelte/motion'
+  import { afterUpdate } from 'svelte'
   const { x_scale, y_scale } = getChartContext()
 
   export let x
   export let y
   export let y1
-  export let duration = 200
+  export let duration = 300
   export let index = 0
-  export let delay = 15
+  export let delay = 10
   export let scrollingDown = false
   export let animated
 
@@ -33,11 +34,13 @@
     style = `left: ${left}%; bottom: ${100 - bottom}%; height: ${height}%;`
   }
 
-  if (animated) {
-    setTimeout(() => {
-      position.set(scrollingDown ? y1 : y)
-    }, delay * index)
-  }
+  afterUpdate(() => {
+    if (animated) {
+      setTimeout(() => {
+        position.set(scrollingDown ? y1 : y)
+      }, delay) //  * index
+    }
+  })
 </script>
 
 <style>
