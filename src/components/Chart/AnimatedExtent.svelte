@@ -1,13 +1,14 @@
 <script>
   import { getChartContext } from './Chart.svelte'
   import { tweened } from 'svelte/motion'
+  import { cubicOut } from 'svelte/easing'
   import { afterUpdate } from 'svelte'
   const { x_scale, y_scale } = getChartContext()
 
   export let x
   export let y
   export let y1
-  export let duration = 300
+  export let duration = 400
   export let index = 0
   export let delay = 10
   export let scrollingDown = false
@@ -15,6 +16,7 @@
 
   const position = tweened(scrollingDown ? y : y1, {
     duration: duration,
+    easing: cubicOut,
   })
 
   let style

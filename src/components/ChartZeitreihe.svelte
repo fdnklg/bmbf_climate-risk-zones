@@ -1,6 +1,7 @@
 <script>
   import { zeitreihenData } from 'stores'
   import { draw } from 'svelte/transition'
+  import { quadInOut } from 'svelte/easing'
 
   import Chart from './Chart/Chart.svelte'
   import Quadtree from './Chart/Quadtree.svelte'
@@ -326,8 +327,8 @@
             </Line>
             <Line {data} y={(d) => d.yPostcode} let:d>
               <path
-                in:draw={{ duration: 500 }}
-                out:draw={{ duration: 500 }}
+                in:draw={{ duration: 500, easing: quadInOut }}
+                out:draw={{ duration: 500, easing: quadInOut }}
                 style="stroke: grey; stroke-width: 2px;"
                 class="line"
                 {d} />
@@ -338,16 +339,16 @@
               <path
                 style="stroke: white; stroke-width: 6px;"
                 class="line"
-                in:draw={{ duration: 500 }}
-                out:draw={{ duration: 500 }}
+                in:draw={{ duration: 500, easing: quadInOut }}
+                out:draw={{ duration: 500, easing: quadInOut }}
                 {d} />
             </Line>
             <Line {data} y={(d) => d.yGermany} let:d>
               <path
                 style="stroke: black; stroke-width: 2px;"
                 class="line"
-                in:draw={{ duration: 500 }}
-                out:draw={{ duration: 500 }}
+                in:draw={{ duration: 500, easing: quadInOut }}
+                out:draw={{ duration: 500, easing: quadInOut }}
                 {d} />
             </Line>
           {/if}
