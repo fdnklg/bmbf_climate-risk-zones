@@ -11,7 +11,6 @@
   import { afterUpdate } from 'svelte'
 
   $: isActive = false
-  $: btnLabel = isActive ? 'Pausieren' : 'Abspielen'
 
   $: dateLength = $jsonData
     ? $jsonData.kreise.features[0].properties.data.length - 1
@@ -42,7 +41,7 @@
 
   $: colorScale = $jsonData
     ? getColorScale([$jsonData.meta.value_min, $jsonData.meta.value_max])
-    : false //@TODO remove hardcoded range here
+    : false
 </script>
 
 <style lang="scss">

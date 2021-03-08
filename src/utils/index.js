@@ -106,6 +106,7 @@ export async function loadTopojson(url) {
   avgGermany.splice(0, 6)
 
   kreise.features.forEach((feature) => {
+    addRollingAvg(feature.properties.data)
     feature.properties.data.splice(0, 6)
   })
 
