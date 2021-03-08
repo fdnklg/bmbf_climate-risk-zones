@@ -1,4 +1,4 @@
-function createAnnotation(layersWithAnchors, layer, szenario) {
+function createAnnotation(layersWithAnchors, json, layer, szenario) {
   const { annotations, key } = layer
   const current = layersWithAnchors.find((d) => d.id === key).anchors
   annotations.forEach((annotation) => {
@@ -8,14 +8,14 @@ function createAnnotation(layersWithAnchors, layer, szenario) {
         szenario.anchors.push({
           fid,
           anchors: anchors.map((d) => d.coordinates),
-          text: 'Klimazonen',
+          text: annotation.text(json),
         })
       })
     } else if (current) {
       const coords = current.map((p) => p.coordinates)
       szenario.anchors.push({
         anchors: coords,
-        text: annotation.text,
+        text: annotation.text(json),
         isVertical: ['postcode_buff_geom', 'klimazonen'].includes(key),
       })
     }
@@ -45,6 +45,6 @@ export function addAnnotations(json, szenario, layer) {
 
   // create annotation object for local layers
   if (anchorIds.includes(key) && annotations && annotations.length > 0) {
-    createAnnotation(layersWithAnchors, layer, szenario)
+    createAnnotation(layersWithAnchors, json, layer, szenario)
   }
 }

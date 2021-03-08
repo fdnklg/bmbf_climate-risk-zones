@@ -28,32 +28,19 @@ export const content = {
   */
   szenarien: [
     {
-      step: '1.1',
-      showMinimap: true,
-      layers: [
-        {
-          key: 'postcode_geom',
-          annotations: [
-            {
-              text: 'Fläche der von dir eingegebenen Postleitzahl.',
-            },
-          ],
-        },
-        {
-          key: 'fluvial_flood',
-        },
-      ],
-    },
-    {
       step: '1.2',
       showMinimap: true,
       padding: 70,
+      text: {
+        title: 'Deine Region',
+        paragraph: 'Um deine Region besser untersuchen zu können, haben wir ein 5km Einzugsgebiet um deine Postleitzahl gelegt.'
+      },
       layers: [
         {
           key: 'postcode_geom',
           annotations: [
             {
-              text: 'Fläche der von dir eingegebenen Postleitzahl.',
+              text: (json) => `Gebiet der Postleitzahl <strong>${json.postcode}</strong>.`,
             },
           ],
         },
@@ -61,43 +48,7 @@ export const content = {
           key: 'postcode_buff_geom',
           annotations: [
             {
-              text: 'Das sind XX km Distanz.',
-            },
-          ],
-        },
-      ],
-    },
-    {
-      step: '1.3',
-      showMinimap: true,
-      layers: [
-        {
-          key: 'verdichtungsraeume',
-          isMapbox: true,
-        },
-        {
-          key: 'postcode_geom',
-          annotations: [
-            {
-              text: 'Fläche der von dir eingegebenen Postleitzahl.',
-            },
-          ],
-        },
-      ],
-    },
-    {
-      step: '1.4',
-      showMinimap: true,
-      layers: [
-        {
-          key: 'sturmfluten',
-          isMapbox: true,
-        },
-        {
-          key: 'postcode_geom',
-          annotations: [
-            {
-              text: 'Fläche der von dir eingegebenen Postleitzahl.',
+              text: (json) => '5 km Umkreis um deine Postleitzahl.',
             },
           ],
         },
@@ -109,13 +60,43 @@ export const content = {
         [5.98865807458, 47.3024876979],
         [15.0169958839, 54.983104153],
       ], // defines the focus of the bounding box
+      text: {
+        title: (json) => {
+          console.log(json);
+          return `Klimazone ${json.postcode}`
+        },
+        paragraph: 'Deine Postleitzahl'
+      },
       layers: [
         {
           key: 'klimazonen',
           isMapbox: true,
           annotations: [
             {
-              text: 'Klimazone',
+              text: (json) => {
+                switch(json.risk_zones[0]) {
+                  case 'cold':
+                    return 'Kühles Klima';
+                    break;
+                  case 'warm':
+                    return 'Warmes Klima';
+                    break;
+                  case 'dry':
+                    return 'Trockenes Klima';
+                    break;
+                  case 'premountain':
+                    return 'Gebirgsvorlandklima';
+                    break;
+                  case 'midmountain':
+                    return 'Mittelgebirgsklima';
+                    break;
+                  case 'mountain':
+                    return 'Gebirgsklima';
+                    break;
+                  default:
+                    return 'Klimazone'
+                }
+              },
             },
           ],
         },
@@ -123,7 +104,7 @@ export const content = {
           key: 'postcode_geom',
           annotations: [
             {
-              text: 'Fläche der von dir eingegebenen Postleitzahl.',
+              text: (json) => `Postleitzahl <strong>${json.postcode}</strong>`,
               id: 'postcode_geom',
             },
           ],
@@ -131,11 +112,81 @@ export const content = {
       ],
     },
     {
+      step: '1.1',
+      showMinimap: true,
+      text: {
+        title: '',
+        paragraph: ''
+      },
+      layers: [
+        {
+          key: 'postcode_geom',
+          annotations: [
+            {
+              text: (json) => 'Fläche der von dir eingegebenen Postleitzahl.',
+            },
+          ],
+        },
+        {
+          key: 'fluvial_flood',
+        },
+      ],
+    },
+    {
+      step: '1.3',
+      showMinimap: true,
+      text: {
+        title: '',
+        paragraph: ''
+      },
+      layers: [
+        {
+          key: 'verdichtungsraeume',
+          isMapbox: true,
+        },
+        {
+          key: 'postcode_geom',
+          annotations: [
+            {
+              text: (json) => 'Fläche der von dir eingegebenen Postleitzahl.',
+            },
+          ],
+        },
+      ],
+    },
+    {
+      step: '1.4',
+      showMinimap: true,
+      text: {
+        title: '',
+        paragraph: ''
+      },
+      layers: [
+        {
+          key: 'sturmfluten',
+          isMapbox: true,
+        },
+        {
+          key: 'postcode_geom',
+          annotations: [
+            {
+              text: (json) => 'Fläche der von dir eingegebenen Postleitzahl.',
+            },
+          ],
+        },
+      ],
+    },
+    
+    {
       step: '1.6',
       fitBounds: [
         [5.98865807458, 47.3024876979],
         [15.0169958839, 54.983104153],
       ], // defines the focus of the bounding box
+      text: {
+        title: '',
+        paragraph: ''
+      },
       layers: [
         {
           key: 'hochwasser',
@@ -145,7 +196,7 @@ export const content = {
           key: 'postcode_geom',
           annotations: [
             {
-              text: 'Fläche der von dir eingegebenen Postleitzahl.',
+              text: (json) => 'Fläche der von dir eingegebenen Postleitzahl.',
               id: 'postcode_geom',
             },
           ],

@@ -25,6 +25,15 @@
 
   $: marker = currentData ? currentData.marker : false
   $: showMinimap = false; // currentData ? currentData.showMinimap : false
+
+  const setText = (txt) => {
+    if (typeof txt === 'string') {
+      return txt;
+    } else {
+      // HIER SOLLEN DIE JSON DATEN ÜBERGEBEN WERDEN....
+      return txt($storyData);
+    }
+  };
 </script>
 
 <style lang="scss">
@@ -91,9 +100,9 @@
             bind:step={item.step}>
             <!-- {#if item.text} -->
             <Tile isMap={true} active={item.step === step}>
-              <h3 class="tile-title">item.text.title</h3>
+              <h3 class="tile-title">{setText(item.text.title)}</h3>
               <p class="tile-paragraph">
-                {@html 'item.text.paragraph'}
+                {@html setText(item.text.paragraph)}
               </p>
             </Tile>
             <!-- {/if} -->

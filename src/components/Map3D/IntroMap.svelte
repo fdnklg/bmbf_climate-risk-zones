@@ -33,7 +33,6 @@
       });
       
       map.on('load', () => {
-        console.log(map.getStyle().layers);
         map.setLayoutProperty('klimazonen', 'visibility', 'visible');
         map.addLayer({
           id: 'klimazonen_line',
