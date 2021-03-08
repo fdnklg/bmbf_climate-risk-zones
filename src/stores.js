@@ -10,49 +10,51 @@ import {
 import { zeitreiheDataKeys, s3UrlRisk, styles } from 'constants'
 
 export const data = writable(null)
-export const activeZipcode = writable(50667)
+export const jsonCache = writable(null)
+export const activeZipcode = writable(null)
 export const zipcodes = writable([])
 export const userInput = writable(false)
 export const activeKeyZeitreihe = writable('air_temperature_max')
 export const selectedAnchors = writable([])
 export const jsonData = writable(null)
 
-let cache = {}
-
 export const storyData = derived(
   [data, activeZipcode],
   ([$data, $activeZipcode], set) => {
-    const zipcode =
-      $activeZipcode.length === 4 ? `0${$activeZipcode}` : $activeZipcode
-    const getData = async () => {
-      const json = await fetchJson(`${s3UrlRisk}postcode/${zipcode}.json`)
-      if ($data) {
-        let dataObj = {}
-        let { szenarien } = $data
-        const {
-          data_germany,
-          data_postcode,
-          risk_zones,
-          risk_zone_ids,
-          dense_space,
-          postcode,
-          has_ocean_flood,
-          fluvial_flood,
-          postcode_anchors,
-          postcode_buff_anchors,
-          postcode_point,
-        } = json
+    if ($activeZipcode) {
+      const zipcode =
+        $activeZipcode.length === 4 ? `0${$activeZipcode}` : $activeZipcode
+      const getData = async () => {
+        const json = await fetchJson(`${s3UrlRisk}postcode/${zipcode}.json`)
+        jsonCache.set(json)
+        if ($data) {
+          console.log($data);
+          let dataObj = {}
+          let { szenarien } = $data
+          const {
+            data_germany,
+            data_postcode,
+            risk_zones,
+            risk_zone_ids,
+            dense_space,
+            postcode,
+            has_ocean_flood,
+            fluvial_flood,
+            postcode_anchors,
+            postcode_buff_anchors,
+            postcode_point,
+          } = json
 
-        const isDenseSpace = dense_space.bbox
-        const hasOceanFlood = has_ocean_flood === 1
-        const hasFluvialFlood = fluvial_flood.length > 0
+          const isDenseSpace = dense_space.bbox
+          const hasOceanFlood = has_ocean_flood === 1
+          const hasFluvialFlood = fluvial_flood.length > 0
 
-        // remove steps from config if json is no dense space
-        if (!isDenseSpace) {
-          szenarien = szenarien.filter(
-            (d) => !d.layers.map((l) => l.key).includes('verdichtungsraeume')
-          )
-        }
+          // remove steps from config if json is no dense space
+          if (!isDenseSpace) {
+            szenarien = szenarien.filter(
+              (d) => !d.layers.map((l) => l.key).includes('verdichtungsraeume')
+            )
+          }
 
         // remove steps from config if json has no fluvial floods
         if (!hasFluvialFlood) {
