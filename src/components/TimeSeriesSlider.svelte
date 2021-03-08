@@ -106,27 +106,36 @@
   .grid-line {
     position: relative;
     display: block;
-    text-align: left;
-
-    &.horizontal {
-      width: auto;
-      border-bottom: 1px solid $color-main-20;
-    }
   }
 
+  .grid-line.horizontal {
+    width: calc(100% + 2em);
+    left: -2em;
+    border-bottom: 1px dashed #ccc;
+  }
+
+  .grid-line span {
+    position: absolute;
+    left: 0;
+    bottom: 2px;
+    font-family: sans-serif;
+    font-size: 14px;
+    color: #999;
+  }
   .grid-line {
     .y-label {
-      left: -33px;
-      bottom: -12px;
-      width: 26px;
+      font-family: $font-regular;
+      left: 0px;
+      bottom: 0px;
+      width: auto;
       color: $color-main-60;
       font-size: $font-size-xs;
       letter-spacing: 0.03em;
     }
 
     span.y-label-desc {
-      left: -23px;
-      top: -29px;
+      left: 20px;
+      font-family: $font-regular;
       color: $color-main-60;
       font-size: $font-size-xs;
       letter-spacing: 0.03em;
@@ -144,9 +153,9 @@
   }
   .annotation-line {
     width: 1px;
-    height: 102px;
+    height: 142px;
     transform: translateX(1);
-    background-color: $color-main-80;
+    background-color: $color-main-20;
   }
 
   input[type='range'] {
@@ -184,7 +193,6 @@
     align-items: center;
     justify-content: center;
     background-color: white;
-    border: 2px solid $color-main-20;
     @include box-shadow-btn;
     border-radius: 3px;
     transform: translate(-50%, -100%);
@@ -230,10 +238,10 @@
       <Chart x1={get.xMin(meta)} x2={get.xMax(meta)} y1={20} y2={30}>
         <Grid horizontal count={3} let:value>
           <div class="grid-line horizontal">
-            <span class="y-label">{value}</span>
             {#if value === 30}
               <span class="y-label-desc">°C (7 Jahres-Ø-Temperatur)</span>
             {/if}
+            <span class="y-label">{value}</span>
           </div>
         </Grid>
         <Grid vertical count={6} let:value>
@@ -250,7 +258,7 @@
           </Line>
         </Svg>
 
-        <Point x={currentPoint.x} y={32}>
+        <Point x={currentPoint.x} y={34}>
           <div class="annotation-line" />
         </Point>
 
@@ -260,7 +268,7 @@
             class="annotation-dot" />
         </Point>
 
-        <Point x={currentPoint.x} y={32}>
+        <Point x={currentPoint.x} y={33.5}>
           <div class="tooltip">
             <span class="year-label">{currentPoint.x}</span>
             <span
