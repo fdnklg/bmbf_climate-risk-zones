@@ -92,6 +92,27 @@ textarea {
   border-radius: 2px;
 }
 
+.dot:after {
+  content: '';
+  position: absolute;
+  width: 8px;
+  height: 8px;
+  transform: translate(5px, 8px);
+  border-radius: 100%;
+}
+
+.dot.warm:after {
+  background-color: #ec5e51;
+}
+
+.dot.cold:after {
+  background-color: #3b75f1;
+}
+
+.dot {
+  margin-right: 15px;
+}
+
 .bold {
   font-family: 'Post Grotesk Bold';
 }

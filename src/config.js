@@ -453,7 +453,7 @@ export const content = {
       text: {
         title: 'Temperaturentwicklung',
         paragraph:
-          'Hier zu sehen sind die <strong style="color: #EC6052;">höchsten</strong> und <strong style="color: rgb(60, 118, 242);">niedrigsten</strong> Temperaturen der lezten Jahre für deine Region.',
+          'Hier zu sehen sind die <span class="warm bold dot">höchsten</span> und <span class="cold bold dot">niedrigsten</span> Temperaturen der lezten Jahre für deine Region.',
       },
     },
     {

@@ -1,9 +1,7 @@
 <script>
   import { onMount, setContext } from 'svelte'
   import { mapbox, key } from './mapbox.js'
-  import {
-    updateMapboxLayers
-  } from './utils'
+  import { updateMapboxLayers } from './utils'
 
   let map
 
@@ -28,24 +26,38 @@
         scrollZoom: false,
         attributionControl: false,
         style: 'mapbox://styles/fdnklg/ckko1l41i69lb17nu6b6eog6i',
-      }).fitBounds([[5.866250351,47.270123604],[15.041815657,55.0583836]], {
-        padding: {top: 20, bottom: window.innerHeight * 0.3, left: 20, right: 20}
-      });
-      
+      }).fitBounds(
+        [
+          [5.866250351, 47.270123604],
+          [15.041815657, 55.0583836],
+        ],
+        {
+          padding: {
+            top: 20,
+            bottom: window.innerHeight * 0.3,
+            left: 20,
+            right: 20,
+          },
+        }
+      )
+
       map.on('load', () => {
-        map.setLayoutProperty('klimazonen', 'visibility', 'visible');
-        map.addLayer({
-          id: 'klimazonen_line',
-          type: 'line',
-          source: 'composite',
-          "source-layer": 'features-7357cu',
-          paint: {
-            'line-opacity': 1,
-            'line-color': '#fff',
-            'line-width': 0.5,
-          }
-        }, 'verdichtungsraeume');
-      });
+        map.setLayoutProperty('hochwasser', 'visibility', 'visible')
+        map.addLayer(
+          {
+            id: 'hochwasser_line',
+            type: 'line',
+            source: 'composite',
+            'source-layer': 'features-7357cu',
+            paint: {
+              'line-opacity': 1,
+              'line-color': '#fff',
+              'line-width': 0.5,
+            },
+          },
+          'hochwasser'
+        )
+      })
     }
 
     document.head.appendChild(link)
@@ -55,7 +67,6 @@
       link.parentNode.removeChild(link)
     }
   })
-
 </script>
 
 <style>
