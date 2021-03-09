@@ -174,8 +174,8 @@
     -webkit-appearance: none; /* Hides the slider so that custom slider can be made */
     width: 100%; /* Specific width is required for Firefox. */
     background: transparent; /* Otherwise white in Chrome */
-    width: calc(100% + 44px);
-    transform: translateX(-22px);
+    width: calc(100% + 29px);
+    transform: translateX(-14px);
     z-index: 10;
     border: none;
   }

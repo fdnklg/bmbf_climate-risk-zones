@@ -9,10 +9,13 @@
   import Szenarien from 'views/szenarien.svelte'
   import Onboarding from 'views/onboarding.svelte'
   import Animation from 'views/animation.svelte'
+  import ReadingList from 'views/readinglist.svelte';
 
   import Header from 'components/Header.svelte'
   import Meta from 'core/components/Meta.svelte'
   import Section from 'components/Section.svelte'
+  import Share from 'components/Share.svelte'
+  import Appendix from 'components/Appendix.svelte'
 
   function handleActiveStep(e) {
     step = e.detail
@@ -99,5 +102,9 @@
     Im Folgenden haben wir eine Reihe Artikel zusammengestellt, die besonders
     Themen für deine Region hervorheben:
   </Section>
-  <!-- HIER BAUE ICH NOCH EINE NEUE COMPONENT, WELCHE DIE SEITEN ENTSPRECHEND ZUR PLZ AUFLISTET... -->
+  <ReadingList />
+  <Share />
+  <Section>
+    <Appendix />
+  </Section>
 </div>
