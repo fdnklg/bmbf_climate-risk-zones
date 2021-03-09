@@ -96,6 +96,13 @@ input:disabled {
   color: #ccc;
 }
 
+.addition {
+  color: #6b6e82;
+  font-size: 13px;
+  line-height: 130%;
+  font-family: 'Post Grotesk Bold';
+}
+
 #zipcode:-webkit-autofill,
 #zipcode:-webkit-autofill:hover,
 #zipcode:-webkit-autofill:focus,
