@@ -234,19 +234,70 @@ export const content = {
       ],
     },
     {
-      step: '1.3',
-      showMinimap: true,
+      step: '1.5',
+      fitBounds: [
+        [5.98865807458, 47.3024876979],
+        [15.0169958839, 54.983104153],
+      ], // defines the focus of the bounding box
       text: {
-        title: 'Verdichtungsräume',
-        paragraph: ''
+        title: 'Handlungsfelder',
+        paragraph: (json) => {
+          let r = 'In dieser Region müssen vor allem die Themen ';
+          switch (json.zeitreihen.meta.riskzones[0]) {
+            case 'cold':
+              r += 'Wasserwirtschaft und -haushalt, Küsten- und Meeresschutz, Verkehr sowie Bauwesen, Industrie und Gewerbe';
+              break;
+            case 'warm':
+              r += 'menschliche Gesundheit, Forst- und Landwirtschaft sowie Verkehr';
+              break;
+            case 'dry':
+              r += 'Wasserwirtschaft und -haushalt sowie Land- und Forstwirtschaft';
+              break;
+            case 'premountain':
+              r += 'menschliche Gesundheit und Energiewirtschaft';
+              break;
+            case 'midmountain':
+              r += 'Wasserwirtschaft und -haushalt sowie der Tourismus';
+              break;
+            case 'mountain':
+              r += 'Biologische Vielfalt, Wasserwirtschaft und -haushalt, Bauwesen, Verkehr sowie Industrie und Gewerbe';
+              break;
+            default:
+              r += '...'
+          }
+          return r + ' mit Nachdruck behandelt werden. Am Ende des Artikels haben wir weiterführende Links zu den wichtigen Themen für deine Region zusammengestellt.'
+        }
       },
       layers: [
         {
-          key: 'verdichtungsraeume',
+          key: 'klimazonen',
           isMapbox: true,
           annotations: [
             {
-              text: (json) => 'Verdichtungsraum.',
+              text: (json) => {
+                switch(json.risk_zones[0]) {
+                  case 'cold':
+                    return 'Regionen mit<br />kühlerem Klima';
+                    break;
+                  case 'warm':
+                    return 'Regionen mit<br />warmem Klima';
+                    break;
+                  case 'dry':
+                    return 'Regionen mit<br />trockenerem Klima';
+                    break;
+                  case 'premountain':
+                    return 'Regionen mit<br />Gebirgsvorlandklima';
+                    break;
+                  case 'midmountain':
+                    return 'Regionen mit<br />Mittelgebirgsklima';
+                    break;
+                  case 'mountain':
+                    return 'Regionen mit<br />Gebirgsklima';
+                    break;
+                  default:
+                    return 'Klimazone'
+                }
+              },
             },
           ],
         },
@@ -254,7 +305,35 @@ export const content = {
           key: 'postcode_geom',
           annotations: [
             {
-              text: (json) => 'Fläche der von dir eingegebenen Postleitzahl.',
+              text: (json) => `Postleitzahl <strong>${json.postcode}</strong>`,
+              id: 'postcode_geom',
+            },
+          ],
+        },
+      ],
+    },
+    {
+      step: '1.3',
+      showMinimap: true,
+      text: {
+        title: 'Verdichtungsräume',
+        paragraph: (json) => `Deine Region befindet sich im Verdichtungsraum <strong>${json.zeitreihen.meta.denseSpaceName}</strong>. Verdichtungsräume sind Gebiete mit einer hohen Dichte an Siedlungs- und Industrieflächen. In diesen Gebieten konzentrieren sich Gefahren für Schäden an Gebäuden und Infrastruktur, durch z.B. Hitzebelastung oder extreme Wetterereignisse. Durch die hohe Bevölkerungsdichte in diesen Gebieten sind viele Menschen durch die Folgen betroffen.`
+      },
+      layers: [
+        {
+          key: 'verdichtungsraeume',
+          isMapbox: true,
+          annotations: [
+            {
+              text: (json) => `Verdichtungsraum ${json.dense_space.name}`,
+            },
+          ],
+        },
+        {
+          key: 'postcode_geom',
+          annotations: [
+            {
+              text: (json) => `Postleitzahl <strong>${json.postcode}</strong>`,
             },
           ],
         },
@@ -264,15 +343,15 @@ export const content = {
       step: '1.1',
       showMinimap: true,
       text: {
-        title: '',
-        paragraph: ''
+        title: 'Überschwemmungen',
+        paragraph: 'Auch Hochwasser können durch den Klimawandel begünstigt werden. Hier zu sehen sind Wahr&shy;schein&shy;lich&shy;keiten, dass ein Hoch&shy;wasser&shy;ereigniss dieser Größen&shy;ordnung in einem von <strong style="color:#3C76F2;">10-30</strong>, <strong style="color:#88ACF9;">100</strong> und <strong style="color:#CADBFF;">200</strong> Jahren auftritt. Einmal in 200 Jahren entspricht also einer sehr geringen und einmal in 10-30 Jahren einer hohen Wahrscheinlichkeit.'
       },
       layers: [
         {
           key: 'postcode_geom',
           annotations: [
             {
-              text: (json) => 'Fläche der von dir eingegebenen Postleitzahl.',
+              text: (json) => `Postleitzahl <strong>${json.postcode}</strong>`,
             },
           ],
         },
@@ -286,8 +365,8 @@ export const content = {
       step: '1.4',
       showMinimap: true,
       text: {
-        title: '',
-        paragraph: ''
+        title: 'Küstengebiete',
+        paragraph: 'Gebiete die in Küstennähe, sind darüber hinaus auch dem klimabedingten Anstieg des Meeresspiegels und vermehrten Sturmfluten ausgesetzt.'
       },
       layers: [
         {
@@ -298,39 +377,39 @@ export const content = {
           key: 'postcode_geom',
           annotations: [
             {
-              text: (json) => 'Fläche der von dir eingegebenen Postleitzahl.',
+              text: (json) => `Postleitzahl <strong>${json.postcode}</strong>`,
             },
           ],
         },
       ],
     },
     
-    {
-      step: '1.6',
-      fitBounds: [
-        [5.98865807458, 47.3024876979],
-        [15.0169958839, 54.983104153],
-      ], // defines the focus of the bounding box
-      text: {
-        title: '',
-        paragraph: ''
-      },
-      layers: [
-        {
-          key: 'hochwasser',
-          isMapbox: true,
-        },
-        {
-          key: 'postcode_geom',
-          annotations: [
-            {
-              text: (json) => 'Fläche der von dir eingegebenen Postleitzahl.',
-              id: 'postcode_geom',
-            },
-          ],
-        },
-      ],
-    },
+    // {
+    //   step: '1.6',
+    //   fitBounds: [
+    //     [5.98865807458, 47.3024876979],
+    //     [15.0169958839, 54.983104153],
+    //   ], // defines the focus of the bounding box
+    //   text: {
+    //     title: '',
+    //     paragraph: ''
+    //   },
+    //   layers: [
+    //     {
+    //       key: 'hochwasser',
+    //       isMapbox: true,
+    //     },
+    //     {
+    //       key: 'postcode_geom',
+    //       annotations: [
+    //         {
+    //           text: (json) => 'Fläche der von dir eingegebenen Postleitzahl.',
+    //           id: 'postcode_geom',
+    //         },
+    //       ],
+    //     },
+    //   ],
+    // },
   ],
 
   zeitreiheSteps: [
