@@ -14,8 +14,8 @@
   export let hasMarker = false
   export let colorScale
 
-  const proj = geoMercator().fitSize([width, height], data)
-  const pathGen = geoPath().projection(proj)
+  $: proj = geoMercator().fitSize([width, height], data)
+  $: pathGen = geoPath().projection(proj)
 
   $: features = data.features.map((feat, i) => {
     const d = pathGen(feat)
@@ -39,17 +39,15 @@
   @import 'src/style/root.scss';
 </style>
 
-<div class="static-map">
-  <svg {width} {height}>
-    {#each features as feature}
-      <path
-        d={feature.d}
-        fill={feature.fill}
-        stroke-width={strokeWidth}
-        stroke={hasStroke ? feature.stroke : null} />
-    {/each}
-    {#if marker}
-      <circle cx={marker[0]} cy={marker[1]} r="3" fill="#080e2f" />
-    {/if}
-  </svg>
-</div>
+<svg {width} {height}>
+  {#each features as feature}
+    <path
+      d={feature.d}
+      fill={feature.fill}
+      stroke-width={strokeWidth}
+      stroke={hasStroke ? feature.stroke : null} />
+  {/each}
+  {#if marker}
+    <circle cx={marker[0]} cy={marker[1]} r="3" fill="#080e2f" />
+  {/if}
+</svg>

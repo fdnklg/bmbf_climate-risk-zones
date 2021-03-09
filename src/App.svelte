@@ -75,5 +75,5 @@
     gesamter Fußabdruck setzt sich aus all dem zusammen.
   </Section>
   <Zeitreihe />
-  <Animation />
+  <!-- <Animation /> -->
 </div>

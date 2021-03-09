@@ -65,7 +65,7 @@
 
     @include respond-max-screen-medium {
       max-width: none;
-      width: auto;
+      width: 100%;
     }
 
     @include respond-max-screen-phablet {
