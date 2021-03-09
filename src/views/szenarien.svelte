@@ -1,5 +1,4 @@
 <script>
-  import { afterUpdate } from 'svelte'
   import { storyData, selectedAnchors, jsonData } from 'stores'
 
   import IntersectionObserver from 'core/components/Intersectionobserver.svelte'
@@ -84,9 +83,10 @@
             data={mapData} />
         </div>
       {/if}
-      {#each $selectedAnchors as d}
+      {#each $selectedAnchors as d, i}
         <Tooltip anchor={d.coords}>
           <TooltipContent data={d.text} />
+          <!-- @TODO check what kind of annotation is set? risk zone, fluvia flood or else and act accordingly in config.js† -->
         </Tooltip>
       {/each}
     </div>

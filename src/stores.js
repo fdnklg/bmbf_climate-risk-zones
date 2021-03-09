@@ -27,7 +27,7 @@ export const storyData = derived(
       const getData = async () => {
         const json = await fetchJson(`${s3UrlRisk}postcode/${zipcode}.json`)
         if ($data) {
-          console.log($data)
+          console.log('$data', $data)
           let dataObj = {}
           let { szenarien } = $data
           const {
