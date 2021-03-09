@@ -10,7 +10,7 @@ import {
 import { zeitreiheDataKeys, s3UrlRisk, styles } from 'constants'
 
 export const data = writable(null)
-export const activeZipcode = writable(50667)
+export const activeZipcode = writable(10115)
 export const zipcodes = writable([])
 export const userInput = writable(false)
 export const activeKeyZeitreihe = writable('air_temperature_max')
@@ -26,7 +26,7 @@ export const storyData = derived(
       const getData = async () => {
         const json = await fetchJson(`${s3UrlRisk}postcode/${zipcode}.json`)
         if ($data) {
-          console.log($data);
+          console.log($data)
           let dataObj = {}
           let { szenarien } = $data
           const {
@@ -183,7 +183,11 @@ export const storyData = derived(
 
           zeitreiheDataKeys.map((datakey) => {
             const zeitreiheGermany = createZeitreihe(data_germany, datakey, 50)
-            const zeitreihePostcode = createZeitreihe(data_postcode, datakey, 50)
+            const zeitreihePostcode = createZeitreihe(
+              data_postcode,
+              datakey,
+              50
+            )
             // set same extent for postcode
             zeitreihePostcode.meta.extentY = zeitreiheGermany.meta.extentY
 

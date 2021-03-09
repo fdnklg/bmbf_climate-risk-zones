@@ -1,5 +1,7 @@
 <script>
   import { zeitreihenData } from 'stores'
+  import { draw } from 'svelte/transition'
+  import { quadInOut } from 'svelte/easing'
 
   import Chart from './Chart/Chart.svelte'
   import Quadtree from './Chart/Quadtree.svelte'
@@ -18,27 +20,6 @@
   let domNode
 
   let closest
-
-  /*
-  Step === 2.1 && scrollUp
-  - animation: y1 -> y0
-
-  Step === 2.1 && scrollDown
-  - !animation
-  - y0
-
-  Step === 2.2 && scrollDown
-  - animation: y0 -> y1
-  - y, y1
-
-  Step === 2.2 && scrollUp
-  - !animation
-  - y, y1
-
-  Step > 2.2
-  - !animation
-  - y, y1
-  */
 
   const get = {
     xMin: (d) => d.meta.extentX[0],
@@ -83,9 +64,6 @@
   $: hasShow = zeitreihe.show
   $: showYPostcode = hasShow ? zeitreihe.show.includes('yPostcode') : false
   $: showYGermany = hasShow ? zeitreihe.show.includes('yGermany') : false
-  $: showMinToMax = hasShow ? zeitreihe.show.includes('minToMax') : false
-  $: showMin = hasShow ? zeitreihe.show.includes('min') : false
-  $: showMax = hasShow ? zeitreihe.show.includes('max') : false
 </script>
 
 <style lang="scss">
@@ -144,7 +122,7 @@
 
   .grid-line.horizontal {
     width: auto;
-    border-bottom: 1px solid $color-main-20;
+    border-bottom: 1px dashed #ccc;
   }
 
   .data {
@@ -289,7 +267,7 @@
   }
 
   .column.data {
-    background: grey;
+    background: red;
   }
 </style>
 
@@ -310,7 +288,7 @@
           </div>
         </Grid>
         <div class="background">
-          {#each data as d, i}
+          {#each data as d, i (d.id)}
             <AnimatedExtent
               x={d.x}
               y={d.y1}
@@ -320,35 +298,15 @@
               index={i}>
               <div slot="box" class="extent-line" />
               <div
-                slot="pointStart"
-                style="background-color: {zeitreihe.meta.gradient[0]}"
-                class="annotation-dot" />
-              <div
                 slot="pointEnd"
                 style="background-color: {zeitreihe.meta.gradient[1]}"
                 class="annotation-dot" />
+              <div
+                slot="pointStart"
+                style="background-color: {zeitreihe.meta.gradient[0]}"
+                class="annotation-dot" />
             </AnimatedExtent>
           {/each}
-
-          {#if showMax}
-            {#each data as d, i}
-              <Point x={d.x} y={d.y2}>
-                <div
-                  style="background-color: {zeitreihe.meta.gradient[0]}"
-                  class="annotation-dot" />
-              </Point>
-            {/each}
-          {/if}
-
-          {#if showMin}
-            {#each data as d, i}
-              <Point x={d.x} y={d.y1}>
-                <div
-                  style="background-color: {zeitreihe.meta.gradient[1]}"
-                  class="annotation-dot" />
-              </Point>
-            {/each}
-          {/if}
         </div>
         {#if !closest}
           <Grid vertical count={5} let:value>
@@ -361,12 +319,19 @@
           {#if showYPostcode}
             <Line {data} y={(d) => d.yPostcode} let:d>
               <path
+                in:draw={{ duration: 500 }}
+                out:draw={{ duration: 500 }}
                 style="stroke: white; stroke-width: 6px;"
                 class="line"
                 {d} />
             </Line>
             <Line {data} y={(d) => d.yPostcode} let:d>
-              <path style="stroke: grey; stroke-width: 2px;" class="line" {d} />
+              <path
+                in:draw={{ duration: 500, easing: quadInOut }}
+                out:draw={{ duration: 500, easing: quadInOut }}
+                style="stroke: grey; stroke-width: 2px;"
+                class="line"
+                {d} />
             </Line>
           {/if}
           {#if showYGermany}
@@ -374,12 +339,16 @@
               <path
                 style="stroke: white; stroke-width: 6px;"
                 class="line"
+                in:draw={{ duration: 500, easing: quadInOut }}
+                out:draw={{ duration: 500, easing: quadInOut }}
                 {d} />
             </Line>
             <Line {data} y={(d) => d.yGermany} let:d>
               <path
                 style="stroke: black; stroke-width: 2px;"
                 class="line"
+                in:draw={{ duration: 500, easing: quadInOut }}
+                out:draw={{ duration: 500, easing: quadInOut }}
                 {d} />
             </Line>
           {/if}

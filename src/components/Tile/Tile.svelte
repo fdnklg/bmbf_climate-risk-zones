@@ -4,6 +4,7 @@
   export let large = false
   export let isMap = false
   export let small = false
+  export let isLast = false
 </script>
 
 <style lang="scss">
@@ -24,6 +25,10 @@
     @include respond-max-screen-phablet {
       padding: 10px;
     }
+  }
+
+  .isLast {
+    margin-bottom: 25vh;
   }
 
   .map {
@@ -53,6 +58,6 @@
 </style>
 
 <div
-  class="tile {small ? 'small' : ''} {active ? 'active' : ''} {large ? 'large' : ''} {isMap ? 'map' : ''} {full ? 'full' : ''}">
+  class="tile {isLast ? 'isLast' : ''} {small ? 'small' : ''} {active ? 'active' : ''} {large ? 'large' : ''} {isMap ? 'map' : ''} {full ? 'full' : ''}">
   <slot />
 </div>

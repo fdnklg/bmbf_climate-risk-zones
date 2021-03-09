@@ -62,12 +62,14 @@
         <ChartZeitreihe {scrollingDown} {step} />
       </div>
       <div class="wrapper" slot="text">
-        {#each currentData as item}
+        {#each currentData as item, i}
           <IntersectionObserver
             on:step={handleActiveStep}
             bind:step={item.step}>
             <Anchor anchorId={item.step} />
-            <Tile active={item.step === step}>
+            <Tile
+              isLast={i === currentData.length - 1}
+              active={item.step === step}>
               <h3 class="tile-title">{item.text.title}</h3>
               <p class="tile-paragraph">
                 {@html item.text.paragraph}

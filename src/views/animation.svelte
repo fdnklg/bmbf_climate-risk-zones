@@ -10,8 +10,27 @@
   import { getColorScale } from 'components/AnimatedMaps/utils.js'
   import { afterUpdate } from 'svelte'
 
+  let windowWidth
+  let graphHeight
+  let graphWidth
+
+  $: svgWidth = 400
+  $: svgHeight = 550
+
+  $: {
+    if (windowWidth) {
+      if (windowWidth < 600) {
+        svgWidth = windowWidth - 80
+        svgHeight = svgWidth * 1.3
+      }
+    }
+  }
+
+  $: {
+    console.log('svgWidth', graphHeight, graphWidth)
+  }
+
   $: isActive = false
-  $: btnLabel = isActive ? 'Pausieren' : 'Abspielen'
 
   $: dateLength = $jsonData
     ? $jsonData.kreise.features[0].properties.data.length - 1
@@ -38,18 +57,23 @@
     isActive = !isActive
   }
 
+  $: {
+    if (windowWidth > 550) {
+      svgWidth = windowWidth - 40
+    }
+  }
+
   let dateIndex = 0
 
   $: colorScale = $jsonData
     ? getColorScale([$jsonData.meta.value_min, $jsonData.meta.value_max])
-    : false //@TODO remove hardcoded range here
+    : false
 </script>
 
 <style lang="scss">
   @import 'src/style/root.scss';
   .container {
     margin: auto;
-    padding: 40px;
 
     @include respond-max-screen-phablet {
       width: calc(100% - 40px);
@@ -73,7 +97,8 @@
     text-align: center;
   }
   .map-container {
-    margin: 20px 0;
+    display: flex;
+    justify-content: center;
   }
 </style>
 
@@ -83,20 +108,20 @@
     <ColorLegend extent={$jsonData.meta.extentGermany} />
     <div class="map-container">
       <StaticMap
-        width={400}
-        height={550}
+        width={svgWidth}
+        height={svgHeight}
         {dateIndex}
         {colorScale}
         meta={$jsonData.meta}
         data={$jsonData.kreise} />
-      <TimeSeriesSlider
-        data={$jsonData.meta.avgGermany}
-        meta={$jsonData.meta}
-        min={0}
-        max={dateLength}
-        value={dateIndex}
-        on:year={handleYear} />
     </div>
+    <TimeSeriesSlider
+      data={$jsonData.meta.avgGermany}
+      meta={$jsonData.meta}
+      min={0}
+      max={dateLength}
+      value={dateIndex}
+      on:year={handleYear} />
   {/if}
   <div class="footer">
     <Source
@@ -106,3 +131,5 @@
       handleClick={handleToggle} />
   </div>
 </div>
+
+<svelte:window bind:innerWidth={windowWidth} />
