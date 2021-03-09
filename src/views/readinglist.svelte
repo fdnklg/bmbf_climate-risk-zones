@@ -1,5 +1,5 @@
 <script>
-  import { storyData } from '../stores';
+  import { storyData } from 'stores';
 
   const sites = [
     {
@@ -100,15 +100,17 @@
 </script>
 
 <div id="reading-list">
-  <h3>Handlungsfelder für deine Region</h3>
-  <ul class="highlights">
-  {#each sites.filter((s) => matches.includes(s)) as site}
-    <li><a href="{ `https://www.umweltbundesamt.de/das-handlungsfeld-${site.key}?parent=42474` }">Handlungsfeld {site.title}</a></li>
-  {/each}
-  </ul>
+  {#if $storyData}
+    <h3>Handlungsfelder für deine Region</h3>
+    <ul class="highlights">
+    {#each sites.filter((s) => matches.includes(s.key)) as site}
+      <li><a href="{ `https://www.umweltbundesamt.de/das-handlungsfeld-${site.key}?parent=42474` }">Handlungsfeld {site.title}</a></li>
+    {/each}
+    </ul>
+  {/if}
   <h3>Weitere Handlungsfelder für Deutschland</h3>
   <ul>
-  {#each sites.filter((s) => !matches.includes(s)) as site}
+  {#each sites.filter((s) => !matches.includes(s.key)) as site}
     <li><a href="{ `https://www.umweltbundesamt.de/das-handlungsfeld-${site.key}?parent=42474` }">Handlungsfeld {site.title}</a></li>
   {/each}
   </ul>
