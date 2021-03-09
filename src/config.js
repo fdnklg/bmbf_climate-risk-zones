@@ -419,9 +419,9 @@ export const content = {
       datakey: 'air_temperature_max',
       show: ['min', 'minToMax'],
       text: {
-        title: 'Überschrift hier',
+        title: 'Temperaturentwicklung',
         paragraph:
-          'Natürlich ist es am Ende des Tages nicht so einfach, denn neben Mobilität produzieren wir in all unseren anderen Lebensbereich ebenfalls CO2 und unser gesamter Fußabdruck setzt sich aus all dem zusammen.',
+          'Besonders deutlich wird die klimawandelbedingte Entwicklung, wenn man sich die Jahreswerte der Temperaturen der letzten Jahre anschaut.',
       },
     },
     {
@@ -430,33 +430,33 @@ export const content = {
       datakey: 'air_temperature_max',
       show: ['min', 'minToMax'],
       text: {
-        title: 'Überschrift hier',
+        title: 'Temperaturentwicklung',
         paragraph:
-          'Natürlich ist es am Ende des Tages nicht so einfach, denn neben Mobilität produzieren wir in all unseren anderen Lebensbereich ebenfalls CO2 und unser gesamter Fußabdruck setzt sich aus all dem zusammen.',
+          'Hier zu sehen sind die <strong style="color: rgb(180, 98, 80);">höchsten</strong> und <strong style="color: rgb(199, 161, 104);">niedrigsten</strong>Temperaturen der lezten Jahre für deine Region.',
       },
     },
     {
       step: '2.3',
       data: 'merged',
       datakey: 'air_temperature_max',
-      show: ['min', 'max', 'yPostcode', 'yGermany'],
+      show: ['min', 'max', 'yPostcode'],
       text: {
-        title: 'Überschrift hier',
+        title: 'Zunehmender Trend',
         paragraph:
-          'Natürlich ist es am Ende des Tages nicht so einfach, denn neben Mobilität produzieren wir in all unseren anderen Lebensbereich ebenfalls CO2 und unser gesamter Fußabdruck setzt sich aus all dem zusammen.',
+          'Betrachtet man neben den Extremen, den <strong style="color:grey;">Durchschnitt</strong>, lässt sich in den meisten Regionen ein langsamer Anstieg erkennen.',
       },
     },
     {
       step: '2.4',
       data: 'merged',
       datakey: 'air_temperature_max',
-      show: ['yPostcode', 'yGermany'],
+      show: ['min', 'max', 'yPostcode', 'yGermany'],
       text: {
-        title: 'Überschrift hier',
+        title: 'Deutscher Durchschnitt',
         paragraph:
-          'Natürlich ist es am Ende des Tages nicht so einfach, denn neben Mobilität produzieren wir in all unseren anderen Lebensbereich ebenfalls CO2 und unser gesamter Fußabdruck setzt sich aus all dem zusammen.',
-      },
-    },
+          'Dieser Ansteig wird auch im <strong>Deutschen Durchschnitt</strong> deutlich, der von lokalen Veränderungen leicht abweichen kann.',
+      }
+    }
   ],
 }
 
