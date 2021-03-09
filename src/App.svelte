@@ -72,8 +72,8 @@
     spüren.<br /><br />
     In vielen Regionen Deutschlands hat es in den letzten Jahren vermehrt
     längere Dürreperioden gegeben. Frost- und Schneetage haben abgenommen,
-    während heißte Tage (> 30°C) und sogenannte Tropennächte (> 20°C) zugenommen
-    haben.
+    während heißte Tage (> 30&thinsp;°C) und sogenannte Tropennächte (>
+    20&thinsp;°C) zugenommen haben.
   </Section>
   <Zeitreihe />
   <Section>

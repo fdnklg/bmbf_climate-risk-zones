@@ -61,14 +61,14 @@
   .container {
     height: auto;
     width: 100%;
-    max-width: $size-chart;
+    max-width: 490px;
     margin: 0 auto;
     top: 25%;
     padding: $space-m;
 
     @include respond-max-screen-medium {
-      max-width: none;
       width: 100%;
+      max-width: 490px;
     }
 
     @include respond-max-screen-phablet {
