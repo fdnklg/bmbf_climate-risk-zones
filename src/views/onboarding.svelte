@@ -1,9 +1,31 @@
 <script>
+  import { getDocumentHeight } from 'utils'
+
   import Input from 'components/Input.svelte'
   import Tile from 'components/Tile/Tile.svelte'
   import TileParagraph from 'components/Tile/TileParagraph.svelte'
 
   const inputClass = 'onboarding-input'
+
+  window.onscroll = function (ev) {
+    const documentHeight = getDocumentHeight()
+    if (window.innerHeight + window.scrollY >= documentHeight) {
+      const inputNode = document.querySelector(`.${inputClass}`)
+      const hintNode = document.querySelector(`.input-hint`)
+
+      inputNode.classList.add('blink')
+      hintNode.classList.add('visible')
+      hintNode.classList.add('highlight')
+
+      setTimeout(() => {
+        inputNode.classList.remove('blink')
+      }, 300)
+
+      setTimeout(() => {
+        hintNode.classList.remove('highlight')
+      }, 300)
+    }
+  }
 </script>
 
 <style lang="scss">

@@ -5,6 +5,18 @@ import { feature, mesh, merge } from 'topojson-client'
 import { createFeature } from 'components/Map3D/utils.js'
 import { STATE_LABELS, stateCentroids } from 'constants'
 
+export const getDocumentHeight = () => {
+  const body = document.body,
+    html = document.documentElement
+  return Math.max(
+    body.scrollHeight,
+    body.offsetHeight,
+    html.clientHeight,
+    html.scrollHeight,
+    html.offsetHeight
+  )
+}
+
 export function range(start, end, step = 1) {
   const allNumbers = [start, end, step].every(Number.isFinite)
 
