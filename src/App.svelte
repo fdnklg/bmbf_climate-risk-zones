@@ -14,6 +14,7 @@
   import Header from 'components/Header.svelte'
   import Meta from 'core/components/Meta.svelte'
   import Section from 'components/Section.svelte'
+  import ReadingList from 'components/ReadingList.svelte';
 
   function handleActiveStep(e) {
     step = e.detail
@@ -70,5 +71,5 @@
   <Section>
     Der Klimawandel wird auch viele Risiken für Deutschland mit sich bringen. Neben Entwicklungen die versuchen den Klimawandel zu stoppen oder zumindest zu verlangsamen, wie der Reduktion von Treibhausgasemmissionen, müssen wir uns aber auch den schon jetzt eintretenden Folgen stellen. Für weiterführende Informationen empfehlen wir die Seiten des Umweltbundesamts. Im Folgenden haben wir eine Reihe Artikel zusammengestellt, die besonders Themen für deine Region hervorheben:
   </Section>
-  <!-- HIER BAUE ICH NOCH EINE NEUE COMPONENT, WELCHE DIE SEITEN ENTSPRECHEND ZUR PLZ AUFLISTET... -->
+  <ReadingList />
 </div>
