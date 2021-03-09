@@ -10,7 +10,7 @@
   @import 'src/style/root.scss';
   .container {
     margin: auto;
-    margin-bottom: 40px;
+    margin-bottom: 100px;
 
     @include respond-max-screen-phablet {
       width: calc(100% - 40px);
