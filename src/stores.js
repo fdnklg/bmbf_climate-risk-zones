@@ -178,6 +178,7 @@ export const storyData = derived(
               denseSpace: dense_space.bbox === 1 ? true : false,
               denseSpaceName: dense_space.name,
               hasOceanFlood: has_ocean_flood === 1 ? true : false,
+              hasFluvialFlood: hasFluvialFlood === 1 ? true : false,
             },
           }
 
