@@ -67,4 +67,8 @@
     Die folgende Karte zeigt die durchschnittliche Temperatur in Deutschland seit 1887. Über diesen langen Zeitraum wird noch einmal deutlich, dass es schon immer mal heißere und kältere Jahre gab. Einen kontinuierlichen Anstieg, wie wir ihn seit den 1980er Jahren verzeichnen können, gab es in diesem Messungszeitraum bisher aber nicht. Klimawandel und Klima im Allgemeinen beschreiben genau solche langfristigen größeren Veränderungen und Zusammenhänge, die sich unabhängig von lokalen Wetterextremen in den Daten abzeichnen.
   </Section>
   <Animation />
+  <Section>
+    Der Klimawandel wird auch viele Risiken für Deutschland mit sich bringen. Neben Entwicklungen die versuchen den Klimawandel zu stoppen oder zumindest zu verlangsamen, wie der Reduktion von Treibhausgasemmissionen, müssen wir uns aber auch den schon jetzt eintretenden Folgen stellen. Für weiterführende Informationen empfehlen wir die Seiten des Umweltbundesamts. Im Folgenden haben wir eine Reihe Artikel zusammengestellt, die besonders Themen für deine Region hervorheben:
+  </Section>
+  <!-- HIER BAUE ICH NOCH EINE NEUE COMPONENT, WELCHE DIE SEITEN ENTSPRECHEND ZUR PLZ AUFLISTET... -->
 </div>
