@@ -1,19 +1,22 @@
 <script>
   import { getChartContext } from './Chart.svelte'
   import { tweened } from 'svelte/motion'
+  import { cubicOut } from 'svelte/easing'
+  import { afterUpdate } from 'svelte'
   const { x_scale, y_scale } = getChartContext()
 
   export let x
   export let y
   export let y1
-  export let duration = 200
+  export let duration = 400
   export let index = 0
-  export let delay = 15
+  export let delay = 10
   export let scrollingDown = false
   export let animated
 
   const position = tweened(scrollingDown ? y : y1, {
     duration: duration,
+    easing: cubicOut,
   })
 
   let style
@@ -33,14 +36,17 @@
     style = `left: ${left}%; bottom: ${100 - bottom}%; height: ${height}%;`
   }
 
-  if (animated) {
-    setTimeout(() => {
-      position.set(scrollingDown ? y1 : y)
-    }, delay * index)
-  }
+  afterUpdate(() => {
+    if (animated) {
+      setTimeout(() => {
+        position.set(scrollingDown ? y1 : y)
+      }, delay) //  * index
+    }
+  })
 </script>
 
-<style>
+<style lang="scss">
+  @import 'src/style/root.scss';
   .pancake-point {
     position: absolute;
     width: 0;
@@ -49,7 +55,7 @@
   .pancake-box {
     position: absolute;
     width: 1px;
-    background-color: grey;
+    background-color: $color-main-20;
     height: 0;
   }
 </style>
@@ -57,11 +63,11 @@
 <div class="pancake-box" {style}>
   <slot name="box" />
 </div>
-<div class="pancake-point" style="left: {$x_scale(x)}%; top: {$y_scale(y)}%">
-  <slot name="pointStart" />
-</div>
 <div
   class="pancake-point"
   style="left: {$x_scale(x)}%; top: {$y_scale(animated ? $position : y1)}%">
   <slot name="pointEnd" />
+</div>
+<div class="pancake-point" style="left: {$x_scale(x)}%; top: {$y_scale(y)}%">
+  <slot name="pointStart" />
 </div>
