@@ -335,7 +335,8 @@ export const content = {
           isMapbox: true,
           annotations: [
             {
-              text: (json) => `Verdichtungsraum ${json.dense_space.name}`,
+              text: (json) =>
+                `<span class="dense-space bold">Verdichtungsraum</span> ${json.dense_space.name}`,
             },
           ],
         },
@@ -371,7 +372,7 @@ export const content = {
           annotations: [
             {
               text: (json) => {
-                console.log('json', json)
+                console.log('json', json) // @TODO unterscheiden je nach Überschwemmungslevel
                 return `Überschwemmungsgebiete <strong>${json.postcode}</strong>.`
               },
             },
