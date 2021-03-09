@@ -92,8 +92,42 @@ textarea {
   border-radius: 2px;
 }
 
+.bold {
+  font-family: 'Post Grotesk Bold';
+}
+
+.dense-space {
+  color: #5d42d2;
+}
+
+.cold {
+  color: #3b75f1;
+}
+.warm {
+  color: #ec5e51;
+}
+.dry {
+  color: #f6815a;
+}
+.premountain {
+  color: #ffaa42;
+}
+.midmountain {
+  color: #ffd97a;
+}
+.mountain {
+  color: #ffe8ad;
+}
+
 input:disabled {
   color: #ccc;
+}
+
+.addition {
+  color: #6b6e82;
+  font-size: 13px;
+  line-height: 130%;
+  font-family: 'Post Grotesk Bold';
 }
 
 #zipcode:-webkit-autofill,

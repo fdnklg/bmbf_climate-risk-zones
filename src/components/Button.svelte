@@ -1,5 +1,6 @@
 <script>
   export let handleClick
+  export let marginRight = false
   export let primary = true
 </script>
 
@@ -46,10 +47,15 @@
       border-radius: 0;
     }
   }
+  .margin-right {
+    @media screen and (min-width: 650px) {
+      margin-right: 20px;
+    }
+  }
 </style>
 
 <button
   on:click={handleClick}
-  class="button {primary ? 'primary' : 'secondary'}">
+  class="button {marginRight ? 'margin-right' : ''} {primary ? 'primary' : 'secondary'}">
   <slot />
 </button>

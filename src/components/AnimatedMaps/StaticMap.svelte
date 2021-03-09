@@ -23,7 +23,9 @@
       ? feat.properties.data[dateIndex]
       : false
 
-    const fill = currentData ? colorScale(currentData) : '#fff'
+    const fill = currentData
+      ? colorScale(currentData)
+      : 'rgba(255, 255, 255, 0.7)'
 
     return {
       d,
@@ -48,6 +50,7 @@
       stroke={hasStroke ? feature.stroke : null} />
   {/each}
   {#if marker}
-    <circle cx={marker[0]} cy={marker[1]} r="3" fill="#080e2f" />
+    <circle cx={marker[0]} cy={marker[1]} r="1.75" fill="#080e2f" />
+    <circle cx={marker[0]} cy={marker[1]} r="4" fill="none" stroke="#080e2f" />
   {/if}
 </svg>

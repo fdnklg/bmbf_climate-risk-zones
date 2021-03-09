@@ -12,6 +12,7 @@ import { zeitreiheDataKeys, s3UrlRisk, styles } from 'constants'
 export const data = writable(null)
 export const activeZipcode = writable(10115)
 export const zipcodes = writable([])
+export const windowWidth = writable(false)
 export const userInput = writable(false)
 export const activeKeyZeitreihe = writable('air_temperature_max')
 export const selectedAnchors = writable([])
@@ -26,7 +27,7 @@ export const storyData = derived(
       const getData = async () => {
         const json = await fetchJson(`${s3UrlRisk}postcode/${zipcode}.json`)
         if ($data) {
-          console.log($data)
+          console.log('$data', $data)
           let dataObj = {}
           let { szenarien } = $data
           const {

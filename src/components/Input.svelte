@@ -169,9 +169,9 @@
   {/if}
 
   <div class="onboarding buttons">
-    <Button primary={true} handleClick={handleSubmit}>Bestätigen</Button>
-    <Button primary={false} handleClick={handleRandom}>
-      Zufällige Auswahl
+    <Button marginRight={true} primary={true} handleClick={handleSubmit}>
+      Bestätigen
     </Button>
+    <Button primary={false} handleClick={handleRandom}>Zufällige Region</Button>
   </div>
 </div>

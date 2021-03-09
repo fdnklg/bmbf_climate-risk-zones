@@ -23,7 +23,9 @@
     border-radius: 100%;
     color: white;
     height: 40px;
+    min-width: 40px;
     width: 40px;
+    min-height: 40px;
     cursor: pointer;
     border: 1px solid $color-main-20;
     opacity: 1;

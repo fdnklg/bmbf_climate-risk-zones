@@ -16,6 +16,9 @@
   export let max = 200
   export let value = 0
 
+  let windowWidth
+
+  $: ticks = windowWidth < 650 ? 3 : 6
   $: year = (i) => 2020 - max + i
   $: colorScale = meta ? getColorScale(meta.extentGermany) : null
 
@@ -58,19 +61,27 @@
   .container {
     height: auto;
     width: 100%;
-    max-width: $size-chart;
+    max-width: 490px;
     margin: 0 auto;
     top: 25%;
     padding: $space-m;
 
     @include respond-max-screen-medium {
-      max-width: none;
       width: 100%;
+      max-width: 490px;
     }
 
     @include respond-max-screen-phablet {
       padding-top: 10px;
     }
+  }
+
+  .x-tip {
+    width: 1px;
+    height: 5px;
+    position: absolute;
+    bottom: -24px;
+    background-color: $color-main-20;
   }
 
   .line {
@@ -86,8 +97,8 @@
     margin: 0 0 36px 0;
 
     @include respond-max-screen-phablet {
-      height: 130px;
-      padding-left: 10px;
+      height: 80px;
+      padding: 3em 0 0 20px;
       width: calc(100% - 40px);
     }
   }
@@ -139,6 +150,7 @@
       color: $color-main-60;
       font-size: $font-size-xs;
       letter-spacing: 0.03em;
+      bottom: 0px;
     }
   }
   .annotation-dot {
@@ -198,14 +210,6 @@
     transform: translate(-50%, -100%);
   }
 
-  .x-tip {
-    width: 1px;
-    height: 5px;
-    position: absolute;
-    bottom: -35px;
-    background-color: $color-main-20;
-  }
-
   .year-label {
     opacity: $color-main;
     line-height: 120%;
@@ -239,12 +243,12 @@
         <Grid horizontal count={3} let:value>
           <div class="grid-line horizontal">
             {#if value === 30}
-              <span class="y-label-desc">°C (7 Jahres-Ø-Temperatur)</span>
+              <span class="y-label-desc">&thinsp;°C 7 Jahres-Ø-Temperatur</span>
             {/if}
             <span class="y-label">{value}</span>
           </div>
         </Grid>
-        <Grid vertical count={6} let:value>
+        <Grid vertical count={ticks} let:value>
           <span class="x-label">{value}</span>
           <div class="x-tip" />
         </Grid>
@@ -282,3 +286,5 @@
     </div>
   {/if}
 </div>
+
+<svelte:window bind:innerWidth={windowWidth} />
