@@ -92,22 +92,22 @@ export const content = {
         paragraph: (json) => {
           switch (json.zeitreihen.meta.riskzones[0]) {
             case 'cold':
-              return 'Du befindest dich in einer Region mit kühlerem Klima. Diese Region hat zwar gemäßigte Temperaturen und eine geringe Anzahl an Trocken- und Frosttagen, dafür aber eine größere Anzahl an Tagen mit Starkregen und Starkwind.'
+              return 'Du befindest dich in einer Region mit <span class="cold bold">kühlerem Klima</span>. Diese Region hat zwar gemäßigte Temperaturen und eine geringe Anzahl an Trocken- und Frosttagen, dafür aber eine größere Anzahl an Tagen mit Starkregen und Starkwind.'
               break
             case 'warm':
-              return 'Du befindest dich in einer Region mit warmem Klima. Diese Region zeichnet sich besonders durch Hitze und Trockenheit aus.'
+              return 'Du befindest dich in einer Region mit  <span class="warm bold">warmem Klima.</span> Diese Region zeichnet sich besonders durch Hitze und Trockenheit aus.'
               break
             case 'dry':
-              return 'Du befindest dich in einer Region mit trockenerem Klima. In diesen Regionen fällt über das ganze Jahr hinweg unterdurchschnittlich viel Regen, bei gleichzeit starken Schwankungen zwischen den Jahreszeiten bei Temperaturen und Niederschlägen.'
+              return 'Du befindest dich in einer Region mit  <span class="cold dry">trockenerem Klima.</span> In diesen Regionen fällt über das ganze Jahr hinweg unterdurchschnittlich viel Regen, bei gleichzeit starken Schwankungen zwischen den Jahreszeiten bei Temperaturen und Niederschlägen.'
               break
             case 'premountain':
-              return 'Du befindest dich in einer Region mit Gebirgsvorlandklima. Neben vielen Tagen mit Frost und Starkregen, zeichnet sich diese Region auch durch überdurchschnittliche hohe Niederschläge im Sommer aus.'
+              return 'Du befindest dich in einer Region mit  <span class="premountain bold">Gebirgsvorlandklima.</span> Neben vielen Tagen mit Frost und Starkregen, zeichnet sich diese Region auch durch überdurchschnittliche hohe Niederschläge im Sommer aus.'
               break
             case 'midmountain':
-              return 'Du befindest dich in einer Region mit Mittelgebirksklima. Neben vielen Frosttagen, zeichnet sich diese Region durch häufigen Starkregen und hohe Sommer- und Winterniederschläge aus.'
+              return 'Du befindest dich in einer Region mit  <span class="midmountain bold">Mittelgebirksklima.</span> Neben vielen Frosttagen, zeichnet sich diese Region durch häufigen Starkregen und hohe Sommer- und Winterniederschläge aus.'
               break
             case 'mountain':
-              return 'Du befindest dich in einer Region mit Gebirgsklima. Diese Regionen zeichnen sich durch hohe Niederschlagswerte und viele Tage mit Starkregen und Frost aus.'
+              return 'Du befindest dich in einer Region mit  <span class="mountain bold">Gebirgsklima.</span> Diese Regionen zeichnen sich durch hohe Niederschlagswerte und viele Tage mit Starkregen und Frost aus.'
               break
             default:
               return 'Klimazone'
@@ -286,22 +286,22 @@ export const content = {
               text: (json) => {
                 switch (json.risk_zones[0]) {
                   case 'cold':
-                    return 'Regionen mit<br />kühlerem Klima'
+                    return 'Regionen mit<br /><span class="cold">kühlerem Klima</span>'
                     break
                   case 'warm':
-                    return 'Regionen mit<br />warmem Klima'
+                    return 'Regionen mit<br /><span class="warm">warmem Klima</span>'
                     break
                   case 'dry':
-                    return 'Regionen mit<br />trockenerem Klima'
+                    return 'Regionen mit<br /><span class="dry">trockenerem Klima</span'
                     break
                   case 'premountain':
-                    return 'Regionen mit<br />Gebirgsvorlandklima'
+                    return 'Regionen mit<br /><span class="premountain">Gebirgsvorlandklima</span>'
                     break
                   case 'midmountain':
-                    return 'Regionen mit<br />Mittelgebirgsklima'
+                    return 'Regionen mit<br /><span class="midmountain">Mittelgebirgsklima</span>'
                     break
                   case 'mountain':
-                    return 'Regionen mit<br />Gebirgsklima'
+                    return 'Regionen mit<br /><span class="mountain">Gebirgsklima</span>'
                     break
                   default:
                     return 'Klimazone'
@@ -368,6 +368,14 @@ export const content = {
         },
         {
           key: 'fluvial_flood',
+          annotations: [
+            {
+              text: (json) => {
+                console.log('json', json)
+                return `Überschwemmungsgebiete <strong>${json.postcode}</strong>.`
+              },
+            },
+          ],
         },
       ],
     },
