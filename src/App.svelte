@@ -54,26 +54,21 @@
   <Meta meta={metadata} />
   <Header />
   <Section>
-    Steigende Temperaturen, vermehrte Extremwettereignisse und andere
-    Veränderungen, welche sich auf den fortschreitenden Klimawandel zurückführen
-    lassen, haben einen direkten Einfluss auf unsere Umwelt und auf unser
-    alltägliches Leben. Die Auswirkungen bekommen somit nicht nur unsere Tier-
-    und Pflanzenwelt zu spüren, sondern auch wir selber, die durch
-    Extremwetterlagen genauso belastet werden, wie z.B. auch die Land- und
-    Forstwirtschaft. Erfahre mehr Details für deine spezifische Region:
+    Steigende Temperaturen, vermehrte Extremwettereignisse und andere Veränderungen, welche sich auf den fortschreitenden Klimawandel zurückführen lassen, haben einen direkten Einfluss auf unsere Umwelt und auf unser alltägliches Leben. Die Auswirkungen bekommen somit nicht nur unsere Tier- und Pflanzenwelt zu spüren, sondern auch wir selber, die durch Extremwetterlagen genauso belastet werden, wie z.B. auch die Land- und Forstwirtschaft. Erfahre mehr Details für deine spezifische Region:
   </Section>
   <Onboarding />
   <Szenarien />
   <Section>
-    Natürlich ist es am Ende des Tages nicht so einfach, denn neben Mobilität
-    produzieren wir in all unseren anderen Lebensbereich ebenfalls CO2 und unser
-    gesamter Fußabdruck setzt sich aus all dem zusammen.
-  </Section>
-  <Section>
-    Natürlich ist es am Ende des Tages nicht so einfach, denn neben Mobilität
-    produzieren wir in all unseren anderen Lebensbereich ebenfalls CO2 und unser
-    gesamter Fußabdruck setzt sich aus all dem zusammen.
+    Wenn über die Folgen des Klimawandels berichtet wird, hören wir häufig vom Schmelzen des arktischen Eises, von exotischen Inseln, welche vom Anstieg des Meeresspiegels bedroht sind, oder von den extremen Bränden in Australien oder der Westküste der USA. Doch dies sind nur die Extreme der Klimawandelfolgen. Auch in unseren Breiten können wir die Folgen bereits spüren.<br /><br />
+    In vielen Regionen Deutschlands hat es in den letzten Jahren vermehrt längere Dürreperioden gegeben. Frost- und Schneetage haben abgenommen, während heißte Tage (> 30°C) und sogenannte Tropennächte (> 20°C) zugenommen haben.
   </Section>
   <Zeitreihe />
-  <!-- <Animation /> -->
+  <Section>
+    Die folgende Karte zeigt die durchschnittliche Temperatur in Deutschland seit 1887. Über diesen langen Zeitraum wird noch einmal deutlich, dass es schon immer mal heißere und kältere Jahre gab. Einen kontinuierlichen Anstieg, wie wir ihn seit den 1980er Jahren verzeichnen können, gab es in diesem Messungszeitraum bisher aber nicht. Klimawandel und Klima im Allgemeinen beschreiben genau solche langfristigen größeren Veränderungen und Zusammenhänge, die sich unabhängig von lokalen Wetterextremen in den Daten abzeichnen.
+  </Section>
+  <Animation />
+  <Section>
+    Der Klimawandel wird auch viele Risiken für Deutschland mit sich bringen. Neben Entwicklungen die versuchen den Klimawandel zu stoppen oder zumindest zu verlangsamen, wie der Reduktion von Treibhausgasemmissionen, müssen wir uns aber auch den schon jetzt eintretenden Folgen stellen. Für weiterführende Informationen empfehlen wir die Seiten des Umweltbundesamts. Im Folgenden haben wir eine Reihe Artikel zusammengestellt, die besonders Themen für deine Region hervorheben:
+  </Section>
+  <!-- HIER BAUE ICH NOCH EINE NEUE COMPONENT, WELCHE DIE SEITEN ENTSPRECHEND ZUR PLZ AUFLISTET... -->
 </div>

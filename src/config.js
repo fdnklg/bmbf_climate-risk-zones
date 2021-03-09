@@ -33,16 +33,14 @@ export const content = {
       padding: 70,
       text: {
         title: 'Deine Region',
-        paragraph:
-          'Um deine Region besser untersuchen zu können, haben wir ein 5km Einzugsgebiet um deine Postleitzahl gelegt.',
+        paragraph: 'Um deine Region besser untersuchen zu können, haben wir ein 5km Einzugsgebiet um deine Postleitzahl gelegt.'
       },
       layers: [
         {
           key: 'postcode_geom',
           annotations: [
             {
-              text: (json) =>
-                `Gebiet der Postleitzahl <strong>${json.postcode}</strong>.`,
+              text: (json) => `Gebiet der Postleitzahl <strong>${json.postcode}</strong>.`,
             },
           ],
         },
@@ -64,9 +62,55 @@ export const content = {
       ], // defines the focus of the bounding box
       text: {
         title: (json) => {
-          return `Klimazone ${json.postcode}`
+          let climate = 'Klima';
+          switch (json.zeitreihen.meta.riskzones[0]) {
+            case 'cold':
+              climate = 'kühlerem Klima';
+              break;
+            case 'warm':
+              climate = 'warmem Klima';
+              break;
+            case 'dry':
+              climate = 'trockenerem Klima';
+              break;
+            case 'premountain':
+              climate = 'Gebirgsvorlandklima';
+              break;
+            case 'midmountain':
+              climate = 'Mittelgebirgsklima';
+              break;
+            case 'mountain':
+              climate = 'Gebirgsklima';
+              break;
+            default:
+              climate = 'Klimazone'
+          }
+          return `Region mit ${climate}`
         },
-        paragraph: 'Deine Postleitzahl',
+        paragraph: (json) => {
+          switch (json.zeitreihen.meta.riskzones[0]) {
+            case 'cold':
+              return 'Du befindest dich in einer Region mit kühlerem Klima. Diese Region hat zwar gemäßigte Temperaturen und eine geringe Anzahl an Trocken- und Frosttagen, dafür aber eine größere Anzahl an Tagen mit Starkregen und Starkwind.';
+              break;
+            case 'warm':
+              return 'Du befindest dich in einer Region mit warmem Klima. Diese Region zeichnet sich besonders durch Hitze und Trockenheit aus.';
+              break;
+            case 'dry':
+              return 'Du befindest dich in einer Region mit trockenerem Klima. In diesen Regionen fällt über das ganze Jahr hinweg unterdurchschnittlich viel Regen, bei gleichzeit starken Schwankungen zwischen den Jahreszeiten bei Temperaturen und Niederschlägen.';
+              break;
+            case 'premountain':
+              return 'Du befindest dich in einer Region mit Gebirgsvorlandklima. Neben vielen Tagen mit Frost und Starkregen, zeichnet sich diese Region auch durch überdurchschnittliche hohe Niederschläge im Sommer aus.';
+              break;
+            case 'midmountain':
+              return 'Du befindest dich in einer Region mit Mittelgebirksklima. Neben vielen Frosttagen, zeichnet sich diese Region durch häufigen Starkregen und hohe Sommer- und Winterniederschläge aus.';
+              break;
+            case 'mountain':
+              return 'Du befindest dich in einer Region mit Gebirgsklima. Diese Regionen zeichnen sich durch hohe Niederschlagswerte und viele Tage mit Starkregen und Frost aus.';
+              break;
+            default:
+              return 'Klimazone'
+          }
+        }
       },
       layers: [
         {
@@ -75,25 +119,25 @@ export const content = {
           annotations: [
             {
               text: (json) => {
-                switch (json.risk_zones[0]) {
+                switch(json.risk_zones[0]) {
                   case 'cold':
-                    return 'Kühles Klima'
-                    break
+                    return 'Regionen mit<br />kühlerem Klima';
+                    break;
                   case 'warm':
-                    return 'Warmes Klima'
-                    break
+                    return 'Regionen mit<br />warmem Klima';
+                    break;
                   case 'dry':
-                    return 'Trockenes Klima'
-                    break
+                    return 'Regionen mit<br />trockenerem Klima';
+                    break;
                   case 'premountain':
-                    return 'Gebirgsvorlandklima'
-                    break
+                    return 'Regionen mit<br />Gebirgsvorlandklima';
+                    break;
                   case 'midmountain':
-                    return 'Mittelgebirgsklima'
-                    break
+                    return 'Regionen mit<br />Mittelgebirgsklima';
+                    break;
                   case 'mountain':
-                    return 'Gebirgsklima'
-                    break
+                    return 'Regionen mit<br />Gebirgsklima';
+                    break;
                   default:
                     return 'Klimazone'
                 }
@@ -113,18 +157,201 @@ export const content = {
       ],
     },
     {
+      step: '1.5',
+      fitBounds: [
+        [5.98865807458, 47.3024876979],
+        [15.0169958839, 54.983104153],
+      ], // defines the focus of the bounding box
+      text: {
+        title: 'Zukünftige Herausforderungen',
+        paragraph: (json) => {
+          switch (json.zeitreihen.meta.riskzones[0]) {
+            case 'cold':
+              return 'In Zukunft kann die Wahrscheinlichkeit für Extremwetterereignisse und dir dadurch entstehenden Schäden zunehmen.';
+              break;
+            case 'warm':
+              return 'In Zukunft wird es in diesen Regionen noch häufiger heiße Tage (mehr als 30°C) und sogenannte Tropennächte (20°C und wärmer) geben. Diese Klimaregion wird sich wahrscheinlich noch weiter ausdehnen.';
+              break;
+            case 'dry':
+              return 'In Zukunft wird die Trockenheit in diesen Regionen weiter zunehmen und damit auf Einfluss auf die Wasserressourcen haben. Darüber hinaus ein genereller Trend zu höheren Temperaturen, über das ganze Jahr hinweg.';
+              break;
+            case 'premountain':
+              return 'In Zukunft werden die Temperaturen im Sommer weiter steigen und damit auch die Anzahl der heißen Tage (mehr als 30°C). In manchen der Vorgebirgsregionen wird ein Ansteig der Siedlungs- und Verkehrsflächen erwartet. Dies wird die Effekte verstärken.';
+              break;
+            case 'midmountain':
+              return 'In Zukunft werden die Temperaturen sowohl in Sommer als auch Winter weiter ansteigen, mit einer gleichzeitigen Zunahme der Niederschläge und seltenerem Schneefall.';
+              break;
+            case 'mountain':
+              return 'In Zukunft werden sich diese Regionen überdurchschnittlich stark Erwärmen. Gleichzeit sollen Starkregenereignisse und Niederschläge im Winter zunehmen, während Niederschläge im Sommer abnehmen.';
+              break;
+            default:
+              return 'Klimazone'
+          }
+        }
+      },
+      layers: [
+        {
+          key: 'klimazonen',
+          isMapbox: true,
+          annotations: [
+            {
+              text: (json) => {
+                switch(json.risk_zones[0]) {
+                  case 'cold':
+                    return 'Regionen mit<br />kühlerem Klima';
+                    break;
+                  case 'warm':
+                    return 'Regionen mit<br />warmem Klima';
+                    break;
+                  case 'dry':
+                    return 'Regionen mit<br />trockenerem Klima';
+                    break;
+                  case 'premountain':
+                    return 'Regionen mit<br />Gebirgsvorlandklima';
+                    break;
+                  case 'midmountain':
+                    return 'Regionen mit<br />Mittelgebirgsklima';
+                    break;
+                  case 'mountain':
+                    return 'Regionen mit<br />Gebirgsklima';
+                    break;
+                  default:
+                    return 'Klimazone'
+                }
+              },
+            },
+          ],
+        },
+        {
+          key: 'postcode_geom',
+          annotations: [
+            {
+              text: (json) => `Postleitzahl <strong>${json.postcode}</strong>`,
+              id: 'postcode_geom',
+            },
+          ],
+        },
+      ],
+    },
+    {
+      step: '1.5',
+      fitBounds: [
+        [5.98865807458, 47.3024876979],
+        [15.0169958839, 54.983104153],
+      ], // defines the focus of the bounding box
+      text: {
+        title: 'Handlungsfelder',
+        paragraph: (json) => {
+          let r = 'In dieser Region müssen vor allem die Themen ';
+          switch (json.zeitreihen.meta.riskzones[0]) {
+            case 'cold':
+              r += 'Wasserwirtschaft und -haushalt, Küsten- und Meeresschutz, Verkehr sowie Bauwesen, Industrie und Gewerbe';
+              break;
+            case 'warm':
+              r += 'menschliche Gesundheit, Forst- und Landwirtschaft sowie Verkehr';
+              break;
+            case 'dry':
+              r += 'Wasserwirtschaft und -haushalt sowie Land- und Forstwirtschaft';
+              break;
+            case 'premountain':
+              r += 'menschliche Gesundheit und Energiewirtschaft';
+              break;
+            case 'midmountain':
+              r += 'Wasserwirtschaft und -haushalt sowie der Tourismus';
+              break;
+            case 'mountain':
+              r += 'Biologische Vielfalt, Wasserwirtschaft und -haushalt, Bauwesen, Verkehr sowie Industrie und Gewerbe';
+              break;
+            default:
+              r += '...'
+          }
+          return r + ' mit Nachdruck behandelt werden. Am Ende des Artikels haben wir weiterführende Links zu den wichtigen Themen für deine Region zusammengestellt.'
+        }
+      },
+      layers: [
+        {
+          key: 'klimazonen',
+          isMapbox: true,
+          annotations: [
+            {
+              text: (json) => {
+                switch(json.risk_zones[0]) {
+                  case 'cold':
+                    return 'Regionen mit<br />kühlerem Klima';
+                    break;
+                  case 'warm':
+                    return 'Regionen mit<br />warmem Klima';
+                    break;
+                  case 'dry':
+                    return 'Regionen mit<br />trockenerem Klima';
+                    break;
+                  case 'premountain':
+                    return 'Regionen mit<br />Gebirgsvorlandklima';
+                    break;
+                  case 'midmountain':
+                    return 'Regionen mit<br />Mittelgebirgsklima';
+                    break;
+                  case 'mountain':
+                    return 'Regionen mit<br />Gebirgsklima';
+                    break;
+                  default:
+                    return 'Klimazone'
+                }
+              },
+            },
+          ],
+        },
+        {
+          key: 'postcode_geom',
+          annotations: [
+            {
+              text: (json) => `Postleitzahl <strong>${json.postcode}</strong>`,
+              id: 'postcode_geom',
+            },
+          ],
+        },
+      ],
+    },
+    {
+      step: '1.3',
+      showMinimap: true,
+      text: {
+        title: 'Verdichtungsräume',
+        paragraph: (json) => `Deine Region befindet sich im Verdichtungsraum <strong>${json.zeitreihen.meta.denseSpaceName}</strong>. Verdichtungsräume sind Gebiete mit einer hohen Dichte an Siedlungs- und Industrieflächen. In diesen Gebieten konzentrieren sich Gefahren für Schäden an Gebäuden und Infrastruktur, durch z.B. Hitzebelastung oder extreme Wetterereignisse. Durch die hohe Bevölkerungsdichte in diesen Gebieten sind viele Menschen durch die Folgen betroffen.`
+      },
+      layers: [
+        {
+          key: 'verdichtungsraeume',
+          isMapbox: true,
+          annotations: [
+            {
+              text: (json) => `Verdichtungsraum ${json.dense_space.name}`,
+            },
+          ],
+        },
+        {
+          key: 'postcode_geom',
+          annotations: [
+            {
+              text: (json) => `Postleitzahl <strong>${json.postcode}</strong>`,
+            },
+          ],
+        },
+      ],
+    },
+    {
       step: '1.1',
       showMinimap: true,
       text: {
-        title: '',
-        paragraph: '',
+        title: 'Überschwemmungen',
+        paragraph: 'Auch Hochwasser können durch den Klimawandel begünstigt werden. Hier zu sehen sind Wahr&shy;schein&shy;lich&shy;keiten, dass ein Hoch&shy;wasser&shy;ereigniss dieser Größen&shy;ordnung in einem von <strong style="color:#3C76F2;">10-30</strong>, <strong style="color:#88ACF9;">100</strong> und <strong style="color:#CADBFF;">200</strong> Jahren auftritt. Einmal in 200 Jahren entspricht also einer sehr geringen und einmal in 10-30 Jahren einer hohen Wahrscheinlichkeit.'
       },
       layers: [
         {
           key: 'postcode_geom',
           annotations: [
             {
-              text: (json) => 'Fläche der von dir eingegebenen Postleitzahl.',
+              text: (json) => `Postleitzahl <strong>${json.postcode}</strong>`,
             },
           ],
         },
@@ -133,34 +360,13 @@ export const content = {
         },
       ],
     },
-    {
-      step: '1.3',
-      showMinimap: true,
-      text: {
-        title: '',
-        paragraph: '',
-      },
-      layers: [
-        {
-          key: 'verdichtungsraeume',
-          isMapbox: true,
-        },
-        {
-          key: 'postcode_geom',
-          annotations: [
-            {
-              text: (json) => 'Fläche der von dir eingegebenen Postleitzahl.',
-            },
-          ],
-        },
-      ],
-    },
+    
     {
       step: '1.4',
       showMinimap: true,
       text: {
-        title: '',
-        paragraph: '',
+        title: 'Küstengebiete',
+        paragraph: 'Gebiete die in Küstennähe, sind darüber hinaus auch dem klimabedingten Anstieg des Meeresspiegels und vermehrten Sturmfluten ausgesetzt.'
       },
       layers: [
         {
@@ -171,39 +377,39 @@ export const content = {
           key: 'postcode_geom',
           annotations: [
             {
-              text: (json) => 'Fläche der von dir eingegebenen Postleitzahl.',
+              text: (json) => `Postleitzahl <strong>${json.postcode}</strong>`,
             },
           ],
         },
       ],
     },
-
-    {
-      step: '1.6',
-      fitBounds: [
-        [5.98865807458, 47.3024876979],
-        [15.0169958839, 54.983104153],
-      ], // defines the focus of the bounding box
-      text: {
-        title: '',
-        paragraph: '',
-      },
-      layers: [
-        {
-          key: 'hochwasser',
-          isMapbox: true,
-        },
-        {
-          key: 'postcode_geom',
-          annotations: [
-            {
-              text: (json) => 'Fläche der von dir eingegebenen Postleitzahl.',
-              id: 'postcode_geom',
-            },
-          ],
-        },
-      ],
-    },
+    
+    // {
+    //   step: '1.6',
+    //   fitBounds: [
+    //     [5.98865807458, 47.3024876979],
+    //     [15.0169958839, 54.983104153],
+    //   ], // defines the focus of the bounding box
+    //   text: {
+    //     title: '',
+    //     paragraph: ''
+    //   },
+    //   layers: [
+    //     {
+    //       key: 'hochwasser',
+    //       isMapbox: true,
+    //     },
+    //     {
+    //       key: 'postcode_geom',
+    //       annotations: [
+    //         {
+    //           text: (json) => 'Fläche der von dir eingegebenen Postleitzahl.',
+    //           id: 'postcode_geom',
+    //         },
+    //       ],
+    //     },
+    //   ],
+    // },
   ],
 
   zeitreiheSteps: [
@@ -213,9 +419,9 @@ export const content = {
       datakey: 'air_temperature_max',
       show: ['min', 'minToMax'],
       text: {
-        title: 'Überschrift hier',
+        title: 'Temperaturentwicklung',
         paragraph:
-          'Natürlich ist es am Ende des Tages nicht so einfach, denn neben Mobilität produzieren wir in all unseren anderen Lebensbereich ebenfalls CO2 und unser gesamter Fußabdruck setzt sich aus all dem zusammen.',
+          'Besonders deutlich wird die klimawandelbedingte Entwicklung, wenn man sich die Jahreswerte der Temperaturen der letzten Jahre anschaut.',
       },
     },
     {
@@ -224,33 +430,33 @@ export const content = {
       datakey: 'air_temperature_max',
       show: ['min', 'minToMax'],
       text: {
-        title: 'Überschrift hier',
+        title: 'Temperaturentwicklung',
         paragraph:
-          'Natürlich ist es am Ende des Tages nicht so einfach, denn neben Mobilität produzieren wir in all unseren anderen Lebensbereich ebenfalls CO2 und unser gesamter Fußabdruck setzt sich aus all dem zusammen.',
+          'Hier zu sehen sind die <strong style="color: rgb(180, 98, 80);">höchsten</strong> und <strong style="color: rgb(199, 161, 104);">niedrigsten</strong>Temperaturen der lezten Jahre für deine Region.',
       },
     },
     {
       step: '2.3',
       data: 'merged',
       datakey: 'air_temperature_max',
-      show: ['min', 'max', 'yGermany'],
+      show: ['min', 'max', 'yPostcode'],
       text: {
-        title: 'Überschrift hier',
+        title: 'Zunehmender Trend',
         paragraph:
-          'Natürlich ist es am Ende des Tages nicht so einfach, denn neben Mobilität produzieren wir in all unseren anderen Lebensbereich ebenfalls CO2 und unser gesamter Fußabdruck setzt sich aus all dem zusammen.',
+          'Betrachtet man neben den Extremen, den <strong style="color:grey;">Durchschnitt</strong>, lässt sich in den meisten Regionen ein langsamer Anstieg erkennen.',
       },
     },
     {
       step: '2.4',
       data: 'merged',
       datakey: 'air_temperature_max',
-      show: ['yPostcode', 'yPostcode', 'yGermany'],
+      show: ['min', 'max', 'yPostcode', 'yGermany'],
       text: {
-        title: 'Überschrift hier',
+        title: 'Deutscher Durchschnitt',
         paragraph:
-          'Natürlich ist es am Ende des Tages nicht so einfach, denn neben Mobilität produzieren wir in all unseren anderen Lebensbereich ebenfalls CO2 und unser gesamter Fußabdruck setzt sich aus all dem zusammen.',
-      },
-    },
+          'Dieser Ansteig wird auch im <strong>Deutschen Durchschnitt</strong> deutlich, der von lokalen Veränderungen leicht abweichen kann.',
+      }
+    }
   ],
 }
 
