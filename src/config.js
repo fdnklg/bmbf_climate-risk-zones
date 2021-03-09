@@ -172,13 +172,13 @@ export const content = {
               return 'In Zukunft kann die Wahrscheinlichkeit für Extremwetterereignisse und dir dadurch entstehenden Schäden zunehmen.'
               break
             case 'warm':
-              return 'In Zukunft wird es in diesen Regionen noch häufiger heiße Tage (mehr als 30&thinsp;°C) und sogenannte Tropennächte (20&thinsp;°C und wärmer) geben. Diese Klimaregion wird sich wahrscheinlich noch weiter ausdehnen.'
+              return 'In Zukunft wird es in diesen Regionen noch häufiger heiße Tage <span class="addition">(mehr als 30&thinsp;°C)</span> und sogenannte Tropennächte <span class="addition">(20&thinsp;°C und wärmer)</span> geben. Diese Klimaregion wird sich wahrscheinlich noch weiter ausdehnen.'
               break
             case 'dry':
               return 'In Zukunft wird die Trockenheit in diesen Regionen weiter zunehmen und damit auf Einfluss auf die Wasserressourcen haben. Darüber hinaus ein genereller Trend zu höheren Temperaturen, über das ganze Jahr hinweg.'
               break
             case 'premountain':
-              return 'In Zukunft werden die Temperaturen im Sommer weiter steigen und damit auch die Anzahl der heißen Tage (mehr als 30&thinsp;°C). In manchen der Vorgebirgsregionen wird ein Ansteig der Siedlungs- und Verkehrsflächen erwartet. Dies wird die Effekte verstärken.'
+              return 'In Zukunft werden die Temperaturen im Sommer weiter steigen und damit auch die Anzahl der heißen Tage <span class="addition">(mehr als 30&thinsp;°C)</span>. In manchen der Vorgebirgsregionen wird ein Ansteig der Siedlungs- und Verkehrsflächen erwartet. Dies wird die Effekte verstärken.'
               break
             case 'midmountain':
               return 'In Zukunft werden die Temperaturen sowohl in Sommer als auch Winter weiter ansteigen, mit einer gleichzeitigen Zunahme der Niederschläge und seltenerem Schneefall.'
