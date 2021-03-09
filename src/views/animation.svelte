@@ -8,11 +8,8 @@
   import Source from 'components/Source.svelte'
   import TimeSeriesSlider from 'components/TimeSeriesSlider.svelte'
   import { getColorScale } from 'components/AnimatedMaps/utils.js'
-  import { afterUpdate } from 'svelte'
 
   let windowWidth
-  let graphHeight
-  let graphWidth
 
   $: svgWidth = 400
   $: svgHeight = 550
@@ -27,7 +24,7 @@
   }
 
   $: {
-    console.log('svgWidth', graphHeight, graphWidth)
+    console.log('svgWidth', windowWidth)
   }
 
   $: isActive = false
@@ -81,7 +78,9 @@
   }
   .footer {
     width: 100%;
+    max-width: 490px;
     display: flex;
+    margin: auto;
     justify-content: space-between;
     align-items: center;
 

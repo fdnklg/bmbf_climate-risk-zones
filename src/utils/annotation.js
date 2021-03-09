@@ -11,6 +11,15 @@ function createAnnotation(layersWithAnchors, json, layer, szenario) {
           text: annotation.text(json),
         })
       })
+    } else if (key === 'fluvial_flood') {
+      current.forEach((currenAnnotation) => {
+        const { anchors, level } = currenAnnotation
+        szenario.anchors.push({
+          level,
+          anchors: anchors.map((d) => d.coordinates),
+          text: annotation.text(json),
+        })
+      })
     } else if (current) {
       const coords = current.map((p) => p.coordinates)
       szenario.anchors.push({
@@ -20,10 +29,21 @@ function createAnnotation(layersWithAnchors, json, layer, szenario) {
       })
     }
   })
+
+  console.log('szenario', szenario)
 }
 
 export function addAnnotations(json, szenario, layer) {
-  const { postcode_anchors, postcode_buff_anchors, risk_zone_anchors } = json
+  const {
+    postcode_anchors,
+    postcode_buff_anchors,
+    risk_zone_anchors,
+    fluvial_flood_anchors,
+    dense_space,
+  } = json
+
+  const { anchors } = dense_space
+
   const { key, annotations } = layer
 
   const layersWithAnchors = [
@@ -38,6 +58,14 @@ export function addAnnotations(json, szenario, layer) {
     {
       id: 'klimazonen',
       anchors: risk_zone_anchors,
+    },
+    {
+      id: 'fluvial_flood',
+      anchors: fluvial_flood_anchors,
+    },
+    {
+      id: 'verdichtungsraeume',
+      anchors: anchors,
     },
   ]
 

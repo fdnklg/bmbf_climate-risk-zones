@@ -1,5 +1,4 @@
 <script>
-  import { afterUpdate } from 'svelte'
   import { storyData, selectedAnchors, jsonData } from 'stores'
 
   import IntersectionObserver from 'core/components/Intersectionobserver.svelte'
@@ -30,7 +29,7 @@
     if (typeof txt === 'string') {
       return txt
     } else {
-      return txt($storyData);
+      return txt($storyData)
     }
   }
 </script>
@@ -76,17 +75,18 @@
       {#if showMinimap}
         <div class="minimap-container">
           <StaticMap
-            width={115}
-            height={150}
+            width={95}
+            height={120}
             hasMarker={marker}
             strokeWidth={1}
-            stroke="#808080"
+            stroke="#9c9fac"
             data={mapData} />
         </div>
       {/if}
-      {#each $selectedAnchors as d}
+      {#each $selectedAnchors as d, i}
         <Tooltip anchor={d.coords}>
           <TooltipContent data={d.text} />
+          <!-- @TODO check what kind of annotation is set? risk zone, fluvia flood or else and act accordingly in config.js† -->
         </Tooltip>
       {/each}
     </div>
