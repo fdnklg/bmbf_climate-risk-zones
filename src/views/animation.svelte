@@ -78,7 +78,9 @@
   }
   .footer {
     width: 100%;
+    max-width: 490px;
     display: flex;
+    margin: auto;
     justify-content: space-between;
     align-items: center;
 

@@ -141,7 +141,7 @@ export const zeitreiheHeadlines = {
     min: 'Minimale',
     max: 'maximale',
     avg: 'durchschnittliche',
-    metricHeadline: 'Anzahl Tage unter 0°C',
+    metricHeadline: 'Anzahl Tage unter 0&thinsp;°C',
     metric: '°C',
   },
   precipGE30mm_days: {

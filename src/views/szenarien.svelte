@@ -30,7 +30,7 @@
     if (typeof txt === 'string') {
       return txt
     } else {
-      return txt($storyData);
+      return txt($storyData)
     }
   }
 </script>
@@ -76,11 +76,11 @@
       {#if showMinimap}
         <div class="minimap-container">
           <StaticMap
-            width={115}
-            height={150}
+            width={95}
+            height={120}
             hasMarker={marker}
             strokeWidth={1}
-            stroke="#808080"
+            stroke="#9c9fac"
             data={mapData} />
         </div>
       {/if}

@@ -172,13 +172,13 @@ export const content = {
               return 'In Zukunft kann die Wahrscheinlichkeit für Extremwetterereignisse und dir dadurch entstehenden Schäden zunehmen.'
               break
             case 'warm':
-              return 'In Zukunft wird es in diesen Regionen noch häufiger heiße Tage (mehr als 30°C) und sogenannte Tropennächte (20°C und wärmer) geben. Diese Klimaregion wird sich wahrscheinlich noch weiter ausdehnen.'
+              return 'In Zukunft wird es in diesen Regionen noch häufiger heiße Tage (mehr als 30&thinsp;°C) und sogenannte Tropennächte (20&thinsp;°C und wärmer) geben. Diese Klimaregion wird sich wahrscheinlich noch weiter ausdehnen.'
               break
             case 'dry':
               return 'In Zukunft wird die Trockenheit in diesen Regionen weiter zunehmen und damit auf Einfluss auf die Wasserressourcen haben. Darüber hinaus ein genereller Trend zu höheren Temperaturen, über das ganze Jahr hinweg.'
               break
             case 'premountain':
-              return 'In Zukunft werden die Temperaturen im Sommer weiter steigen und damit auch die Anzahl der heißen Tage (mehr als 30°C). In manchen der Vorgebirgsregionen wird ein Ansteig der Siedlungs- und Verkehrsflächen erwartet. Dies wird die Effekte verstärken.'
+              return 'In Zukunft werden die Temperaturen im Sommer weiter steigen und damit auch die Anzahl der heißen Tage (mehr als 30&thinsp;°C). In manchen der Vorgebirgsregionen wird ein Ansteig der Siedlungs- und Verkehrsflächen erwartet. Dies wird die Effekte verstärken.'
               break
             case 'midmountain':
               return 'In Zukunft werden die Temperaturen sowohl in Sommer als auch Winter weiter ansteigen, mit einer gleichzeitigen Zunahme der Niederschläge und seltenerem Schneefall.'
@@ -444,7 +444,7 @@ export const content = {
       text: {
         title: 'Temperaturentwicklung',
         paragraph:
-          'Hier zu sehen sind die <strong style="color: rgb(180, 98, 80);">höchsten</strong> und <strong style="color: rgb(199, 161, 104);">niedrigsten</strong>Temperaturen der lezten Jahre für deine Region.',
+          'Hier zu sehen sind die <strong style="color: #EC6052;">höchsten</strong> und <strong style="color: rgb(60, 118, 242);">niedrigsten</strong> Temperaturen der lezten Jahre für deine Region.',
       },
     },
     {
