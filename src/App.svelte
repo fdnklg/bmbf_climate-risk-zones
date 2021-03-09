@@ -14,6 +14,8 @@
   import Header from 'components/Header.svelte'
   import Meta from 'core/components/Meta.svelte'
   import Section from 'components/Section.svelte'
+  import Share from 'components/Share.svelte'
+  import Appendix from 'components/Appendix.svelte'
 
   function handleActiveStep(e) {
     step = e.detail
@@ -101,4 +103,8 @@
     Themen für deine Region hervorheben:
   </Section>
   <ReadingList />
+  <Share />
+  <Section>
+    <Appendix />
+  </Section>
 </div>

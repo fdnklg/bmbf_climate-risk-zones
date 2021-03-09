@@ -186,3 +186,36 @@ export const droughtColors = [
 ]
 
 export const klimazonenIds = [1, 40, 99, 297, 2892, 4089]
+
+export const appendix = {
+  sources: [
+    [
+      'https://www.umweltbundesamt.de/themen/klima-energie/klimaschutz-energiepolitik-in-deutschland/treibhausgas-emissionen/die-treibhausgase',
+      'Die Treibhausgase, UBA',
+    ],
+    [
+      'https://mobilitaet-in-tabellen.dlr.de',
+      'Regionale Mobilitätsprofile aus "Mobilität in Tabellen", DLR',
+    ],
+    ['https://uba.co2-rechner.de/de_DE/', 'CO2 Rechner, UBA'],
+    [
+      'https://www.eea.europa.eu/data-and-maps/data/data-viewers/greenhouse-gases-viewer',
+      'Daten zu Treibhausgasemissionen, EEA',
+    ],
+    [
+      'https://www.umweltbundesamt.de/bild/vergleich-der-durchschnittlichen-emissionen-0',
+      'Emissionen nach Verkehrsmittel, UBA',
+    ],
+    [
+      'https://www.umweltbundesamt.de/sites/default/files/medien/1410/publikationen/2020-06-15_texte_38-2020_wirkung-tempolimit_bf.pdf',
+      'Klimaschutz durch Tempolimit, UBA',
+    ],
+    [
+      'https://www.bahn.de/wmedia/view/mdb/media/intern/umc-grundlagenbericht.pdf',
+      'Grundlagenbericht zum UmweltMobilCheck, DB',
+    ],
+    ['https://www.openstreetmap.org', 'Daten: OpenStreetMap'],
+  ],
+  method:
+    'Ziel des Forschungsvorhaben war es Mittels Prototypen auf Benutzer*innen zugeschnittene datengestützte Storytelling-Ansätze aufzuzeigen. Durch die Personalisierung sollen besonders für sonst abstrakte Themen direkte Bezüge zur Lebenswelt der Leser*innen aufgezeigt werden.<br /><br />Um die persönlichen Bewegungsprofile zu erstellen, haben wir das Routing-System <a href="https://github.com/valhalla/valhalla">Valhalla</a> so modifiziert, dass statt der sonst üblichen Einheit Zeit, die Einheit CO2 zur Berechnung von Routen und Distanzen genutzt wurde. Als Basis für die Berechnungen dienten Studien und Daten des <a href="https://www.umweltbundesamt.de">Umweltbundesamtes (UBA)</a> und der <a href="https://www.eea.europa.eu">Europäischen Umweltagentur (EEA)</a>.<br /><br />Die hier gelisteten Zahlen entsprechen Durchschnittswerten, genaue Personalisierungen sind ohne das Erfassen von vielen Faktoren nicht möglich. Nichtsdestotrotz haben wir versucht das Modell so genau wie möglich zu machen (z.B. Einbezug von Prognosen zur Leistungssteigerung von Fahrzeugen bei Zukunftsszenarien). Ebenso haben wir bei den Projektionen zwei Varianten gewählt, um die Bandbreite möglicher Szenarien aufzuzeigen.',
+}
