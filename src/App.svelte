@@ -9,11 +9,11 @@
   import Szenarien from 'views/szenarien.svelte'
   import Onboarding from 'views/onboarding.svelte'
   import Animation from 'views/animation.svelte'
+  import ReadingList from 'views/readinglist.svelte';
 
   import Header from 'components/Header.svelte'
   import Meta from 'core/components/Meta.svelte'
   import Section from 'components/Section.svelte'
-  import ReadingList from 'components/ReadingList.svelte';
 
   function handleActiveStep(e) {
     step = e.detail
