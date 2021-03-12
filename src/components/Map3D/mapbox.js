@@ -1,7 +1,7 @@
 import mapbox from 'mapbox-gl'
 
 mapbox.accessToken =
-  'pk.eyJ1IjoiZmRua2xnIiwiYSI6ImNqeXptazB6czAzM3QzY215bG4xZ242dHEifQ.5ovP53lbKKEVb0OghgtQig'
+  'pk.eyJ1IjoianVsaTg0IiwiYSI6ImNrbHRpOGpxbzBrM3Qyd254dnM5eHd3NDYifQ.8nh2gkRqnS-9vyo4arAYSA'
 
 const key = {}
 
