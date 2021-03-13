@@ -25,7 +25,7 @@
         dragPan: false,
         scrollZoom: false,
         attributionControl: false,
-        style: 'mapbox://styles/fdnklg/ckko1l41i69lb17nu6b6eog6i',
+        style: 'mapbox://styles/juli84/ckm51o5k30ztm17r1yy3oelir'
       }).fitBounds(
         [
           [5.866250351, 47.270123604],
@@ -48,7 +48,7 @@
             id: 'hochwasser_line',
             type: 'line',
             source: 'composite',
-            'source-layer': 'features-7357cu',
+            'source-layer': 'bfg-hochwasser',
             paint: {
               'line-opacity': 1,
               'line-color': '#fff',

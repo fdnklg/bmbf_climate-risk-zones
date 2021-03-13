@@ -44,7 +44,7 @@
         dragPan: false,
         scrollZoom: false,
         attributionControl: false,
-        style: 'mapbox://styles/fdnklg/ckko1l41i69lb17nu6b6eog6i',
+        style: 'mapbox://styles/juli84/ckm51o5k30ztm17r1yy3oelir'
       })
 
       map.on('movestart', () => {
