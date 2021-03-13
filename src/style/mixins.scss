@@ -49,6 +49,12 @@
   }
 }
 
+@mixin respond-min-screen-tablet {
+  @media (min-width: $screen-tablet) {
+    @content;
+  }
+}
+
 @mixin respond-max-screen-medium {
   @media (max-width: $screen-medium) {
     @content;

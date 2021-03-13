@@ -20,6 +20,7 @@
 
   export let data
   let map
+  let isMoving = false
 
   setContext(key, {
     getMap: () => map,
@@ -47,28 +48,30 @@
       })
 
       map.on('movestart', () => {
-        selectedAnchors.set([])
+        isMoving = true
+        if (isMoving) selectedAnchors.set([])
       })
 
       map.on('moveend', () => {
-        if (data) {
-          setTimeout(() => {
-            let { anchors, postcodeShape } = data
-            if (anchors.length > 0) {
-              // calc projected coords for annotation lat/lng coords
-              let projectedAnnotations = []
-              anchors.forEach((anchor) => {
-                const { anchors } = anchor
-                const projectedCoords = anchors.map((anchor) =>
-                  map.project(anchor)
-                )
-                const selectedAnchor = calcSelectedAnchor(projectedCoords)
-                anchor.coords = selectedAnchor
-                projectedAnnotations.push(anchor)
-              })
-              selectedAnchors.set(projectedAnnotations)
-            }
-          }, 50)
+        isMoving = false
+        if (data && !isMoving) {
+          let { anchors } = data
+          if (anchors.length > 0) {
+            // calc projected coords for annotation lat/lng coords
+            let projectedAnnotations = []
+            anchors.forEach((anchor) => {
+              const { anchors } = anchor
+              console.log('anchors', data)
+              const projectedCoords = anchors.map((anchor) =>
+                map.project(anchor)
+              )
+              // @TODO: update method to calculate selected anchor here!
+              const selectedAnchor = calcSelectedAnchor(projectedCoords)
+              anchor.coords = selectedAnchor
+              projectedAnnotations.push(anchor)
+            })
+            selectedAnchors.set(projectedAnnotations)
+          }
         }
       })
 
@@ -88,22 +91,43 @@
         addLayer(map, 'postcode_geom-fill', 'fill', 'layers', paintFill)
         addLayer(map, 'postcode_geom-contour', 'line', 'layers', paintLine)
 
-        addLayer(map, 'fluvial_flood-fill', 'fill', 'layers', paintFill)
+        addLayer(map, 'fluvial_flood-fill-L', 'fill', 'layers', paintFill)
+        addLayer(map, 'fluvial_flood-fill-M', 'fill', 'layers', paintFill)
+        addLayer(map, 'fluvial_flood-fill-H', 'fill', 'layers', paintFill)
+
         addLayer(
           map,
-          'fluvial_flood-contour',
+          'fluvial_flood-contour-L',
+          'line',
+          'layers',
+          paintLineFluvialFlood
+        )
+        addLayer(
+          map,
+          'fluvial_flood-contour-M',
+          'line',
+          'layers',
+          paintLineFluvialFlood
+        )
+        addLayer(
+          map,
+          'fluvial_flood-contour-H',
           'line',
           'layers',
           paintLineFluvialFlood
         )
 
-        map.moveLayer('fluvial_flood-fill', 'state-label')
-        map.moveLayer('fluvial_flood-contour', 'state-label')
         map.moveLayer('postcode_geom-fill', 'state-label')
         map.moveLayer('postcode_geom-contour', 'state-label')
         map.moveLayer('postcode_buff_geom-fill', 'state-label')
         map.moveLayer('postcode_buff_geom-contour', 'state-label')
         map.moveLayer('postcode_buff_geom-mask', 'state-label')
+        map.moveLayer('fluvial_flood-fill-L', 'state-label')
+        map.moveLayer('fluvial_flood-contour-L', 'state-label')
+        map.moveLayer('fluvial_flood-fill-M', 'state-label')
+        map.moveLayer('fluvial_flood-contour-M', 'state-label')
+        map.moveLayer('fluvial_flood-fill-H', 'state-label')
+        map.moveLayer('fluvial_flood-contour-H', 'state-label')
       })
     }
 
@@ -122,13 +146,14 @@
   const updateMap = () => {
     if (data && map) {
       const { geojson, padding, fitBounds, risk_zone_ids, layers } = data
-      let paddingBounds = padding ? padding : window.innerWidth < 500 ? 20 : 50
+      let paddingBounds = padding ? padding : window.innerWidth < 500 ? 20 : 200
 
       const mapbox_layers = layers.filter((d) => d.isMapbox).map((d) => d.key)
 
       let fittingBounds = fitBounds
         ? fitBounds
         : bbox(JSON.parse(JSON.stringify(geojson)))
+
       const source = map.getSource('layers')
 
       if (source) {
@@ -138,13 +163,17 @@
         // fit map to bounding box
         const boundGeoJson = map.fitBounds(fittingBounds, {
           padding: paddingBounds,
-          duration: 1500,
+          duration: 300,
         })
 
         if (mapbox_layers.includes('klimazonen')) {
-          risk_zone_ids.forEach((id) => {
-            map.setFilter('klimazonen', ['==', ['get', 'fid'], id])
-          })
+          map.setFilter('klimazonen', [
+            'match',
+            ['get', 'fid'],
+            risk_zone_ids,
+            true,
+            false,
+          ])
         }
       }
     }

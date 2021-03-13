@@ -1,3 +1,5 @@
+import { klimazonenDict, fluvial_flood_anchor_indices } from 'constants'
+
 function createAnnotation(layersWithAnchors, json, layer, szenario) {
   const { annotations, key } = layer
   const current = layersWithAnchors.find((d) => d.id === key).anchors
@@ -5,19 +7,30 @@ function createAnnotation(layersWithAnchors, json, layer, szenario) {
     if (key === 'klimazonen') {
       current.forEach((currenAnnotation) => {
         const { anchors, fid } = currenAnnotation
+        const currentKlimazone = klimazonenDict.find((d) => d.fid === fid)
         szenario.anchors.push({
           fid,
           anchors: anchors.map((d) => d.coordinates),
-          text: annotation.text(json),
+          text: annotation.text(currentKlimazone.type),
+          isVertical: true,
         })
       })
     } else if (key === 'fluvial_flood') {
       current.forEach((currenAnnotation) => {
         const { anchors, level } = currenAnnotation
+        console.log(
+          'currenAnnotation',
+          currenAnnotation,
+          currenAnnotation.level
+        )
         szenario.anchors.push({
           level,
-          anchors: anchors.map((d) => d.coordinates),
-          text: annotation.text(json),
+          anchors: anchors
+            .map((d) => d.coordinates)
+            .filter((d, i) =>
+              fluvial_flood_anchor_indices[currenAnnotation.level].includes(i)
+            ),
+          text: annotation.text(level),
         })
       })
     } else if (current) {
@@ -29,8 +42,6 @@ function createAnnotation(layersWithAnchors, json, layer, szenario) {
       })
     }
   })
-
-  console.log('szenario', szenario)
 }
 
 export function addAnnotations(json, szenario, layer) {

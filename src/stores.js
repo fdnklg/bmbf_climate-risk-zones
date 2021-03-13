@@ -10,7 +10,7 @@ import {
 import { zeitreiheDataKeys, s3UrlRisk, styles } from 'constants'
 
 export const data = writable(null)
-export const activeZipcode = writable(null)
+export const activeZipcode = writable(13357)
 export const zipcodes = writable([])
 export const windowWidth = writable(false)
 export const userInput = writable(false)
@@ -102,14 +102,15 @@ export const storyData = derived(
               // if geometries is an array create feature for each item and push it to array
               if (geometries && geometries.length > 1 && !isMapbox) {
                 geometries.forEach((geometry) => {
+                  const style = styles[`${key}_${geometry.level}`]
                   const propsFill = {
-                    id: `${key}-fill`,
+                    id: `${key}-fill-${geometry.level}`,
                     ...style,
                     level: geometry.level,
                   }
 
                   const propsContour = {
-                    id: `${key}-contour`,
+                    id: `${key}-contour-${geometry.level}`,
                     ...style,
                     level: geometry.level,
                   }

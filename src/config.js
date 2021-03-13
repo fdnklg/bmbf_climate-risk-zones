@@ -1,3 +1,8 @@
+import {
+  fluvial_flood_low,
+  fluvial_flood_medium,
+  fluvial_flood_high,
+} from 'constants'
 export const s3Url = 'https://locobss-story-co2.s3.eu-central-1.amazonaws.com/'
 
 export const content = {
@@ -9,23 +14,6 @@ export const content = {
     socialImgUrl:
       'https://fabiandinklage.com/public/images/demos/demos-tooltip-3840x2040.jpg',
   },
-  /*
-
-  - Each step has an array of map_layers which exist in the mapbox map.
-  - map_layers can contain: 'hochwasser', 'sturmfluten', 'verdichtungsraeume', 'klimazonen'.
-
-  {
-      step: '1.1', step id which is necessary to count up and trigger if szenario is in viewport
-      mapbox_layers: ['hochwasser'], // names of data layers inside mapbox map
-      fitBounds: [
-        [5.98865807458, 47.3024876979],
-        [15.0169958839, 54.983104153],
-      ], defines the focus of the bounding box
-      layers: [], expects object with key like layer id to show matching feature with id in geojson
-
-    },
-
-  */
   szenarien: [
     {
       step: '1.1',
@@ -92,22 +80,22 @@ export const content = {
         paragraph: (json) => {
           switch (json.zeitreihen.meta.riskzones[0]) {
             case 'cold':
-              return 'Du befindest dich in einer Region mit <span class="cold bold">kühlerem Klima</span>. Diese Region hat zwar gemäßigte Temperaturen und eine geringe Anzahl an Trocken- und Frosttagen, dafür aber eine größere Anzahl an Tagen mit Starkregen und Starkwind.'
+              return 'Du befindest dich in einer Region mit <span class="cold">kühlerem Klima</span>. Diese Region hat zwar gemäßigte Temperaturen und eine geringe Anzahl an Trocken- und Frosttagen, dafür aber eine größere Anzahl an Tagen mit Starkregen und Starkwind.'
               break
             case 'warm':
-              return 'Du befindest dich in einer Region mit  <span class="warm bold">warmem Klima.</span> Diese Region zeichnet sich besonders durch Hitze und Trockenheit aus.'
+              return 'Du befindest dich in einer Region mit  <span class="warm">warmem Klima.</span> Diese Region zeichnet sich besonders durch Hitze und Trockenheit aus.'
               break
             case 'dry':
-              return 'Du befindest dich in einer Region mit  <span class="cold dry">trockenerem Klima.</span> In diesen Regionen fällt über das ganze Jahr hinweg unterdurchschnittlich viel Regen, bei gleichzeit starken Schwankungen zwischen den Jahreszeiten bei Temperaturen und Niederschlägen.'
+              return 'Du befindest dich in einer Region mit  <span class="dry">trockenerem Klima.</span> In diesen Regionen fällt über das ganze Jahr hinweg unterdurchschnittlich viel Regen, bei gleichzeit starken Schwankungen zwischen den Jahreszeiten bei Temperaturen und Niederschlägen.'
               break
             case 'premountain':
-              return 'Du befindest dich in einer Region mit  <span class="premountain bold">Gebirgsvorlandklima.</span> Neben vielen Tagen mit Frost und Starkregen, zeichnet sich diese Region auch durch überdurchschnittliche hohe Niederschläge im Sommer aus.'
+              return 'Du befindest dich in einer Region mit  <span class="premountain">Gebirgsvorlandklima.</span> Neben vielen Tagen mit Frost und Starkregen, zeichnet sich diese Region auch durch überdurchschnittliche hohe Niederschläge im Sommer aus.'
               break
             case 'midmountain':
-              return 'Du befindest dich in einer Region mit  <span class="midmountain bold">Mittelgebirksklima.</span> Neben vielen Frosttagen, zeichnet sich diese Region durch häufigen Starkregen und hohe Sommer- und Winterniederschläge aus.'
+              return 'Du befindest dich in einer Region mit  <span class="midmountain">Mittelgebirksklima.</span> Neben vielen Frosttagen, zeichnet sich diese Region durch häufigen Starkregen und hohe Sommer- und Winterniederschläge aus.'
               break
             case 'mountain':
-              return 'Du befindest dich in einer Region mit  <span class="mountain bold">Gebirgsklima.</span> Diese Regionen zeichnen sich durch hohe Niederschlagswerte und viele Tage mit Starkregen und Frost aus.'
+              return 'Du befindest dich in einer Region mit  <span class="mountain">Gebirgsklima.</span> Diese Regionen zeichnen sich durch hohe Niederschlagswerte und viele Tage mit Starkregen und Frost aus.'
               break
             default:
               return 'Klimazone'
@@ -120,25 +108,25 @@ export const content = {
           isMapbox: true,
           annotations: [
             {
-              text: (json) => {
-                switch (json.risk_zones[0]) {
+              text: (klimazone) => {
+                switch (klimazone) {
                   case 'cold':
-                    return 'Regionen mit<br />kühlerem Klima'
+                    return 'Regionen mit<br /><span class="cold">kühlerem Klima</span>'
                     break
                   case 'warm':
-                    return 'Regionen mit<br />warmem Klima'
+                    return 'Regionen mit<br /><span class="warm">warmem Klima</span>'
                     break
                   case 'dry':
-                    return 'Regionen mit<br />trockenerem Klima'
+                    return 'Regionen mit<br /><span class="dry">trockenerem Klima</span>'
                     break
                   case 'premountain':
-                    return 'Regionen mit<br />Gebirgsvorlandklima'
+                    return 'Regionen mit<br /><span class="premountain">Gebirgsvorlandklima</span>'
                     break
                   case 'midmountain':
-                    return 'Regionen mit<br />Mittelgebirgsklima'
+                    return 'Regionen mit<br /><span class="midmountain">Mittelgebirgsklima</span>'
                     break
                   case 'mountain':
-                    return 'Regionen mit<br />Gebirgsklima'
+                    return 'Regionen mit<br /><span class="mountain">Gebirgsklima</span>'
                     break
                   default:
                     return 'Klimazone'
@@ -151,7 +139,8 @@ export const content = {
           key: 'postcode_geom',
           annotations: [
             {
-              text: (json) => `Postleitzahl <strong>${json.postcode}</strong>`,
+              text: (json) =>
+                `Deine Postleitzahl <strong>${json.postcode}</strong>`,
               id: 'postcode_geom',
             },
           ],
@@ -197,25 +186,25 @@ export const content = {
           isMapbox: true,
           annotations: [
             {
-              text: (json) => {
-                switch (json.risk_zones[0]) {
+              text: (klimazone) => {
+                switch (klimazone) {
                   case 'cold':
-                    return 'Regionen mit<br />kühlerem Klima'
+                    return 'Regionen mit<br /><span class="cold">kühlerem Klima</span>'
                     break
                   case 'warm':
-                    return 'Regionen mit<br />warmem Klima'
+                    return 'Regionen mit<br /><span class="warm">warmem Klima</span>'
                     break
                   case 'dry':
-                    return 'Regionen mit<br />trockenerem Klima'
+                    return 'Regionen mit<br /><span class="dry">trockenerem<span class="cold"> Klima'
                     break
                   case 'premountain':
-                    return 'Regionen mit<br />Gebirgsvorlandklima'
+                    return 'Regionen mit<br /><span class="premountain">Gebirgsvorlandklima</span>'
                     break
                   case 'midmountain':
-                    return 'Regionen mit<br />Mittelgebirgsklima'
+                    return 'Regionen mit<br /><span class="midmountain">Mittelgebirgsklima</span>'
                     break
                   case 'mountain':
-                    return 'Regionen mit<br />Gebirgsklima'
+                    return 'Regionen mit<br /><span class="mountain">Gebirgsklima</span>'
                     break
                   default:
                     return 'Klimazone'
@@ -228,7 +217,8 @@ export const content = {
           key: 'postcode_geom',
           annotations: [
             {
-              text: (json) => `Postleitzahl <strong>${json.postcode}</strong>`,
+              text: (json) =>
+                `Deine Postleitzahl <strong>${json.postcode}</strong>`,
               id: 'postcode_geom',
             },
           ],
@@ -283,8 +273,8 @@ export const content = {
           isMapbox: true,
           annotations: [
             {
-              text: (json) => {
-                switch (json.risk_zones[0]) {
+              text: (klimazone) => {
+                switch (klimazone) {
                   case 'cold':
                     return 'Regionen mit<br /><span class="cold">kühlerem Klima</span>'
                     break
@@ -292,7 +282,7 @@ export const content = {
                     return 'Regionen mit<br /><span class="warm">warmem Klima</span>'
                     break
                   case 'dry':
-                    return 'Regionen mit<br /><span class="dry">trockenerem Klima</span'
+                    return 'Regionen mit<br /><span class="dry">trockenerem<span class="cold"> Klima'
                     break
                   case 'premountain':
                     return 'Regionen mit<br /><span class="premountain">Gebirgsvorlandklima</span>'
@@ -314,7 +304,8 @@ export const content = {
           key: 'postcode_geom',
           annotations: [
             {
-              text: (json) => `Postleitzahl <strong>${json.postcode}</strong>`,
+              text: (json) =>
+                `Deine Postleitzahl <strong>${json.postcode}</strong>`,
               id: 'postcode_geom',
             },
           ],
@@ -336,7 +327,7 @@ export const content = {
           annotations: [
             {
               text: (json) =>
-                `<span class="dense-space bold">Verdichtungsraum</span> ${json.dense_space.name}`,
+                `<span class="dense-space">Verdichtungsraum</span> ${json.dense_space.name}`,
             },
           ],
         },
@@ -344,7 +335,8 @@ export const content = {
           key: 'postcode_geom',
           annotations: [
             {
-              text: (json) => `Postleitzahl <strong>${json.postcode}</strong>`,
+              text: (json) =>
+                `Deine Postleitzahl <strong>${json.postcode}</strong>`,
             },
           ],
         },
@@ -355,8 +347,7 @@ export const content = {
       showMinimap: true,
       text: {
         title: 'Überschwemmungen',
-        paragraph:
-          'Auch Hochwasser können durch den Klimawandel begünstigt werden. Hier zu sehen sind Wahr&shy;schein&shy;lich&shy;keiten, dass ein Hoch&shy;wasser&shy;ereigniss dieser Größen&shy;ordnung in einem von <strong style="color:#3C76F2;">10-30</strong>, <strong style="color:#88ACF9;">100</strong> und <strong style="color:#CADBFF;">200</strong> Jahren auftritt. Einmal in 200 Jahren entspricht also einer sehr geringen und einmal in 10-30 Jahren einer hohen Wahrscheinlichkeit.',
+        paragraph: `Auch Hochwasser können durch den Klimawandel begünstigt werden. Hier zu sehen sind Wahr&shy;schein&shy;lich&shy;keiten, dass ein Hoch&shy;wasser&shy;ereigniss dieser Größen&shy;ordnung in einem von <strong style="color:${fluvial_flood_high};">10-30</strong>, <strong style="color:${fluvial_flood_medium};">100</strong> und <strong style="color:${fluvial_flood_low};">200 Jahren</strong> auftritt. Einmal in 200 Jahren entspricht also einer sehr geringen und einmal in 10-30 Jahren einer hohen Wahrscheinlichkeit.`,
       },
       layers: [
         {
@@ -371,9 +362,18 @@ export const content = {
           key: 'fluvial_flood',
           annotations: [
             {
-              text: (json) => {
-                console.log('json', json) // @TODO unterscheiden je nach Überschwemmungslevel
-                return `Überschwemmungsgebiete <strong>${json.postcode}</strong>.`
+              text: (level) => {
+                switch (level) {
+                  case 'L':
+                    return `Überschwemmungen <span style="color: ${fluvial_flood_low}">unwahrscheinlich</span>`
+                    break
+                  case 'M':
+                    return `Überschwemmungen <span style="color: ${fluvial_flood_medium}">wahrscheinlich</span>`
+                    break
+                  case 'H':
+                    return `Überschwemmungen <span style="color: ${fluvial_flood_high}">sehr wahrscheinlich</span>`
+                    break
+                }
               },
             },
           ],
@@ -404,33 +404,6 @@ export const content = {
         },
       ],
     },
-
-    // {
-    //   step: '1.6',
-    //   fitBounds: [
-    //     [5.98865807458, 47.3024876979],
-    //     [15.0169958839, 54.983104153],
-    //   ], // defines the focus of the bounding box
-    //   text: {
-    //     title: '',
-    //     paragraph: ''
-    //   },
-    //   layers: [
-    //     {
-    //       key: 'hochwasser',
-    //       isMapbox: true,
-    //     },
-    //     {
-    //       key: 'postcode_geom',
-    //       annotations: [
-    //         {
-    //           text: (json) => 'Fläche der von dir eingegebenen Postleitzahl.',
-    //           id: 'postcode_geom',
-    //         },
-    //       ],
-    //     },
-    //   ],
-    // },
   ],
 
   zeitreiheSteps: [
@@ -453,7 +426,7 @@ export const content = {
       text: {
         title: 'Temperaturentwicklung',
         paragraph:
-          'Hier zu sehen sind die <span class="warm bold dot">höchsten</span> und <span class="cold bold dot">niedrigsten</span> Temperaturen der lezten Jahre für deine Region.',
+          'Hier zu sehen sind die <span class="warm dot">höchsten</span> und <span class="cold dot">niedrigsten</span> Temperaturen der lezten Jahre für deine Region.',
       },
     },
     {

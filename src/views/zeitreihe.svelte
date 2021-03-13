@@ -36,7 +36,7 @@
   }
 
   .tile-title {
-    margin-top: 0 !important;
+    margin: 0px !important;
   }
 
   .wrapper {
@@ -46,7 +46,7 @@
   }
 
   .tile-paragraph {
-    margin-bottom: 0;
+    margin: 7px 0;
   }
 
   .sticky {

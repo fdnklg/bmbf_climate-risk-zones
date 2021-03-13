@@ -50,8 +50,8 @@
       <TileParagraph
         subtitleClassname="input-hint"
         title="Für welche Region interessierst du dich?"
-        subtitle="Gib <strong>deine Postleitzahl ein und bestätige.</strong> Oder fahre mit einer <strong>zufälligen
-      Postleitzahl</strong> fort." />
+        subtitle="Gib deine Postleitzahl ein und bestätige. <br/> Oder fahre mit einer zufälligen
+      Postleitzahl fort." />
       <Input className={inputClass} />
     </div>
   </Tile>

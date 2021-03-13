@@ -18,6 +18,10 @@ export const zeitreiheDataKeys = [
   'summer_days',
 ]
 
+export const fluvial_flood_low = '#5FCACA'
+export const fluvial_flood_medium = '#3C76F2'
+export const fluvial_flood_high = '#5D42D2'
+
 const isLocal = false
 
 export const s3Url = 'https://locobss-story-co2.s3.eu-central-1.amazonaws.com/'
@@ -27,9 +31,30 @@ export const s3UrlRisk = isLocal
 export const zipCodesUrl = `${s3Url}postcodes.txt`
 
 export const styles = {
+  fluvial_flood_L: {
+    fill: fluvial_flood_low,
+    stroke: fluvial_flood_low,
+    'line-width': 1.5,
+    'fill-opacity': 0.15,
+    'line-opacity': 0.1,
+  },
+  fluvial_flood_M: {
+    fill: fluvial_flood_medium,
+    stroke: fluvial_flood_medium,
+    'line-width': 1.5,
+    'fill-opacity': 0.15,
+    'line-opacity': 0.1,
+  },
+  fluvial_flood_H: {
+    fill: fluvial_flood_high,
+    stroke: fluvial_flood_high,
+    'line-width': 1.5,
+    'fill-opacity': 0.15,
+    'line-opacity': 0.1,
+  },
   fluvial_flood: {
-    fill: '#3C76F2',
-    stroke: '#3C76F2',
+    fill: fluvial_flood_low,
+    stroke: fluvial_flood_low,
     'line-width': 1.5,
     'fill-opacity': 0.15,
     'line-opacity': 0.1,
@@ -51,8 +76,8 @@ export const styles = {
 }
 
 export const zeitreiheDataGradients = {
-  air_temperature_max: ['#3C76F2', '#EC6052'],
-  air_temperature_mean: ['#3C76F2', '#EC6052'],
+  air_temperature_max: [fluvial_flood_low, '#EC6052'],
+  air_temperature_mean: [fluvial_flood_low, '#EC6052'],
   drought_index: ['#C7A168', '#B46250'],
   hot_days: ['#C7A168', '#B46250'],
   summer_days: ['#C7A168', '#B46250'],
@@ -185,7 +210,41 @@ export const droughtColors = [
   '#8b0000',
 ]
 
+export const fluvial_flood_anchor_indices = {
+  L: [0, 1, 2],
+  M: [6, 7],
+  H: [3, 4, 5],
+}
+
+export const klimazonenDict = [
+  {
+    fid: 1,
+    type: 'cold',
+  },
+  {
+    fid: 40,
+    type: 'midmountain',
+  },
+  {
+    fid: 99,
+    type: 'midmountain',
+  },
+  {
+    fid: 297,
+    type: 'warm',
+  },
+  {
+    fid: 2892,
+    type: 'premountain',
+  },
+  {
+    fid: 4089,
+    type: 'mountain',
+  },
+]
+
 export const klimazonenIds = [1, 40, 99, 297, 2892, 4089]
+export const klimazonenIdsDict = [1, 40, 99, 297, 2892, 4089]
 
 export const appendix = {
   sources: [
