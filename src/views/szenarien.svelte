@@ -48,6 +48,14 @@
     }
   }
 
+  .tile-title {
+    margin: 0px;
+  }
+
+  .tile-paragraph {
+    margin: 7px 0;
+  }
+
   .minimap-container {
     heigth: 150px;
     width: 115px;
@@ -58,6 +66,11 @@
   .extra {
     margin-bottom: 75vh;
     overflow: scroll;
+
+    @include respond-min-screen-tablet {
+      margin-left: 0px;
+      padding: 0 30px 0 20px;
+    }
   }
   .sticky {
     height: 100vh;
@@ -79,7 +92,7 @@
             height={120}
             hasMarker={marker}
             strokeWidth={1}
-            stroke="#9c9fac"
+            stroke="#6B6E82"
             data={mapData} />
         </div>
       {/if}

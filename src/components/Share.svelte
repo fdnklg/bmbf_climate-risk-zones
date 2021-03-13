@@ -28,12 +28,14 @@
   }
   .label {
     padding-right: 5px;
+    margin: 10px 0;
     color: $color-main-60;
   }
 
   .title {
     font-size: $font-size-l;
-    margin: 5px 0;
+    line-height: 130%;
+    margin: 0 0 10px 0;
   }
 
   .share-label {

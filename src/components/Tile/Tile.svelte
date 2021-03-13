@@ -11,7 +11,7 @@
   @import 'src/style/root.scss';
   .tile {
     opacity: 0.5;
-    padding: 15px;
+    padding: 20px;
     border: 1px solid transparent;
     margin: auto;
     max-width: 550px;
@@ -21,10 +21,6 @@
       0 10px 8px rgba(0, 0, 0, 0.0299982), 0 15px 15px rgba(0, 0, 0, 0.0296004),
       0 30px 30px rgba(0, 0, 0, 0.0309366), 0 70px 65px rgba(0, 0, 0, 0.05);
     @include transition-m;
-
-    @include respond-max-screen-phablet {
-      padding: 10px;
-    }
   }
 
   .isLast {
@@ -44,15 +40,16 @@
   .full {
     width: 100%;
   }
+
   .small {
-    width: calc(100% - 40px);
+    width: calc(100% - 80px);
   }
 
   .active {
     opacity: 0.999;
     background-image: linear-gradient(to top left, #f6f8f9, white);
     border: 1px solid $color-tile;
-    border-radius: $border-radius-m;
+    border-radius: $border-radius-l;
     @include transition-m;
   }
 </style>

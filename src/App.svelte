@@ -103,10 +103,10 @@
       Umweltbundesamts. Im Folgenden haben wir eine Reihe Artikel
       zusammengestellt, die besonders Themen für deine Region hervorheben:
     </Section>
-    <ReadingList />
-    <Share />
     <Section>
-      <Appendix />
+      <ReadingList />
     </Section>
+    <Share />
+    <Appendix />
   {/if}
 </div>

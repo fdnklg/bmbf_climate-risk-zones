@@ -15,7 +15,7 @@
   .title {
     font-size: $font-size-l;
     color: $color-main;
-    margin-bottom: 0px;
+    margin-bottom: 5px;
     margin-top: 0px;
     line-height: $line-height-m;
 

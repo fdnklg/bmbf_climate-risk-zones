@@ -8,9 +8,9 @@ export const paintLine = {
   'line-width': 1.5,
 }
 export const paintLineFluvialFlood = {
-  'line-opacity': 0.3,
+  'line-opacity': 1,
   'line-color': ['get', 'stroke'],
-  'line-width': 0.75,
+  'line-width': 1,
 }
 export const paintLineBuff = {
   'line-opacity': 1,
