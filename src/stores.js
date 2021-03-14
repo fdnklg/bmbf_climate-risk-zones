@@ -43,7 +43,9 @@ export const storyData = derived(
 
           const isDenseSpace = dense_space.bbox
           const hasOceanFlood = has_ocean_flood === 1
-          const hasFluvialFlood = fluvial_flood.length > 0
+          const hasFluvialFlood = fluvial_flood
+
+          console.log('fluvial_flood', fluvial_flood)
 
           // remove steps from config if json is no dense space
           if (!isDenseSpace) {
@@ -58,6 +60,7 @@ export const storyData = derived(
               (d) => !d.layers.map((l) => l.key).includes('fluvial_flood')
             )
           }
+
           // remove steps from config if json has no ocean floods
           if (!hasOceanFlood) {
             szenarien = szenarien.filter(
@@ -90,6 +93,7 @@ export const storyData = derived(
               ]
             }
 
+            console.log('json', json)
             // create feature for each layer based on config
             layers.map((layer) => {
               const { key, isMapbox, type } = layer

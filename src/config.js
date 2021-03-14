@@ -31,7 +31,7 @@ export const content = {
           annotations: [
             {
               text: (json) =>
-                `Gebiet der Postleitzahl <strong>${json.postcode}</strong>.`,
+                `Gebiet der Postleitzahl <strong>${json.postcode}</strong>`,
             },
           ],
         },
@@ -39,7 +39,7 @@ export const content = {
           key: 'postcode_buff_geom',
           annotations: [
             {
-              text: (json) => '5 km Umkreis um deine Postleitzahl.',
+              text: (json) => '5 km Umkreis um deine Postleitzahl',
             },
           ],
         },
@@ -81,22 +81,22 @@ export const content = {
         paragraph: (json) => {
           switch (json.zeitreihen.meta.riskzones[0]) {
             case 'cold':
-              return 'Du befindest dich in einer Region mit <span class="cold">kühlerem Klima</span>. Diese Region hat zwar gemäßigte Temperaturen und eine geringe Anzahl an Trocken- und Frosttagen, dafür aber eine größere Anzahl an Tagen mit Starkregen und Starkwind.'
+              return 'Du befindest dich in einer Region mit <span class="cold bold">kühlerem Klima</span>. Diese Region hat zwar gemäßigte Temperaturen und eine geringe Anzahl an Trocken- und Frosttagen, dafür aber eine größere Anzahl an Tagen mit Starkregen und Starkwind.'
               break
             case 'warm':
-              return 'Du befindest dich in einer Region mit  <span class="warm">warmem Klima.</span> Diese Region zeichnet sich besonders durch Hitze und Trockenheit aus.'
+              return 'Du befindest dich in einer Region mit  <span class="warm bold">warmem Klima.</span> Diese Region zeichnet sich besonders durch Hitze und Trockenheit aus.'
               break
             case 'dry':
-              return 'Du befindest dich in einer Region mit  <span class="dry">trockenerem Klima.</span> In diesen Regionen fällt über das ganze Jahr hinweg unterdurchschnittlich viel Regen, bei gleichzeit starken Schwankungen zwischen den Jahreszeiten bei Temperaturen und Niederschlägen.'
+              return 'Du befindest dich in einer Region mit  <span class="dry bold">trockenerem Klima.</span> In diesen Regionen fällt über das ganze Jahr hinweg unterdurchschnittlich viel Regen, bei gleichzeit starken Schwankungen zwischen den Jahreszeiten bei Temperaturen und Niederschlägen.'
               break
             case 'premountain':
-              return 'Du befindest dich in einer Region mit  <span class="premountain">Gebirgsvorlandklima.</span> Neben vielen Tagen mit Frost und Starkregen, zeichnet sich diese Region auch durch überdurchschnittliche hohe Niederschläge im Sommer aus.'
+              return 'Du befindest dich in einer Region mit  <span class="premountain bold">Gebirgsvorlandklima.</span> Neben vielen Tagen mit Frost und Starkregen, zeichnet sich diese Region auch durch überdurchschnittliche hohe Niederschläge im Sommer aus.'
               break
             case 'midmountain':
-              return 'Du befindest dich in einer Region mit  <span class="midmountain">Mittelgebirksklima.</span> Neben vielen Frosttagen, zeichnet sich diese Region durch häufigen Starkregen und hohe Sommer- und Winterniederschläge aus.'
+              return 'Du befindest dich in einer Region mit  <span class="midmountain bold">Mittelgebirksklima.</span> Neben vielen Frosttagen, zeichnet sich diese Region durch häufigen Starkregen und hohe Sommer- und Winterniederschläge aus.'
               break
             case 'mountain':
-              return 'Du befindest dich in einer Region mit  <span class="mountain">Gebirgsklima.</span> Diese Regionen zeichnen sich durch hohe Niederschlagswerte und viele Tage mit Starkregen und Frost aus.'
+              return 'Du befindest dich in einer Region mit  <span class="mountain bold">Gebirgsklima.</span> Diese Regionen zeichnen sich durch hohe Niederschlagswerte und viele Tage mit Starkregen und Frost aus.'
               break
             default:
               return 'Klimazone'
@@ -112,22 +112,22 @@ export const content = {
               text: (klimazone) => {
                 switch (klimazone) {
                   case 'cold':
-                    return 'Regionen mit<br /><span class="cold">kühlerem Klima</span>'
+                    return 'Regionen mit<br /><span class="cold bold">kühlerem Klima</span>'
                     break
                   case 'warm':
-                    return 'Regionen mit<br /><span class="warm">warmem Klima</span>'
+                    return 'Regionen mit<br /><span class="warm bold">warmem Klima</span>'
                     break
                   case 'dry':
-                    return 'Regionen mit<br /><span class="dry">trockenerem Klima</span>'
+                    return 'Regionen mit<br /><span class="dry bold">trockenerem Klima</span>'
                     break
                   case 'premountain':
-                    return 'Regionen mit<br /><span class="premountain">Gebirgsvorlandklima</span>'
+                    return 'Regionen mit<br /><span class="premountain bold">Gebirgsvorlandklima</span>'
                     break
                   case 'midmountain':
-                    return 'Regionen mit<br /><span class="midmountain">Mittelgebirgsklima</span>'
+                    return 'Regionen mit<br /><span class="midmountain bold">Mittelgebirgsklima</span>'
                     break
                   case 'mountain':
-                    return 'Regionen mit<br /><span class="mountain">Gebirgsklima</span>'
+                    return 'Regionen mit<br /><span class="mountain bold">Gebirgsklima</span>'
                     break
                   default:
                     return 'Klimazone'
@@ -190,22 +190,22 @@ export const content = {
               text: (klimazone) => {
                 switch (klimazone) {
                   case 'cold':
-                    return 'Regionen mit<br /><span class="cold">kühlerem Klima</span>'
+                    return 'Regionen mit<br /><span class="cold bold">kühlerem Klima</span>'
                     break
                   case 'warm':
-                    return 'Regionen mit<br /><span class="warm">warmem Klima</span>'
+                    return 'Regionen mit<br /><span class="warm bold">warmem Klima</span>'
                     break
                   case 'dry':
-                    return 'Regionen mit<br /><span class="dry">trockenerem Klima</span>'
+                    return 'Regionen mit<br /><span class="dry bold">trockenerem Klima</span>'
                     break
                   case 'premountain':
-                    return 'Regionen mit<br /><span class="premountain">Gebirgsvorlandklima</span>'
+                    return 'Regionen mit<br /><span class="premountain bold">Gebirgsvorlandklima</span>'
                     break
                   case 'midmountain':
-                    return 'Regionen mit<br /><span class="midmountain">Mittelgebirgsklima</span>'
+                    return 'Regionen mit<br /><span class="midmountain bold">Mittelgebirgsklima</span>'
                     break
                   case 'mountain':
-                    return 'Regionen mit<br /><span class="mountain">Gebirgsklima</span>'
+                    return 'Regionen mit<br /><span class="mountain bold">Gebirgsklima</span>'
                     break
                   default:
                     return 'Klimazone'
@@ -277,22 +277,22 @@ export const content = {
               text: (klimazone) => {
                 switch (klimazone) {
                   case 'cold':
-                    return 'Regionen mit<br /><span class="cold">kühlerem Klima</span>'
+                    return 'Regionen mit<br /><span class="cold bold">kühlerem Klima</span>'
                     break
                   case 'warm':
-                    return 'Regionen mit<br /><span class="warm">warmem Klima</span>'
+                    return 'Regionen mit<br /><span class="warm bold">warmem Klima</span>'
                     break
                   case 'dry':
-                    return 'Regionen mit<br /><span class="dry">trockenerem<span class="cold"> Klima'
+                    return 'Regionen mit<br /><span class="dry bold">trockenere Klima</span>'
                     break
                   case 'premountain':
-                    return 'Regionen mit<br /><span class="premountain">Gebirgsvorlandklima</span>'
+                    return 'Regionen mit<br /><span class="premountain bold">Gebirgsvorlandklima</span>'
                     break
                   case 'midmountain':
-                    return 'Regionen mit<br /><span class="midmountain">Mittelgebirgsklima</span>'
+                    return 'Regionen mit<br /><span class="midmountain bold">Mittelgebirgsklima</span>'
                     break
                   case 'mountain':
-                    return 'Regionen mit<br /><span class="mountain">Gebirgsklima</span>'
+                    return 'Regionen mit<br /><span class="mountain bold">Gebirgsklima</span>'
                     break
                   default:
                     return 'Klimazone'
@@ -368,13 +368,13 @@ export const content = {
               text: (level) => {
                 switch (level) {
                   case 'L':
-                    return `Überschwemmungen <span style="color: ${fluvial_flood_low}">unwahrscheinlich</span>`
+                    return `Überschwemmungen <span class="bold" style="color: ${fluvial_flood_low}">unwahrscheinlich</span>`
                     break
                   case 'M':
-                    return `Überschwemmungen <span style="color: ${fluvial_flood_medium}">wahrscheinlich</span>`
+                    return `Überschwemmungen <span class="bold" style="color: ${fluvial_flood_medium}">wahrscheinlich</span>`
                     break
                   case 'H':
-                    return `Überschwemmungen <span style="color: ${fluvial_flood_high}">sehr wahrscheinlich</span>`
+                    return `Überschwemmungen <span class="bold" style="color: ${fluvial_flood_high}">sehr wahrscheinlich</span>`
                     break
                 }
               },
@@ -408,13 +408,13 @@ export const content = {
               text: (level) => {
                 switch (level) {
                   case 'L':
-                    return `Überschwemmungen <span style="color: ${fluvial_flood_low}">unwahrscheinlich</span>`
+                    return `Überschwemmungen <span class="bold" style="color: ${fluvial_flood_low}">unwahrscheinlich</span>`
                     break
                   case 'M':
-                    return `Überschwemmungen <span style="color: ${fluvial_flood_medium}">wahrscheinlich</span>`
+                    return `Überschwemmungen <span class="bold" style="color: ${fluvial_flood_medium}">wahrscheinlich</span>`
                     break
                   case 'H':
-                    return `Überschwemmungen <span style="color: ${fluvial_flood_high}">sehr wahrscheinlich</span>`
+                    return `Überschwemmungen <span class="bold" style="color: ${fluvial_flood_high}">sehr wahrscheinlich</span>`
                     break
                 }
               },
@@ -448,13 +448,13 @@ export const content = {
               text: (level) => {
                 switch (level) {
                   case 'L':
-                    return `Überschwemmungen <span style="color: ${fluvial_flood_low}">unwahrscheinlich</span>`
+                    return `Überschwemmungen <span class="bold" style="color: ${fluvial_flood_low}">unwahrscheinlich</span>`
                     break
                   case 'M':
-                    return `Überschwemmungen <span style="color: ${fluvial_flood_medium}">wahrscheinlich</span>`
+                    return `Überschwemmungen <span class="bold" style="color: ${fluvial_flood_medium}">wahrscheinlich</span>`
                     break
                   case 'H':
-                    return `Überschwemmungen <span style="color: ${fluvial_flood_high}">sehr wahrscheinlich</span>`
+                    return `Überschwemmungen <span class="bold" style="color: ${fluvial_flood_high}">sehr wahrscheinlich</span>`
                     break
                 }
               },
