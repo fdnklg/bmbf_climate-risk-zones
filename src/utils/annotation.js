@@ -25,26 +25,31 @@ function createAnnotation(layersWithAnchors, json, layer, szenario) {
         })
       })
     } else if (key === 'fluvial_flood') {
-      current.forEach((currenAnnotation) => {
-        const { anchors, level } = currenAnnotation
-        if (layer.type.includes(level))
-          szenario.anchors.push({
-            level,
-            type: layer.type,
-            anchors: anchors
-              .map((d) => d.coordinates)
-              .filter((d, i) =>
-                fluvial_flood_anchor_indices[currenAnnotation.level].includes(i)
-              ),
-            text: annotation.text(level),
-          })
-      })
+      if (current) {
+        current.forEach((currenAnnotation) => {
+          const { anchors, level } = currenAnnotation
+          if (layer.type.includes(level))
+            szenario.anchors.push({
+              level,
+              type: layer.type,
+              anchors: anchors
+                .map((d) => d.coordinates)
+                .filter((d, i) =>
+                  fluvial_flood_anchor_indices[currenAnnotation.level].includes(
+                    i
+                  )
+                ),
+              text: annotation.text(level),
+            })
+        })
+      }
     } else if (current) {
-      const coords = current.map((p) => p.coordinates)
+      const coords = current
+        .map((p) => p.coordinates)
+        .filter((d, i) => i === 3 || i === 5)
       szenario.anchors.push({
         anchors: coords,
         text: annotation.text(json),
-        isVertical: ['postcode_buff_geom', 'klimazonen'].includes(key),
       })
     }
   })

@@ -57,8 +57,8 @@
         if (data && !isMoving) {
           let { anchors } = data
           if (anchors.length > 0) {
-            // calc projected coords for annotation lat/lng coords
             let projectedAnnotations = []
+            console.log('anchors', anchors)
             anchors.forEach((anchor) => {
               const { anchors } = anchor
               const projectedCoords = anchors.map((anchor) =>
