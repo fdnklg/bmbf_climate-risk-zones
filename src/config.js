@@ -2,6 +2,7 @@ import {
   fluvial_flood_low,
   fluvial_flood_medium,
   fluvial_flood_high,
+  dense_space,
 } from 'constants'
 export const s3Url = 'https://locobss-story-co2.s3.eu-central-1.amazonaws.com/'
 
@@ -195,7 +196,7 @@ export const content = {
                     return 'Regionen mit<br /><span class="warm">warmem Klima</span>'
                     break
                   case 'dry':
-                    return 'Regionen mit<br /><span class="dry">trockenerem<span class="cold"> Klima'
+                    return 'Regionen mit<br /><span class="dry">trockenerem Klima</span>'
                     break
                   case 'premountain':
                     return 'Regionen mit<br /><span class="premountain">Gebirgsvorlandklima</span>'
@@ -318,7 +319,7 @@ export const content = {
       text: {
         title: 'Verdichtungsräume',
         paragraph: (json) =>
-          `Deine Region befindet sich im Verdichtungsraum <strong>${json.zeitreihen.meta.denseSpaceName}</strong>. Verdichtungsräume sind Gebiete mit einer hohen Dichte an Siedlungs- und Industrieflächen. In diesen Gebieten konzentrieren sich Gefahren für Schäden an Gebäuden und Infrastruktur, durch z.B. Hitzebelastung oder extreme Wetterereignisse. Durch die hohe Bevölkerungsdichte in diesen Gebieten sind viele Menschen durch die Folgen betroffen.`,
+          `Deine Region befindet sich im <span style="color: ${dense_space};">Verdichtungsraum</span> <strong>${json.zeitreihen.meta.denseSpaceName}</strong>. Verdichtungsräume sind Gebiete mit einer hohen Dichte an Siedlungs- und Industrieflächen. In diesen Gebieten konzentrieren sich Gefahren für Schäden an Gebäuden und Infrastruktur, durch z.B. Hitzebelastung oder extreme Wetterereignisse. Durch die hohe Bevölkerungsdichte in diesen Gebieten sind viele Menschen durch die Folgen betroffen.`,
       },
       layers: [
         {
@@ -343,7 +344,7 @@ export const content = {
       ],
     },
     {
-      step: '1.6',
+      step: '1.7',
       showMinimap: true,
       text: {
         title: 'Überschwemmungen',
@@ -354,12 +355,14 @@ export const content = {
           key: 'postcode_geom',
           annotations: [
             {
-              text: (json) => `Postleitzahl <strong>${json.postcode}</strong>`,
+              text: (json) =>
+                `Deine Postleitzahl <strong>${json.postcode}</strong>`,
             },
           ],
         },
         {
           key: 'fluvial_flood',
+          type: ['H'],
           annotations: [
             {
               text: (level) => {
@@ -380,9 +383,88 @@ export const content = {
         },
       ],
     },
-
     {
-      step: '1.4',
+      step: '1.8',
+      showMinimap: true,
+      text: {
+        title: 'Überschwemmungen',
+        paragraph: `Auch Hochwasser können durch den Klimawandel begünstigt werden. Hier zu sehen sind Wahr&shy;schein&shy;lich&shy;keiten, dass ein Hoch&shy;wasser&shy;ereigniss dieser Größen&shy;ordnung in einem von <strong style="color:${fluvial_flood_high};">10-30</strong>, <strong style="color:${fluvial_flood_medium};">100</strong> und <strong style="color:${fluvial_flood_low};">200 Jahren</strong> auftritt. Einmal in 200 Jahren entspricht also einer sehr geringen und einmal in 10-30 Jahren einer hohen Wahrscheinlichkeit.`,
+      },
+      layers: [
+        {
+          key: 'postcode_geom',
+          annotations: [
+            {
+              text: (json) =>
+                `Deine Postleitzahl <strong>${json.postcode}</strong>`,
+            },
+          ],
+        },
+        {
+          key: 'fluvial_flood',
+          type: ['M'],
+          annotations: [
+            {
+              text: (level) => {
+                switch (level) {
+                  case 'L':
+                    return `Überschwemmungen <span style="color: ${fluvial_flood_low}">unwahrscheinlich</span>`
+                    break
+                  case 'M':
+                    return `Überschwemmungen <span style="color: ${fluvial_flood_medium}">wahrscheinlich</span>`
+                    break
+                  case 'H':
+                    return `Überschwemmungen <span style="color: ${fluvial_flood_high}">sehr wahrscheinlich</span>`
+                    break
+                }
+              },
+            },
+          ],
+        },
+      ],
+    },
+    {
+      step: '1.9',
+      showMinimap: true,
+      text: {
+        title: 'Überschwemmungen',
+        paragraph: `Auch Hochwasser können durch den Klimawandel begünstigt werden. Hier zu sehen sind Wahr&shy;schein&shy;lich&shy;keiten, dass ein Hoch&shy;wasser&shy;ereigniss dieser Größen&shy;ordnung in einem von <strong style="color:${fluvial_flood_high};">10-30</strong>, <strong style="color:${fluvial_flood_medium};">100</strong> und <strong style="color:${fluvial_flood_low};">200 Jahren</strong> auftritt. Einmal in 200 Jahren entspricht also einer sehr geringen und einmal in 10-30 Jahren einer hohen Wahrscheinlichkeit.`,
+      },
+      layers: [
+        {
+          key: 'postcode_geom',
+          annotations: [
+            {
+              text: (json) =>
+                `Deine Postleitzahl <strong>${json.postcode}</strong>`,
+            },
+          ],
+        },
+        {
+          key: 'fluvial_flood',
+          type: ['L'],
+          annotations: [
+            {
+              text: (level) => {
+                switch (level) {
+                  case 'L':
+                    return `Überschwemmungen <span style="color: ${fluvial_flood_low}">unwahrscheinlich</span>`
+                    break
+                  case 'M':
+                    return `Überschwemmungen <span style="color: ${fluvial_flood_medium}">wahrscheinlich</span>`
+                    break
+                  case 'H':
+                    return `Überschwemmungen <span style="color: ${fluvial_flood_high}">sehr wahrscheinlich</span>`
+                    break
+                }
+              },
+            },
+          ],
+        },
+      ],
+    },
+    {
+      step: '1.10',
       showMinimap: true,
       text: {
         title: 'Küstengebiete',
@@ -398,7 +480,8 @@ export const content = {
           key: 'postcode_geom',
           annotations: [
             {
-              text: (json) => `Postleitzahl <strong>${json.postcode}</strong>`,
+              text: (json) =>
+                `Deine Postleitzahl <strong>${json.postcode}</strong>`,
             },
           ],
         },

@@ -16,7 +16,6 @@
     z-index: 10;
     display: flex;
     align-items: center;
-    max-width: 150px;
 
     &.layout-top,
     &.layout-bottom {
@@ -102,10 +101,10 @@
   style="left: {anchor.x}px; top: {anchor.y}px;"
   class="container {layoutClass} {alignClass}">
   {#if alignClass === 'align-top-right' || alignClass === 'align-top-left' || alignClass === 'align-left'}
-    <slot />
+    <slot align={anchor.alignX} />
   {/if}
   <div class="annotation-line {annotationAlignClass}" />
   {#if alignClass === 'align-bottom-right' || alignClass === 'align-bottom-left' || alignClass === 'align-right'}
-    <slot />
+    <slot align={anchor.alignX} />
   {/if}
 </div>

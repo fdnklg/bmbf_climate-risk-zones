@@ -141,22 +141,22 @@ textarea {
 }
 
 .cold {
-  color: #3b75f1;
+  color: #418fa0;
 }
 .warm {
-  color: #ec5e51;
+  color: #cf6d49;
 }
 .dry {
   color: #f6815a;
 }
 .premountain {
-  color: #ffaa42;
+  color: #c9b764;
 }
 .midmountain {
-  color: #ffd97a;
+  color: #eec14d;
 }
 .mountain {
-  color: #ffe8ad;
+  color: #976848;
 }
 
 input:disabled {

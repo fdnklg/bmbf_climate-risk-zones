@@ -44,7 +44,7 @@
         dragPan: false,
         scrollZoom: false,
         attributionControl: false,
-        style: 'mapbox://styles/juli84/ckm51o5k30ztm17r1yy3oelir'
+        style: 'mapbox://styles/juli84/ckm51o5k30ztm17r1yy3oelir',
       })
 
       map.on('movestart', () => {
@@ -61,7 +61,6 @@
             let projectedAnnotations = []
             anchors.forEach((anchor) => {
               const { anchors } = anchor
-              console.log('anchors', data)
               const projectedCoords = anchors.map((anchor) =>
                 map.project(anchor)
               )
@@ -163,7 +162,7 @@
         // fit map to bounding box
         const boundGeoJson = map.fitBounds(fittingBounds, {
           padding: paddingBounds,
-          duration: 300,
+          duration: 600,
         })
 
         if (mapbox_layers.includes('klimazonen')) {

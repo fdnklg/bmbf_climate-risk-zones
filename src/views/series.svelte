@@ -31,10 +31,6 @@
     }
     isActive = !isActive
   }
-
-  afterUpdate(() => {
-    console.log('$jsonData', $jsonData)
-  })
 </script>
 
 <style lang="scss">

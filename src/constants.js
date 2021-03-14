@@ -18,9 +18,10 @@ export const zeitreiheDataKeys = [
   'summer_days',
 ]
 
-export const fluvial_flood_low = '#5FCACA'
-export const fluvial_flood_medium = '#3C76F2'
-export const fluvial_flood_high = '#5D42D2'
+export const fluvial_flood_low = '#60BFC1'
+export const fluvial_flood_medium = '#418FA0'
+export const fluvial_flood_high = '#1E4A76'
+export const dense_space = '#5d42d2'
 
 const isLocal = false
 
@@ -211,9 +212,18 @@ export const droughtColors = [
 ]
 
 export const fluvial_flood_anchor_indices = {
-  L: [0, 1, 2],
-  M: [6, 7],
-  H: [3, 4, 5],
+  L: [5, 6, 7],
+  M: [5, 6, 7],
+  H: [5, 6, 7],
+}
+
+export const klimazonen_anchor_indices = {
+  cold: [0, 1],
+  warm: [2, 5],
+  dry: [0, 3],
+  mountain: [3, 4],
+  premountain: [4, 5],
+  midmountain: [6, 7],
 }
 
 export const klimazonenDict = [

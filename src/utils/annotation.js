@@ -1,4 +1,8 @@
-import { klimazonenDict, fluvial_flood_anchor_indices } from 'constants'
+import {
+  klimazonenDict,
+  fluvial_flood_anchor_indices,
+  klimazonen_anchor_indices,
+} from 'constants'
 
 function createAnnotation(layersWithAnchors, json, layer, szenario) {
   const { annotations, key } = layer
@@ -8,9 +12,14 @@ function createAnnotation(layersWithAnchors, json, layer, szenario) {
       current.forEach((currenAnnotation) => {
         const { anchors, fid } = currenAnnotation
         const currentKlimazone = klimazonenDict.find((d) => d.fid === fid)
+
         szenario.anchors.push({
           fid,
-          anchors: anchors.map((d) => d.coordinates),
+          anchors: anchors
+            .map((d) => d.coordinates)
+            .filter((d, i) =>
+              klimazonen_anchor_indices[currentKlimazone.type].includes(i)
+            ),
           text: annotation.text(currentKlimazone.type),
           isVertical: true,
         })
@@ -18,20 +27,17 @@ function createAnnotation(layersWithAnchors, json, layer, szenario) {
     } else if (key === 'fluvial_flood') {
       current.forEach((currenAnnotation) => {
         const { anchors, level } = currenAnnotation
-        console.log(
-          'currenAnnotation',
-          currenAnnotation,
-          currenAnnotation.level
-        )
-        szenario.anchors.push({
-          level,
-          anchors: anchors
-            .map((d) => d.coordinates)
-            .filter((d, i) =>
-              fluvial_flood_anchor_indices[currenAnnotation.level].includes(i)
-            ),
-          text: annotation.text(level),
-        })
+        if (layer.type.includes(level))
+          szenario.anchors.push({
+            level,
+            type: layer.type,
+            anchors: anchors
+              .map((d) => d.coordinates)
+              .filter((d, i) =>
+                fluvial_flood_anchor_indices[currenAnnotation.level].includes(i)
+              ),
+            text: annotation.text(level),
+          })
       })
     } else if (current) {
       const coords = current.map((p) => p.coordinates)
