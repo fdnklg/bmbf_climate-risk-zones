@@ -22,11 +22,6 @@
       }
     }
   }
-
-  $: {
-    console.log('svgWidth', windowWidth)
-  }
-
   $: isActive = false
 
   $: dateLength = $jsonData

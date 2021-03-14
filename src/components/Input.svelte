@@ -41,7 +41,7 @@
       if (isValid) {
         scrollToFirstScene()
       }
-    }, 50)
+    }, 750)
   }
 
   const disable = (e) => {

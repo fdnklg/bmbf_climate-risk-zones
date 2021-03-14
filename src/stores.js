@@ -27,7 +27,6 @@ export const storyData = derived(
       const getData = async () => {
         const json = await fetchJson(`${s3UrlRisk}postcode/${zipcode}.json`)
         if ($data) {
-          console.log('$data', $data)
           let dataObj = {}
           let { szenarien } = $data
           const {
@@ -39,8 +38,6 @@ export const storyData = derived(
             postcode,
             has_ocean_flood,
             fluvial_flood,
-            postcode_anchors,
-            postcode_buff_anchors,
             postcode_point,
           } = json
 
@@ -95,33 +92,35 @@ export const storyData = derived(
 
             // create feature for each layer based on config
             layers.map((layer) => {
-              const { key, isMapbox } = layer
+              const { key, isMapbox, type } = layer
               const style = styles[key]
               const geometries = json[key]
 
               // if geometries is an array create feature for each item and push it to array
               if (geometries && geometries.length > 1 && !isMapbox) {
                 geometries.forEach((geometry) => {
-                  const style = styles[`${key}_${geometry.level}`]
-                  const propsFill = {
-                    id: `${key}-fill-${geometry.level}`,
-                    ...style,
-                    level: geometry.level,
-                  }
+                  if (type.includes(geometry.level)) {
+                    const style = styles[`${key}_${geometry.level}`]
+                    const propsFill = {
+                      id: `${key}-fill-${geometry.level}`,
+                      ...style,
+                      level: geometry.level,
+                    }
 
-                  const propsContour = {
-                    id: `${key}-contour-${geometry.level}`,
-                    ...style,
-                    level: geometry.level,
-                  }
+                    const propsContour = {
+                      id: `${key}-contour-${geometry.level}`,
+                      ...style,
+                      level: geometry.level,
+                    }
 
-                  const featureFill = createFeature(geometry.geom, propsFill)
-                  const featureContour = createFeature(
-                    geometry.geom,
-                    propsContour
-                  )
-                  szenarioGeojson.features.push(featureFill)
-                  szenarioGeojson.features.push(featureContour)
+                    const featureFill = createFeature(geometry.geom, propsFill)
+                    const featureContour = createFeature(
+                      geometry.geom,
+                      propsContour
+                    )
+                    szenarioGeojson.features.push(featureFill)
+                    szenarioGeojson.features.push(featureContour)
+                  }
                 })
                 // else if geometry has only on object push to features
               } else if (!isMapbox) {

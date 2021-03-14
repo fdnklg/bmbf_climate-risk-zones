@@ -79,10 +79,13 @@ export function calcSelectedAnchor(anchors) {
       filteredAnchors.push(newAnchor)
     }
   })
+  let max = filteredAnchors
+  if (filteredAnchors.length > 1) {
+    max = filteredAnchors.reduce((prev, current) => {
+      return prev.factor < current.factor ? prev : current
+    })
+  }
 
-  const max = filteredAnchors.reduce((prev, current) => {
-    return prev.factor < current.factor ? prev : current
-  })
   return max
 }
 

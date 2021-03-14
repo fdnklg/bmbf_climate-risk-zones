@@ -23,10 +23,6 @@
       ? `https://twitter.com/intent/tweet?${query}`
       : `http://www.facebook.com/share.php?u=${encodeURIComponent(url)}`
 
-  afterUpdate(() => {
-    console.log('href', href)
-  })
-
   function open(e) {
     e.preventDefault()
 
