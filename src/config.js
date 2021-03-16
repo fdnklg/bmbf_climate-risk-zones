@@ -368,13 +368,13 @@ export const content = {
               text: (level) => {
                 switch (level) {
                   case 'L':
-                    return `Überschwemmungen <span class="bold" style="color: ${fluvial_flood_low}">unwahrscheinlich</span>`
+                    return `<span class="bold" style="color: ${fluvial_flood_low}">Sehr geringe Wahrscheinlichkeit</span>`
                     break
                   case 'M':
-                    return `Überschwemmungen <span class="bold" style="color: ${fluvial_flood_medium}">wahrscheinlich</span>`
+                    return `<span class="bold" style="color: ${fluvial_flood_medium}">Geringe Wahrscheinlichkeit</span>`
                     break
                   case 'H':
-                    return `Überschwemmungen <span class="bold" style="color: ${fluvial_flood_high}">sehr wahrscheinlich</span>`
+                    return `<span class="bold" style="color: ${fluvial_flood_high}">Hohe Wahrscheinlichkeit</span>`
                     break
                 }
               },
@@ -408,13 +408,13 @@ export const content = {
               text: (level) => {
                 switch (level) {
                   case 'L':
-                    return `Überschwemmungen <span class="bold" style="color: ${fluvial_flood_low}">unwahrscheinlich</span>`
+                    return `<span class="bold" style="color: ${fluvial_flood_low}">Sehr geringe Wahrscheinlichkeit</span>`
                     break
                   case 'M':
-                    return `Überschwemmungen <span class="bold" style="color: ${fluvial_flood_medium}">wahrscheinlich</span>`
+                    return `<span class="bold" style="color: ${fluvial_flood_medium}">Geringe Wahrscheinlichkeit</span>`
                     break
                   case 'H':
-                    return `Überschwemmungen <span class="bold" style="color: ${fluvial_flood_high}">sehr wahrscheinlich</span>`
+                    return `<span class="bold" style="color: ${fluvial_flood_high}">Hohe Wahrscheinlichkeit</span>`
                     break
                 }
               },
@@ -448,13 +448,13 @@ export const content = {
               text: (level) => {
                 switch (level) {
                   case 'L':
-                    return `Überschwemmungen <span class="bold" style="color: ${fluvial_flood_low}">unwahrscheinlich</span>`
+                    return `<span class="bold" style="color: ${fluvial_flood_low}">Sehr geringe Wahrscheinlichkeit</span>`
                     break
                   case 'M':
-                    return `Überschwemmungen <span class="bold" style="color: ${fluvial_flood_medium}">wahrscheinlich</span>`
+                    return `<span class="bold" style="color: ${fluvial_flood_medium}">Geringe Wahrscheinlichkeit</span>`
                     break
                   case 'H':
-                    return `Überschwemmungen <span class="bold" style="color: ${fluvial_flood_high}">sehr wahrscheinlich</span>`
+                    return `<span class="bold" style="color: ${fluvial_flood_high}">Hohe Wahrscheinlichkeit</span>`
                     break
                 }
               },
