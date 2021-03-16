@@ -43,9 +43,12 @@ export const storyData = derived(
 
           const isDenseSpace = dense_space.bbox
           const hasOceanFlood = has_ocean_flood === 1
-          const hasFluvialFlood = fluvial_flood
 
-          console.log('fluvial_flood', fluvial_flood)
+          const hasFluvialFlood_L = fluvial_flood && fluvial_flood.filter((f) => f.level === 'L').length > 0
+          const hasFluvialFlood_M = fluvial_flood && fluvial_flood.filter((f) => f.level === 'M').length > 0
+          const hasFluvialFlood_H = fluvial_flood && fluvial_flood.filter((f) => f.level === 'H').length > 0
+
+          const hasFluvialFlood = hasFluvialFlood_L || hasFluvialFlood_M || hasFluvialFlood_H
 
           // remove steps from config if json is no dense space
           if (!isDenseSpace) {
@@ -59,6 +62,22 @@ export const storyData = derived(
             szenarien = szenarien.filter(
               (d) => !d.layers.map((l) => l.key).includes('fluvial_flood')
             )
+          } else {
+            if (!hasFluvialFlood_L) {
+              szenarien = szenarien.filter(
+                (d) => !d.layers.map((l) => l.key).includes('fluvial_flood') || !d.layers.map((l) => l.type[0]).includes('L')
+              )
+            }
+            if (!hasFluvialFlood_M) {
+              szenarien = szenarien.filter(
+                (d) => !d.layers.map((l) => l.key).includes('fluvial_flood') || !d.layers.map((l) => l.type[0]).includes('M')
+              )
+            }
+            if (!hasFluvialFlood_H) {
+              szenarien = szenarien.filter(
+                (d) => !d.layers.map((l) => l.key).includes('fluvial_flood') || !d.layers.map((l) => l.type[0]).includes('H')
+              )
+            }
           }
 
           // remove steps from config if json has no ocean floods
