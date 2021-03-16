@@ -2,7 +2,6 @@
   import { geoPath, geoMercator } from 'd3-geo'
   
   export let data
-  export let meta
   export let width = 500
   export let height = 650
   export let animated = false
@@ -11,7 +10,7 @@
   export let strokeWidth = 0.5
   export let stroke = '#f5f5f5'
   export let hasMarker = false
-  export let colorScale
+  export let colorScale = null
 
   $: proj = geoMercator().fitSize([width, height], data)
   $: pathGen = geoPath().projection(proj)

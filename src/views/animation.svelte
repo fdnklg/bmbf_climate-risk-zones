@@ -106,7 +106,6 @@
         height={svgHeight}
         {dateIndex}
         {colorScale}
-        meta={$jsonData.meta}
         data={$jsonData.kreise} />
     </div>
     <TimeSeriesSlider
