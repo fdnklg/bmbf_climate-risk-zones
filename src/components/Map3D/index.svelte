@@ -71,7 +71,11 @@
         }
       })
 
-      map.on('load', () => {
+      map.on('data', () => {
+        updateMapboxLayers(map, [])
+      })
+
+      map.on('load', () => {        
         map.addSource('layers', { type: 'geojson', data: createGeojson() })
 
         addLayer(map, 'postcode_buff_geom-fill', 'fill', 'layers', paintFill)
@@ -124,6 +128,8 @@
         map.moveLayer('fluvial_flood-contour-M', 'state-label')
         map.moveLayer('fluvial_flood-fill-H', 'state-label')
         map.moveLayer('fluvial_flood-contour-H', 'state-label')
+
+        updateMap()
       })
     }
 
