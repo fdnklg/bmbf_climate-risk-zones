@@ -1,5 +1,5 @@
 <script>
-  import { onMount, setContext } from 'svelte'
+  import { onMount } from 'svelte'
   import { zipcodes, data, jsonData, userInput } from 'stores'
   import { loadFile, loadTopojson } from 'utils'
   import { metadata, content } from 'config'
