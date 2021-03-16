@@ -1,6 +1,4 @@
 <script>
-  import { afterUpdate } from 'svelte'
-
   export let text = ''
   export let url = ''
   export let hashtags = ''

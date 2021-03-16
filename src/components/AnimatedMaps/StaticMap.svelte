@@ -1,7 +1,6 @@
 <script>
   import { geoPath, geoMercator } from 'd3-geo'
-  import { afterUpdate } from 'svelte'
-
+  
   export let data
   export let meta
   export let width = 500

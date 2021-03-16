@@ -16,12 +16,9 @@
     pointer,
     x_scale,
     y_scale,
-    x_scale_inverse,
-    y_scale_inverse,
     width,
     height,
   } = getChartContext()
-  const dispatch = createEventDispatcher()
 
   $: quadtree = new Quadtree(data)
   $: quadtree.update(x, y, $x_scale, $y_scale)

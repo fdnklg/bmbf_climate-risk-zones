@@ -1,7 +1,7 @@
 import { dsvFormat } from 'd3-dsv'
 import { extent } from 'd3-array'
-import { zeitreiheDataGradients as gradient, styles } from 'constants'
-import { feature, mesh, merge } from 'topojson-client'
+import { zeitreiheDataGradients as gradient } from 'constants'
+import { feature, merge } from 'topojson-client'
 import { createFeature } from 'components/Map3D/utils.js'
 import { STATE_LABELS, stateCentroids } from 'constants'
 

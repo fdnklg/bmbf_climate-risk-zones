@@ -1,7 +1,6 @@
 <script>
   import { onMount, afterUpdate, setContext } from 'svelte'
   import { selectedAnchors } from 'stores'
-  import { klimazonenIds } from 'constants'
   import {
     createGeojson,
     updateMapboxLayers,
@@ -29,7 +28,6 @@
   let container
 
   onMount(() => {
-    let flying = false
     const link = document.createElement('link')
     link.rel = 'stylesheet'
     link.href = 'https://unpkg.com/mapbox-gl/dist/mapbox-gl.css'
