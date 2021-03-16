@@ -112,7 +112,6 @@ export const storyData = derived(
               ]
             }
 
-            console.log('json', json)
             // create feature for each layer based on config
             layers.map((layer) => {
               const { key, isMapbox, type } = layer
