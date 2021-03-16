@@ -1,7 +1,5 @@
 import {
   klimazonenDict,
-  fluvial_flood_anchor_indices,
-  klimazonen_anchor_indices,
 } from 'constants'
 
 function createAnnotation(layersWithAnchors, json, layer, szenario) {

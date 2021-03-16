@@ -169,7 +169,7 @@
   {/if}
 
   <div class="onboarding buttons">
-    <Button marginRight={true} primary={true} handleClick={handleSubmit}>
+    <Button primary={true} handleClick={handleSubmit}>
       Bestätigen
     </Button>
     <Button primary={false} handleClick={handleRandom}>Zufällige Region</Button>

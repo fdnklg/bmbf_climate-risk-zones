@@ -27,7 +27,6 @@
     const _y2 = $y_scale(animated ? $position : y1)
 
     const left = Math.min(_x1, _x2)
-    const right = Math.max(_x1, _x2)
     const top = Math.min(_y1, _y2)
     const bottom = Math.max(_y1, _y2)
 

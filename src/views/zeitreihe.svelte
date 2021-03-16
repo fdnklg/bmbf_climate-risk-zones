@@ -7,7 +7,6 @@
   import ChartZeitreihe from 'components/ChartZeitreihe.svelte'
   import LayoutScrollytelling from 'components/LayoutScrollytelling.svelte'
   import IntersectionObserver from 'core/components/Intersectionobserver.svelte'
-  import { afterUpdate } from 'svelte'
 
   function isScrollingDown(current, before) {
     if (before) return parseFloat(before) > parseFloat(current)

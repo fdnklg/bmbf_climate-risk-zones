@@ -1,8 +1,7 @@
 <script>
   import { onMount, setContext } from 'svelte'
   import { mapbox, key } from './mapbox.js'
-  import { updateMapboxLayers } from './utils'
-
+  
   let map
 
   setContext(key, {
@@ -12,7 +11,6 @@
   let container
 
   onMount(() => {
-    let flying = false
     const link = document.createElement('link')
     link.rel = 'stylesheet'
     link.href = 'https://unpkg.com/mapbox-gl/dist/mapbox-gl.css'
