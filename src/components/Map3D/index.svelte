@@ -145,7 +145,7 @@
   const updateMap = () => {
     if (data && map) {
       const { geojson, padding, fitBounds, risk_zone_ids, layers } = data
-      let paddingBounds = padding ? padding : window.innerWidth < 500 ? 20 : 200
+      let paddingBounds = padding ? padding : window.innerWidth < 500 ? 20 : 70
 
       const mapbox_layers = layers.filter((d) => d.isMapbox).map((d) => d.key)
 

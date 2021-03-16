@@ -15,11 +15,10 @@ function createAnnotation(layersWithAnchors, json, layer, szenario) {
 
         szenario.anchors.push({
           fid,
-          anchors: anchors
-            .map((d) => d.coordinates)
-            .filter((d, i) =>
-              klimazonen_anchor_indices[currentKlimazone.type].includes(i)
-            ),
+          anchors: anchors.map((d) => d.coordinates),
+          // .filter((d, i) =>
+          //   klimazonen_anchor_indices[currentKlimazone.type].includes(i)
+          // )
           text: annotation.text(currentKlimazone.type),
           isVertical: true,
         })
@@ -32,21 +31,19 @@ function createAnnotation(layersWithAnchors, json, layer, szenario) {
             szenario.anchors.push({
               level,
               type: layer.type,
-              anchors: anchors
-                .map((d) => d.coordinates)
-                .filter((d, i) =>
-                  fluvial_flood_anchor_indices[currenAnnotation.level].includes(
-                    i
-                  )
-                ),
+              anchors: anchors.map((d) => d.coordinates),
+              // .filter((d, i) =>
+              //   fluvial_flood_anchor_indices[currenAnnotation.level].includes(
+              //     i
+              //   )
+              // )
               text: annotation.text(level),
             })
         })
       }
     } else if (current) {
-      const coords = current
-        .map((p) => p.coordinates)
-        .filter((d, i) => i === 3 || i === 5)
+      const coords = current.map((p) => p.coordinates)
+      // .filter((d, i) => i === 3 || i === 5)
       szenario.anchors.push({
         anchors: coords,
         text: annotation.text(json),
