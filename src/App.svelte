@@ -17,11 +17,6 @@
   import Share from 'components/Share.svelte'
   import Appendix from 'components/Appendix.svelte'
 
-  function handleActiveStep(e) {
-    step = e.detail
-    activeAnchor.set(e.detail)
-  }
-
   onMount(async () => {
     const topo = await loadTopojson(
       'data/timeseries_air_temperature_mean_avg.simple.topo.json'
