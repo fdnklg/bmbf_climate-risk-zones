@@ -66,6 +66,7 @@ export default {
       __env__: JSON.stringify({
         isProd: production,
         ...config().parsed,
+        ...process.env,
       }),
     }),
     svg({
