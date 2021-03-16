@@ -540,12 +540,12 @@ export const content = {
 export const zipcodesUrl = `${s3Url}postcodes.txt`
 
 export const metadata = {
-  title: content.project.title,
-  lang: content.project.lang,
-  twitter_site: '@BMBF_Bund',
-  twitter_creator: '@fdnklg',
-  og_url: 'https://fabiandinklage.com',
-  og_title: content.project.title,
-  og_description: content.project.description,
-  og_image: content.project.socialImgUrl,
+  authors: 'Sebastian Meier | @seb_meier, Fabian Dinklage | @fdnklg',
+  lang: 'de',
+  twitter_site: '@seb_meier',
+  twitter_creator: '',
+  url: 'https://klima-risiken.vislab.io',
+  title: 'Klimawandelrisiken in Deutschland',
+  description: 'Der Klimawandel ist längst in Deutschland angekommen. In den nächsten Jahren und Jahrzehnten, werden wir die Auswirkungen immer deutlicher spüren. Die lokalen Risiken sind stark davon abhängig wo man in Deutschland wohnt. Finde auf dieser Seite heraus, welchen Herausforderungen sich deine Region stellen muss.',
+  image: 'https://klima-risiken.vislab.io/data/social_media.jpg',
 }
