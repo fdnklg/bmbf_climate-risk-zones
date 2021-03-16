@@ -26,6 +26,8 @@
     }
   }
 
+  
+
   function handleActiveStep(e) {
     step = e.detail
   }
