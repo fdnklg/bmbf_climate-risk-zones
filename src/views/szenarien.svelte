@@ -1,6 +1,6 @@
 <script>
   import { storyData, selectedAnchors, jsonData } from 'stores'
-
+  import * as animateScroll from 'svelte-scrollto'
   import IntersectionObserver from 'core/components/Intersectionobserver.svelte'
   import Map3D from 'components/Map3D/index.svelte'
   import Tooltip from 'components/Tooltip.svelte'
@@ -13,6 +13,18 @@
   let step
   $: data = $storyData ? $storyData.szenarien : null
   $: mapData = $jsonData ? $jsonData.germany : null
+  $: {
+    if (data && mapData) {
+      setTimeout(() => {
+        animateScroll.scrollTo({
+          element: `[id='anchor-1.1']`,
+          offset: -80,
+          duration: 1500,
+          delay: 0,
+        })
+      }, 50)
+    }
+  }
 
   function handleActiveStep(e) {
     step = e.detail
