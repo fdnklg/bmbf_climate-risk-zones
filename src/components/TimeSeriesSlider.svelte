@@ -174,8 +174,9 @@
     -webkit-appearance: none; /* Hides the slider so that custom slider can be made */
     width: 100%; /* Specific width is required for Firefox. */
     background: transparent; /* Otherwise white in Chrome */
-    width: calc(100% + 29px);
-    transform: translateX(-14px);
+    width: calc(100% + 36px);
+    transform: translateX(-18px);
+    padding: 0;
     z-index: 10;
     border: none;
   }
@@ -243,7 +244,8 @@
         <Grid horizontal count={3} let:value>
           <div class="grid-line horizontal">
             {#if value === 30}
-              <span class="y-label-desc">&thinsp;°C 7 Jahres-Ø-Temperatur</span>
+              <span class="y-label-desc">&thinsp;°C Deutsche Höchst-Temperaturen
+                im Ø (7 Jahres-Mittel)</span>
             {/if}
             <span class="y-label">{value}</span>
           </div>

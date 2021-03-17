@@ -77,8 +77,8 @@ export const styles = {
 }
 
 export const zeitreiheDataGradients = {
-  air_temperature_max: [fluvial_flood_low, '#EC6052'],
-  air_temperature_mean: [fluvial_flood_low, '#EC6052'],
+  air_temperature_max: ['#418fa0', '#cf6d49'],
+  air_temperature_mean: ['#418fa0', '#cf6d49'],
   drought_index: ['#C7A168', '#B46250'],
   hot_days: ['#C7A168', '#B46250'],
   summer_days: ['#C7A168', '#B46250'],

@@ -121,11 +121,11 @@ textarea {
 }
 
 .dot.warm:after {
-  background-color: #ec5e51;
+  background-color: #cf6d49;
 }
 
 .dot.cold:after {
-  background-color: #3b75f1;
+  background-color: #418fa0;
 }
 
 .dot {
