@@ -128,6 +128,14 @@ textarea {
   background-color: #418fa0;
 }
 
+.mapboxgl-canvas:focus {
+  outline: none;
+}
+
+.mapboxgl-canvas {
+  pointer-events: none;
+}
+
 .dot {
   margin-right: 15px;
 }

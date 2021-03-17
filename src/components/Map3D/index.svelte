@@ -46,6 +46,7 @@
         // pitch: 45,
         // bearing: 80,
         dragPan: false,
+        doubleClickZoom: false,
         scrollZoom: false,
         attributionControl: false,
         style: 'mapbox://styles/juli84/ckm51o5k30ztm17r1yy3oelir',
