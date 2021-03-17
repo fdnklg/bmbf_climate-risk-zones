@@ -12,6 +12,7 @@ function createAnnotation(layersWithAnchors, json, layer, szenario, id) {
         szenario.anchors.push({
           fid,
           id: id,
+          klimaId: `${id}_${currentKlimazone.type}`,
           anchors: anchors
             .map((d) => d.coordinates)
             .filter((d, i) =>

@@ -1,7 +1,8 @@
 import { mapbox_layers as mapbox_layers_constant } from 'constants'
 import difference from 'turf-difference'
 import bboxPolygon from '@turf/bbox-polygon'
-import { csvFormatBody } from 'd3-dsv'
+import booleanPointInPolygon from '@turf/boolean-point-in-polygon'
+import distance from '@turf/distance'
 
 export const createBoundingBox = (cutOutFeat) => {
   let bboxEurope = [-5.2288281645, 42.0255985816, 25.622332041, 58.9956007543]
@@ -43,6 +44,26 @@ function percDiff(a, b) {
   return 100 * Math.abs((a - b) / ((a + b) / 2))
 }
 
+export function pointInPolygon(point, polygon, align) {
+  const offset = 0.011
+  let annotatedPoint
+  switch (align) {
+    case 'left':
+      annotatedPoint = [point[0] - offset, point[1]]
+      break
+    case 'right':
+      annotatedPoint = [point[0] + offset, point[1]]
+      break
+    case 'top':
+      annotatedPoint = [point[0], point[1] + offset]
+      break
+    case 'bottom':
+      annotatedPoint = [point[0], point[1] - offset]
+      break
+  }
+  return booleanPointInPolygon(annotatedPoint, polygon)
+}
+
 export function setAlignedAnnotations(annotations, innerWidth, innerHeight) {
   const annotationsCopy = JSON.parse(JSON.stringify(annotations))
   // loop über jede annotation
@@ -54,9 +75,9 @@ export function setAlignedAnnotations(annotations, innerWidth, innerHeight) {
       const labelWidth = 160
       const labelHeight = 100
       if (i !== cI) {
-        // - wenn differenz zu mindestens einem x < als 150 dann setze align in andere Richtung
-
-        if (
+        if (innerWidth - coords.x < labelWidth) {
+          coords.alignX = 'left'
+        } else if (
           coords.x > coordsToCompare.x &&
           coords.x - coordsToCompare.x > labelWidth
         ) {
@@ -69,8 +90,6 @@ export function setAlignedAnnotations(annotations, innerWidth, innerHeight) {
           coords.x > labelWidth &&
           innerWidth - coords.x < labelWidth
         ) {
-          coords.alignX = 'left'
-        } else if (innerWidth - coords.x < labelWidth) {
           coords.alignX = 'left'
         }
 
@@ -115,15 +134,23 @@ export function setAlignedAnnotations(annotations, innerWidth, innerHeight) {
   return annotations
 }
 
+/*
+
+- berechne die distanze zwischen allen punkten
+- wähle das Set aus Punkten aus, dass insgesamt die größte distanze zueinander hat
+
+*/
+
 export function calcSelectedAnchor(anchors, mode) {
   let filteredAnchors = []
   const minOffsetX = 150
   const minOffsetY = 200
 
-  const factor = mode === 'postcode_geom' ? 2 : 1
+  const factor = mode === 'postcode_buff_geom' ? 2 : 1
 
   anchors.forEach((anchor, i) => {
-    const { x, y } = anchor
+    const { pos, coords } = anchor
+    const { x, y } = pos
     const left = x
     const right = window.innerWidth - left
     const top = y
@@ -141,6 +168,7 @@ export function calcSelectedAnchor(anchors, mode) {
       const newAnchor = {
         alignY: percDiff(top, bottom) < 30 ? false : alignY,
         alignX,
+        coords,
         factor: factorX * factorY,
         x,
         y,
@@ -162,6 +190,98 @@ export function calcSelectedAnchor(anchors, mode) {
   }
 
   return max
+}
+
+export function calcSelectedAnchorNew(anchors, mode) {
+  let filteredAnchors = []
+  const minOffsetX = 150
+  const minOffsetY = 200
+
+  const factor = mode === 'postcode_buff_geom' ? 2 : 1
+
+  anchors.forEach((anchor, i) => {
+    const { pos, coords, id } = anchor
+    const { x, y } = pos
+    const left = x
+    const right = window.innerWidth - left
+    const top = y
+    const bottom = window.innerHeight - top
+    if (
+      (left > minOffsetX || right > minOffsetX) &&
+      (top > minOffsetY || bottom > minOffsetY)
+    ) {
+      const alignX = left < right ? 'left' : 'right'
+      const alignY = bottom > top ? 'top' : 'bottom'
+
+      const factorX = left > right ? left : right
+      const factorY = top * factor > bottom ? top : bottom
+
+      const newAnchor = {
+        alignY: percDiff(top, bottom) < 30 ? false : alignY,
+        alignX,
+        coords,
+        id,
+        factor: factorX * factorY,
+        x,
+        y,
+        dimensions: {
+          left,
+          right,
+          top,
+          bottom,
+        },
+      }
+      filteredAnchors.push(newAnchor)
+    }
+  })
+  return filteredAnchors
+}
+
+export function getSelectedCoords(anchors) {
+  const getKey = (previous, current, index, array) => {
+    if (!previous.includes(current.id)) previous.push(current.id)
+    return previous
+  }
+  const keys = anchors.reduce(getKey, [])
+
+  const getLargestDistance = (previous, current, index, array) => {
+    const distances = []
+    array.forEach((d, i) => {
+      if (d.id !== current.id) {
+        distances.push({
+          distance: distance(current.coords, d.coords),
+          id: current.id === 'klimazonen' ? current.klimaId : current.id,
+          from: current.id === 'klimazonen' ? current.klimaId : current.id,
+          to: d.id,
+          fromIndex: index,
+          toIndex: i,
+        })
+      }
+    })
+    const largest = distances.reduce((prev, current) => {
+      return prev.distance > current.distance ? prev : current
+    })
+
+    let storeObj = previous.find((d) => d.key === largest.id)
+
+    if (!storeObj.anchor) storeObj.anchor = largest
+    if (storeObj.anchor && largest.distance > storeObj.anchor.distance)
+      storeObj.anchor = largest
+    return previous
+  }
+
+  const largesDistancePairs = anchors.reduce(
+    getLargestDistance,
+    keys.map((d) => ({ key: d, anchor: null }))
+  )
+
+  let selectedAnchors = []
+
+  largesDistancePairs.forEach((d) => {
+    selectedAnchors.push(anchors[d.anchor.fromIndex])
+  })
+
+  return calcSelectedAnchorNew(selectedAnchors)
 }
 
 export function rotateCamera(map, timestamp) {

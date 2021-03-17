@@ -6,6 +6,8 @@
     updateMapboxLayers,
     calcSelectedAnchor,
     setAlignedAnnotations,
+    getSelectedCoords,
+    pointInPolygon,
     addLayer,
   } from './utils'
 
@@ -57,24 +59,71 @@
       map.on('moveend', () => {
         isMoving = false
         if (data && !isMoving) {
+          console.log(data)
           let { anchors, step } = data
+          let postcode_annotation
           if (anchors.length > 0) {
-            let projectedAnnotations = []
+            let allProjectedChords = []
+
             anchors.forEach((anchor) => {
-              const { anchors, id } = anchor
-              const mode = id === 'postcode_geom' ? 'left' : 'right'
-              const projectedCoords = anchors.map((anchor) =>
-                map.project(anchor)
-              )
-              const selectedAnchor = calcSelectedAnchor(projectedCoords, mode)
-              anchor.coords = selectedAnchor
-              projectedAnnotations.push(anchor)
+              const { anchors, id, klimaId } = anchor
+              const projectedCoords = anchors.map((anchor) => ({
+                coords: anchor,
+                pos: map.project(anchor),
+                id: id === 'klimazonen' ? klimaId : id,
+              }))
+              projectedCoords.forEach((d) => allProjectedChords.push(d))
             })
+
+            const selectedCoords = getSelectedCoords(allProjectedChords)
+            if (selectedCoords.find((d) => d.id === 'postcode_geom'))
+              postcode_annotation = selectedCoords.find(
+                (d) => d.id === 'postcode_geom'
+              )
+
+            anchors.forEach((anchor) => {
+              const currentId =
+                anchor.id === 'klimazonen' ? anchor.klimaId : anchor.id
+              anchor.coords = selectedCoords.find((d) => d.id === currentId)
+            })
+
             const alignedAnnotations = setAlignedAnnotations(
-              projectedAnnotations,
+              anchors, // projectedAnnotations,
               innerWidth,
               innerHeight
             )
+
+            // check if annotation is within boundings of postcode
+            const postcodeFeature = data.geojson.features.find(
+              (d) => d.properties.id === 'postcode_geom-fill'
+            )
+
+            if (postcodeFeature) {
+              const { coords, alignX, alignY } = postcode_annotation
+
+              if (alignY) {
+                const isInPolygon = pointInPolygon(
+                  coords,
+                  postcodeFeature.geometry,
+                  alignY
+                )
+                if (isInPolygon)
+                  alignedAnnotations.find(
+                    (d) => d.id === 'postcode_geom'
+                  ).coords.alignY = alignY === 'top' ? 'bottom' : 'top'
+              } else {
+                const isInPolygon = pointInPolygon(
+                  coords,
+                  postcodeFeature.geometry,
+                  alignX
+                )
+                if (isInPolygon)
+                  alignedAnnotations.find(
+                    (d) => d.id === 'postcode_geom'
+                  ).coords.alignX = alignX === 'right' ? 'left' : 'right'
+              }
+            }
+
             selectedAnchors.set(alignedAnnotations)
           }
         }
