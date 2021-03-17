@@ -75,11 +75,14 @@ export function setAlignedAnnotations(annotations, innerWidth, innerHeight) {
       const labelWidth = 160
       const labelHeight = 100
       if (i !== cI) {
-        if (innerWidth - coords.x < labelWidth) {
+        if (
+          innerWidth - coords.x < labelWidth &&
+          coords.x < coordsToCompare.x
+        ) {
           coords.alignX = 'left'
         } else if (
           coords.x > coordsToCompare.x &&
-          coords.x - coordsToCompare.x > labelWidth
+          innerWidth - coords.x > labelWidth
         ) {
           coords.alignX = 'right'
         } else if (coords.x < labelWidth) {
@@ -114,15 +117,14 @@ export function setAlignedAnnotations(annotations, innerWidth, innerHeight) {
         }
 
         if (
-          coords.x > coordsToCompare.x &&
-          coords.x - coordsToCompare.x < labelWidth &&
-          coords.y > coordsToCompare.y
+          // coords.x > coordsToCompare.x &&
+          coords.y < labelHeight
+          // coords.x - coordsToCompare.x < labelWidth &&
+          // coords.y > coordsToCompare.y
         ) {
           coords.alignY = 'bottom'
-        }
-
-        if (
-          coords.x > coordsToCompare.x &&
+        } else if (
+          // coords.x > coordsToCompare.x &&
           coords.x - coordsToCompare.x < labelWidth &&
           coords.y < coordsToCompare.y
         ) {
@@ -244,42 +246,46 @@ export function getSelectedCoords(anchors) {
   }
   const keys = anchors.reduce(getKey, [])
 
-  const getLargestDistance = (previous, current, index, array) => {
-    const distances = []
-    array.forEach((d, i) => {
-      if (d.id !== current.id) {
-        distances.push({
-          distance: distance(current.coords, d.coords),
-          id: current.id === 'klimazonen' ? current.klimaId : current.id,
-          from: current.id === 'klimazonen' ? current.klimaId : current.id,
-          to: d.id,
-          fromIndex: index,
-          toIndex: i,
-        })
-      }
-    })
-    const largest = distances.reduce((prev, current) => {
-      return prev.distance > current.distance ? prev : current
-    })
-
-    let storeObj = previous.find((d) => d.key === largest.id)
-
-    if (!storeObj.anchor) storeObj.anchor = largest
-    if (storeObj.anchor && largest.distance > storeObj.anchor.distance)
-      storeObj.anchor = largest
-    return previous
-  }
-
-  const largesDistancePairs = anchors.reduce(
-    getLargestDistance,
-    keys.map((d) => ({ key: d, anchor: null }))
-  )
-
   let selectedAnchors = []
 
-  largesDistancePairs.forEach((d) => {
-    selectedAnchors.push(anchors[d.anchor.fromIndex])
-  })
+  if (keys.length > 1) {
+    const getLargestDistance = (previous, current, index, array) => {
+      const distances = []
+      array.forEach((d, i) => {
+        if (d.id !== current.id) {
+          distances.push({
+            distance: distance(current.coords, d.coords),
+            id: current.id === 'klimazonen' ? current.klimaId : current.id,
+            from: current.id === 'klimazonen' ? current.klimaId : current.id,
+            to: d.id,
+            fromIndex: index,
+            toIndex: i,
+          })
+        }
+      })
+      const largest = distances.reduce((prev, current) => {
+        return prev.distance > current.distance ? prev : current
+      })
+
+      let storeObj = previous.find((d) => d.key === largest.id)
+
+      if (!storeObj.anchor) storeObj.anchor = largest
+      if (storeObj.anchor && largest.distance > storeObj.anchor.distance)
+        storeObj.anchor = largest
+      return previous
+    }
+
+    const largesDistancePairs = anchors.reduce(
+      getLargestDistance,
+      keys.map((d) => ({ key: d, anchor: null }))
+    )
+
+    largesDistancePairs.forEach((d) => {
+      selectedAnchors.push(anchors[d.anchor.fromIndex])
+    })
+  } else {
+    selectedAnchors.push(anchors[0])
+  }
 
   return calcSelectedAnchorNew(selectedAnchors)
 }

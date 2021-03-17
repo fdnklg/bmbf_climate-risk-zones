@@ -21,7 +21,6 @@ export const content = {
   szenarien: [
     {
       step: '1.1',
-      padding: 20,
       showMinimap: true,
       text: {
         title: 'Deine Region',
