@@ -196,6 +196,10 @@ export const mergeZeitreihen = (postcode, germany) => {
   return germany
 }
 
+export function getPostcode(postcode) {
+  return postcode.toString().length === 4 ? `0${postcode}` : postcode
+}
+
 export const createZeitreihe = (data, datakey, sliceAt = false) => {
   const zeitreihe = data.find((d) => d.type === datakey)
   const { values } = zeitreihe

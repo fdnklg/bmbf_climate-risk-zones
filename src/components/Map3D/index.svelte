@@ -5,6 +5,7 @@
     createGeojson,
     updateMapboxLayers,
     calcSelectedAnchor,
+    setAlignedAnnotations,
     addLayer,
   } from './utils'
 
@@ -20,6 +21,8 @@
   export let data
   let map
   let isMoving = false
+  let innerHeight
+  let innerWidth
 
   setContext(key, {
     getMap: () => map,
@@ -54,32 +57,37 @@
       map.on('moveend', () => {
         isMoving = false
         if (data && !isMoving) {
-          let { anchors } = data
+          let { anchors, step } = data
           if (anchors.length > 0) {
             let projectedAnnotations = []
             anchors.forEach((anchor) => {
-              const { anchors } = anchor
+              const { anchors, id } = anchor
+              const mode = id === 'postcode_geom' ? 'left' : 'right'
               const projectedCoords = anchors.map((anchor) =>
                 map.project(anchor)
               )
-              // @TODO: update method to calculate selected anchor here!
-              const selectedAnchor = calcSelectedAnchor(projectedCoords)
+              const selectedAnchor = calcSelectedAnchor(projectedCoords, mode)
               anchor.coords = selectedAnchor
               projectedAnnotations.push(anchor)
             })
-            selectedAnchors.set(projectedAnnotations)
+            const alignedAnnotations = setAlignedAnnotations(
+              projectedAnnotations,
+              innerWidth,
+              innerHeight
+            )
+            selectedAnchors.set(alignedAnnotations)
           }
         }
       })
 
       map.on('data', () => {
         if (ignoreOnce) {
-          ignoreOnce = false;
+          ignoreOnce = false
           updateMapboxLayers(map, [])
         }
       })
 
-      map.on('load', () => {        
+      map.on('load', () => {
         map.addSource('layers', { type: 'geojson', data: createGeojson() })
 
         addLayer(map, 'postcode_buff_geom-fill', 'fill', 'layers', paintFill)
@@ -198,3 +206,4 @@
     <slot />
   {/if}
 </div>
+<svelte:window bind:innerHeight bind:innerWidth />

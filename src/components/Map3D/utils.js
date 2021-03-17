@@ -1,6 +1,7 @@
 import { mapbox_layers as mapbox_layers_constant } from 'constants'
 import difference from 'turf-difference'
 import bboxPolygon from '@turf/bbox-polygon'
+import { csvFormatBody } from 'd3-dsv'
 
 export const createBoundingBox = (cutOutFeat) => {
   let bboxEurope = [-5.2288281645, 42.0255985816, 25.622332041, 58.9956007543]
@@ -42,10 +43,84 @@ function percDiff(a, b) {
   return 100 * Math.abs((a - b) / ((a + b) / 2))
 }
 
-export function calcSelectedAnchor(anchors) {
+export function setAlignedAnnotations(annotations, innerWidth, innerHeight) {
+  const annotationsCopy = JSON.parse(JSON.stringify(annotations))
+  // loop über jede annotation
+  annotations.forEach((annotation, i) => {
+    const { coords } = annotation
+    // für jede annotation: loop über alle anderen annotationen und berechne:
+    annotationsCopy.map((comparedAnnotation, cI) => {
+      const coordsToCompare = comparedAnnotation.coords
+      const labelWidth = 160
+      const labelHeight = 100
+      if (i !== cI) {
+        // - wenn differenz zu mindestens einem x < als 150 dann setze align in andere Richtung
+
+        if (
+          coords.x > coordsToCompare.x &&
+          coords.x - coordsToCompare.x > labelWidth
+        ) {
+          coords.alignX = 'right'
+        } else if (coords.x < labelWidth) {
+          coords.alignX = 'right'
+        } else if (
+          coords.x < coordsToCompare.x &&
+          coordsToCompare.x - coords.x < labelWidth &&
+          coords.x > labelWidth &&
+          innerWidth - coords.x < labelWidth
+        ) {
+          coords.alignX = 'left'
+        } else if (innerWidth - coords.x < labelWidth) {
+          coords.alignX = 'left'
+        }
+
+        if (
+          coords.y < coordsToCompare.y &&
+          (coords.x < labelWidth || innerWidth - coords.x < innerWidth) &&
+          coords.y > labelHeight
+        ) {
+          coords.alignY = 'top'
+        }
+
+        if (
+          coords.y > coordsToCompare.y &&
+          (coords.x < labelWidth || innerWidth - coords.x < innerWidth) &&
+          coords.y > labelHeight
+        ) {
+          coords.alignY = 'bottom'
+        }
+
+        if (innerWidth > 768) {
+          coords.alignY = false
+        }
+
+        if (
+          coords.x > coordsToCompare.x &&
+          coords.x - coordsToCompare.x < labelWidth &&
+          coords.y > coordsToCompare.y
+        ) {
+          coords.alignY = 'bottom'
+        }
+
+        if (
+          coords.x > coordsToCompare.x &&
+          coords.x - coordsToCompare.x < labelWidth &&
+          coords.y < coordsToCompare.y
+        ) {
+          coords.alignY = 'top'
+        }
+      }
+    })
+  })
+  return annotations
+}
+
+export function calcSelectedAnchor(anchors, mode) {
   let filteredAnchors = []
   const minOffsetX = 150
   const minOffsetY = 200
+
+  const factor = mode === 'postcode_geom' ? 2 : 1
 
   anchors.forEach((anchor, i) => {
     const { x, y } = anchor
@@ -57,11 +132,11 @@ export function calcSelectedAnchor(anchors) {
       (left > minOffsetX || right > minOffsetX) &&
       (top > minOffsetY || bottom > minOffsetY)
     ) {
-      const alignX = left * 1.2 < right ? 'left' : 'right'
+      const alignX = left < right ? 'left' : 'right'
       const alignY = bottom > top ? 'top' : 'bottom'
 
       const factorX = left > right ? left : right
-      const factorY = top > bottom ? top : bottom
+      const factorY = top * factor > bottom ? top : bottom
 
       const newAnchor = {
         alignY: percDiff(top, bottom) < 30 ? false : alignY,

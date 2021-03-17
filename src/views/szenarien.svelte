@@ -10,7 +10,11 @@
   import Anchor from 'components/Anchor.svelte'
   import StaticMap from 'components/AnimatedMaps/StaticMap.svelte'
 
+  let innerHeight
+  let innerWidth
   let step
+  $: miniMapWidth = innerWidth < 600 ? 60 : 80
+  $: miniMapHeight = miniMapWidth * 1.26
   $: data = $storyData ? $storyData.szenarien : null
   $: mapData = $jsonData ? $jsonData.germany : null
   $: {
@@ -71,9 +75,15 @@
   .minimap-container {
     heigth: 150px;
     width: 115px;
+    display: flex;
+    justify-content: flex-end;
     position: absolute;
-    bottom: 40px;
-    right: 40px;
+    bottom: 25px;
+    right: 25px;
+    @include respond-min-screen-tablet {
+      bottom: 30px;
+      right: 30px;
+    }
   }
   .extra {
     margin-bottom: 75vh;
@@ -100,8 +110,8 @@
       {#if showMinimap}
         <div class="minimap-container">
           <StaticMap
-            width={95}
-            height={120}
+            width={miniMapWidth}
+            height={miniMapHeight}
             hasMarker={marker}
             strokeWidth={1}
             stroke="#6B6E82"
@@ -136,3 +146,4 @@
     <Loading />
   {/if}
 </div>
+<svelte:window bind:innerHeight bind:innerWidth />

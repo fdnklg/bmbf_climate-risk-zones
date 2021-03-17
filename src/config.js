@@ -4,6 +4,9 @@ import {
   fluvial_flood_high,
   dense_space,
 } from 'constants'
+
+import { getPostcode } from 'utils'
+
 export const s3Url = 'https://locobss-story-co2.s3.eu-central-1.amazonaws.com/'
 
 export const content = {
@@ -19,7 +22,6 @@ export const content = {
     {
       step: '1.1',
       showMinimap: true,
-      padding: 70,
       text: {
         title: 'Deine Region',
         paragraph:
@@ -30,8 +32,11 @@ export const content = {
           key: 'postcode_geom',
           annotations: [
             {
-              text: (json) =>
-                `Gebiet der Postleitzahl <strong>${json.postcode}</strong>`,
+              text: (json) => {
+                return `Gebiet der Postleitzahl <strong>${getPostcode(
+                  json.postcode
+                )}</strong>`
+              },
             },
           ],
         },
@@ -141,7 +146,9 @@ export const content = {
           annotations: [
             {
               text: (json) =>
-                `Deine Postleitzahl <strong>${json.postcode}</strong>`,
+                `Deine Postleitzahl <strong>${getPostcode(
+                  json.postcode
+                )}</strong>`,
               id: 'postcode_geom',
             },
           ],
@@ -219,7 +226,9 @@ export const content = {
           annotations: [
             {
               text: (json) =>
-                `Deine Postleitzahl <strong>${json.postcode}</strong>`,
+                `Deine Postleitzahl <strong>${getPostcode(
+                  json.postcode
+                )}</strong>`,
               id: 'postcode_geom',
             },
           ],
@@ -306,7 +315,9 @@ export const content = {
           annotations: [
             {
               text: (json) =>
-                `Deine Postleitzahl <strong>${json.postcode}</strong>`,
+                `Deine Postleitzahl <strong>${getPostcode(
+                  json.postcode
+                )}</strong>`,
               id: 'postcode_geom',
             },
           ],
@@ -316,10 +327,11 @@ export const content = {
     {
       step: '1.5',
       showMinimap: true,
+      padding: 75,
       text: {
         title: 'Verdichtungsräume',
         paragraph: (json) =>
-          `Deine Region befindet sich im <span style="color: ${dense_space};">Verdichtungsraum</span> <strong>${json.zeitreihen.meta.denseSpaceName}</strong>. Verdichtungsräume sind Gebiete mit einer hohen Dichte an Siedlungs- und Industrieflächen. In diesen Gebieten konzentrieren sich Gefahren für Schäden an Gebäuden und Infrastruktur, durch z.B. Hitzebelastung oder extreme Wetterereignisse. Durch die hohe Bevölkerungsdichte in diesen Gebieten sind viele Menschen durch die Folgen betroffen.`,
+          `Deine Region befindet sich im <span class="bold" style="color: ${dense_space};">Verdichtungsraum</span> <strong>${json.zeitreihen.meta.denseSpaceName}</strong>. Verdichtungsräume sind Gebiete mit einer hohen Dichte an Siedlungs- und Industrieflächen. In diesen Gebieten konzentrieren sich Gefahren für Schäden an Gebäuden und Infrastruktur, durch z.B. Hitzebelastung oder extreme Wetterereignisse. Durch die hohe Bevölkerungsdichte in diesen Gebieten sind viele Menschen durch die Folgen betroffen.`,
       },
       layers: [
         {
@@ -328,7 +340,7 @@ export const content = {
           annotations: [
             {
               text: (json) =>
-                `<span class="dense-space">Verdichtungsraum</span> ${json.dense_space.name}`,
+                `<span class="dense-space bold">Verdichtungsraum</span> ${json.dense_space.name}`,
             },
           ],
         },
@@ -337,7 +349,9 @@ export const content = {
           annotations: [
             {
               text: (json) =>
-                `Deine Postleitzahl <strong>${json.postcode}</strong>`,
+                `Deine Postleitzahl <strong>${getPostcode(
+                  json.postcode
+                )}</strong>`,
             },
           ],
         },
@@ -356,7 +370,9 @@ export const content = {
           annotations: [
             {
               text: (json) =>
-                `Deine Postleitzahl <strong>${json.postcode}</strong>`,
+                `Deine Postleitzahl <strong>${getPostcode(
+                  json.postcode
+                )}</strong>`,
             },
           ],
         },
@@ -396,7 +412,9 @@ export const content = {
           annotations: [
             {
               text: (json) =>
-                `Deine Postleitzahl <strong>${json.postcode}</strong>`,
+                `Deine Postleitzahl <strong>${getPostcode(
+                  json.postcode
+                )}</strong>`,
             },
           ],
         },
@@ -436,7 +454,9 @@ export const content = {
           annotations: [
             {
               text: (json) =>
-                `Deine Postleitzahl <strong>${json.postcode}</strong>`,
+                `Deine Postleitzahl <strong>${getPostcode(
+                  json.postcode
+                )}</strong>`,
             },
           ],
         },
@@ -469,7 +489,7 @@ export const content = {
       text: {
         title: 'Küstengebiete',
         paragraph:
-          'Gebiete die in Küstennähe, sind darüber hinaus auch dem klimabedingten Anstieg des Meeresspiegels und vermehrten Sturmfluten ausgesetzt.',
+          'Gebiete die in Küstennähe, sind darüber hinaus auch dem klimabedingten Anstieg des Meeresspiegels und vermehrten <span class="storm-surge bold">Sturmfluten</span> ausgesetzt.',
       },
       layers: [
         {
@@ -481,7 +501,9 @@ export const content = {
           annotations: [
             {
               text: (json) =>
-                `Deine Postleitzahl <strong>${json.postcode}</strong>`,
+                `Deine Postleitzahl <strong>${getPostcode(
+                  json.postcode
+                )}</strong>`,
             },
           ],
         },
@@ -546,6 +568,7 @@ export const metadata = {
   twitter_creator: '',
   url: 'https://klima-risiken.vislab.io',
   title: 'Klimawandelrisiken in Deutschland',
-  description: 'Der Klimawandel ist längst in Deutschland angekommen. In den nächsten Jahren und Jahrzehnten, werden wir die Auswirkungen immer deutlicher spüren. Die lokalen Risiken sind stark davon abhängig wo man in Deutschland wohnt. Finde auf dieser Seite heraus, welchen Herausforderungen sich deine Region stellen muss.',
+  description:
+    'Der Klimawandel ist längst in Deutschland angekommen. In den nächsten Jahren und Jahrzehnten, werden wir die Auswirkungen immer deutlicher spüren. Die lokalen Risiken sind stark davon abhängig wo man in Deutschland wohnt. Finde auf dieser Seite heraus, welchen Herausforderungen sich deine Region stellen muss.',
   image: 'https://klima-risiken.vislab.io/data/social_media.jpg',
 }

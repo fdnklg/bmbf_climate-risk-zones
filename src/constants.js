@@ -219,11 +219,11 @@ export const fluvial_flood_anchor_indices = {
 
 export const klimazonen_anchor_indices = {
   cold: [0, 1],
-  warm: [3, 4],
-  dry: [0, 3],
-  mountain: [3, 4],
-  premountain: [4, 5],
-  midmountain: [6, 7],
+  warm: [0, 2],
+  dry: [5, 6],
+  mountain: [0, 1],
+  premountain: [0, 3],
+  midmountain: [0, 1],
 }
 
 export const klimazonenDict = [
