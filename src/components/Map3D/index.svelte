@@ -26,6 +26,7 @@
   })
 
   let container
+  let ignoreOnce = true
 
   onMount(() => {
     const link = document.createElement('link')
@@ -72,7 +73,10 @@
       })
 
       map.on('data', () => {
-        updateMapboxLayers(map, [])
+        if (ignoreOnce) {
+          ignoreOnce = false;
+          updateMapboxLayers(map, [])
+        }
       })
 
       map.on('load', () => {        
