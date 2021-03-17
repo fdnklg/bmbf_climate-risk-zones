@@ -202,13 +202,13 @@ export const zeitreiheHeadlines = {
 
 export const droughtColors = [
   '#ffe0a9',
-  '#ffbe84',
+
   '#ff986d',
-  '#f47361',
+
   '#e35056',
-  '#cb2f44',
+
   '#ae112a',
-  '#8b0000',
+  // '#8b0000',
 ]
 
 export const fluvial_flood_anchor_indices = {

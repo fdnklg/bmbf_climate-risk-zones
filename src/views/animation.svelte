@@ -58,7 +58,8 @@
   let dateIndex = 0
 
   $: colorScale = $jsonData
-    ? getColorScale([$jsonData.meta.value_min, $jsonData.meta.value_max])
+    ? // ? getColorScale([$jsonData.meta.value_min, $jsonData.meta.value_max])
+      getColorScale()
     : false
 </script>
 

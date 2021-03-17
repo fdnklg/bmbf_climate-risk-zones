@@ -50,6 +50,7 @@
 <div class="container">
   <Meta meta={metadata} />
   <Header />
+  <Animation />
   <Section>
     Steigende Temperaturen, vermehrte Extremwettereignisse und andere
     Veränderungen, welche sich auf den fortschreitenden Klimawandel zurückführen
@@ -88,7 +89,7 @@
       und Zusammenhänge, die sich unabhängig von lokalen Wetterextremen in den
       Daten abzeichnen.
     </Section>
-    <Animation />
+    <!-- <Animation /> -->
     <Section>
       Der Klimawandel wird auch viele Risiken für Deutschland mit sich bringen.
       Neben Entwicklungen die versuchen den Klimawandel zu stoppen oder

@@ -1,8 +1,9 @@
-import { scaleQuantile } from 'd3-scale'
+import { scaleQuantile, scaleThreshold } from 'd3-scale'
 import { droughtColors } from 'constants'
 
 export function getColorScale(values) {
-  return scaleQuantile().domain(values).range(droughtColors)
+  // return scaleQuantile().domain(values).range(droughtColors)
+  return scaleThreshold().domain([7, 8, 9, 10]).range(droughtColors)
 }
 
 export function jenks(data, n_classes) {

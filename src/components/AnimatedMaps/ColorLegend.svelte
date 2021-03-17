@@ -1,12 +1,10 @@
 <script>
   import { getColorScale } from './utils'
 
-  export let extent = [0, 100]
+  export let extent = [4, 10]
 
-  const textMin = 'Niedrig'
-  const textMax = 'Hoch'
   const colorScale = getColorScale(extent)
-  const data = [20, 22, 24, 26, 28, 30, 32]
+  const data = [6, 7, 8, 9, 10]
 </script>
 
 <style lang="scss">
@@ -36,17 +34,25 @@
     width: 16px;
     height: 5px;
   }
+
+  .wrapper {
+    display: flex;
+    flex-direction: column;
+  }
   .legend-label {
     opacity: 0.6;
   }
 </style>
 
 <div class="color-legend">
-  <span class="legend-label">{textMin}</span>
   <div class="ticks">
-    {#each data as tick}
-      <div class="tick" style="background: {colorScale(tick)}" />
+    {#each data as tick, i}
+      <div class="wrapper">
+        <div class="tick" style="background: {colorScale(tick)}" />
+        <span class="legend-label">{tick}</span>{#if i === data.length - 1}
+          &thinsp;°C
+        {/if}
+      </div>
     {/each}
   </div>
-  <span class="legend-label">{textMax}</span>
 </div>

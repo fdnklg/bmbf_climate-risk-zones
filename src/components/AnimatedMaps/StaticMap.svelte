@@ -1,6 +1,7 @@
 <script>
   import { geoPath, geoMercator } from 'd3-geo'
-  
+  import { current_component } from 'svelte/internal'
+
   export let data
   export let width = 500
   export let height = 650

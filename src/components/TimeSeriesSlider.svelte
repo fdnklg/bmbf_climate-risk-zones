@@ -80,7 +80,7 @@
     width: 1px;
     height: 5px;
     position: absolute;
-    bottom: -24px;
+    bottom: 7px;
     background-color: $color-main-20;
   }
 
@@ -94,7 +94,7 @@
   .time-series-chart {
     height: 80px;
     padding: 3em 0 2em 0em;
-    margin: 0 0 36px 0;
+    margin: 0 0 20px 0;
 
     @include respond-max-screen-phablet {
       height: 80px;
@@ -106,7 +106,7 @@
   .x-label {
     position: absolute;
     width: 4em;
-    bottom: -45px;
+    bottom: -15px;
     font-size: $font-size-xs;
     text-align: center;
     transform: translateX(-50%);
@@ -137,7 +137,7 @@
     .y-label {
       font-family: $font-regular;
       left: 0px;
-      bottom: 0px;
+      bottom: -3px;
       width: auto;
       color: $color-main-60;
       font-size: $font-size-xs;
@@ -145,12 +145,12 @@
     }
 
     span.y-label-desc {
-      left: 20px;
+      left: 18px;
       font-family: $font-regular;
       color: $color-main-60;
       font-size: $font-size-xs;
       letter-spacing: 0.03em;
-      bottom: 0px;
+      bottom: -3px;
     }
   }
   .annotation-dot {
@@ -165,7 +165,7 @@
   }
   .annotation-line {
     width: 1px;
-    height: 142px;
+    height: 110px;
     transform: translateX(1);
     background-color: $color-main-20;
   }
@@ -175,7 +175,7 @@
     width: 100%; /* Specific width is required for Firefox. */
     background: transparent; /* Otherwise white in Chrome */
     width: calc(100% + 36px);
-    transform: translateX(-18px);
+    transform: translate(-18px, -15px);
     padding: 0;
     z-index: 10;
     border: none;
@@ -240,10 +240,14 @@
 <div class="container">
   {#if dataLine}
     <div class="time-series-chart">
-      <Chart x1={get.xMin(meta)} x2={get.xMax(meta)} y1={20} y2={30}>
+      <Chart
+        x1={get.xMin(meta)}
+        x2={get.xMax(meta)}
+        y1={get.yMin(meta) - 1}
+        y2={get.yMax(meta)}>
         <Grid horizontal count={3} let:value>
           <div class="grid-line horizontal">
-            {#if value === 30}
+            {#if value === 10}
               <span class="y-label-desc">&thinsp;°C Deutsche Höchst-Temperaturen
                 im Ø (7 Jahres-Mittel)</span>
             {/if}
@@ -264,7 +268,7 @@
           </Line>
         </Svg>
 
-        <Point x={currentPoint.x} y={34}>
+        <Point x={currentPoint.x} y={get.yMax(meta) + 1}>
           <div class="annotation-line" />
         </Point>
 
@@ -274,7 +278,7 @@
             class="annotation-dot" />
         </Point>
 
-        <Point x={currentPoint.x} y={33.5}>
+        <Point x={currentPoint.x} y={get.yMax(meta) + 1}>
           <div class="tooltip">
             <span class="year-label">{currentPoint.x}</span>
             <span
