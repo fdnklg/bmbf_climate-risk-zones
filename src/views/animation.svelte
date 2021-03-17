@@ -22,7 +22,7 @@
       }
     }
   }
-  $: isActive = false
+  $: isActive = true
 
   $: dateLength = $jsonData
     ? $jsonData.kreise.features[0].properties.data.length - 1
@@ -74,7 +74,7 @@
   }
   .footer {
     width: 100%;
-    max-width: 490px;
+    max-width: 550px;
     display: flex;
     margin: auto;
     justify-content: space-between;
@@ -92,13 +92,14 @@
     text-align: center;
   }
   .map-container {
+    margin-top: 20px;
     display: flex;
     justify-content: center;
   }
 </style>
 
 <div class="container animation">
-  <Title>Es wird immer heißer</Title>
+  <Title align="center">Deutschland wird <br /> immer wärmer</Title>
   {#if $jsonData && $jsonData.meta}
     <ColorLegend extent={$jsonData.meta.extentGermany} />
     <div class="map-container">
@@ -118,8 +119,9 @@
       on:year={handleYear} />
   {/if}
   <div class="footer">
-    <Source
-      data={{ label: 'Helmholtz Zentrum für Umweltforschung (UFZ)', url: 'https://google.com' }} />
+    <div style="display: block;">
+      <a href="https://google.com">Helmholtz Zentrum für Umweltforschung (UFZ)</a>
+    </div>
     <ButtonRound
       type={isActive ? 'pause' : 'play'}
       handleClick={handleToggle} />

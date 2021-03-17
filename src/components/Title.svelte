@@ -1,4 +1,5 @@
 <script>
+  export let align = ''
 </script>
 
 <style lang="scss">
@@ -20,6 +21,6 @@
   }
 </style>
 
-<h2 class="title">
+<h2 style="text-align: {align}" class="title">
   <slot />
 </h2>

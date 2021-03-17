@@ -64,7 +64,7 @@
     max-width: 490px;
     margin: 0 auto;
     top: 25%;
-    padding: $space-m;
+    padding: $space-m $space-m 0 $space-m;
 
     @include respond-max-screen-medium {
       width: 100%;
@@ -72,7 +72,7 @@
     }
 
     @include respond-max-screen-phablet {
-      padding-top: 10px;
+      padding-top: 40px;
     }
   }
 
@@ -94,7 +94,7 @@
   .time-series-chart {
     height: 80px;
     padding: 3em 0 2em 0em;
-    margin: 0 0 20px 0;
+    margin: 0 0 0px 0;
 
     @include respond-max-screen-phablet {
       height: 80px;
@@ -222,6 +222,12 @@
     font-size: $font-size-s;
   }
 
+  .y-axis-label {
+    transform: translate(-10px, -20px);
+    position: absolute;
+    color: $color-main-60;
+  }
+
   input[type='range']::-webkit-slider-thumb {
     -webkit-appearance: none;
     width: 36px;
@@ -239,6 +245,13 @@
 
 <div class="container">
   {#if dataLine}
+    {#if windowWidth <= 768}
+      <span class="y-axis-label">
+        Deutsche Durchschnitts-Temperaturen
+        <br />
+        im 7-Jahres-Mittel
+      </span>
+    {/if}
     <div class="time-series-chart">
       <Chart
         x1={get.xMin(meta)}
@@ -248,8 +261,10 @@
         <Grid horizontal count={3} let:value>
           <div class="grid-line horizontal">
             {#if value === 10}
-              <span class="y-label-desc">&thinsp;°C Deutsche Höchst-Temperaturen
-                im Ø (7 Jahres-Mittel)</span>
+              <span class="y-label-desc">&thinsp;°C
+                {#if windowWidth > 768}
+                  Deutsche Durchschnitts-Temperaturen im 7-Jahres-Mittel
+                {/if}</span>
             {/if}
             <span class="y-label">{value}</span>
           </div>

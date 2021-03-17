@@ -4,7 +4,7 @@
   export let extent = [4, 10]
 
   const colorScale = getColorScale(extent)
-  const data = [6, 7, 8, 9, 10]
+  const data = [6, 7, 8, 9]
 </script>
 
 <style lang="scss">
@@ -21,17 +21,17 @@
   .ticks {
     display: flex;
     justify-content: space-between;
-    width: 152px;
+    width: 225px;
     margin: 0 10px;
   }
   .tick {
-    &:first-of-type {
+    &.first {
       border-radius: 10px 0 0 10px;
     }
-    &:last-of-type {
+    &.last {
       border-radius: 0 10px 10px 0;
     }
-    width: 16px;
+    width: 53px;
     height: 5px;
   }
 
@@ -41,6 +41,8 @@
   }
   .legend-label {
     opacity: 0.6;
+    text-align: center;
+    font-size: $font-size-xs;
   }
 </style>
 
@@ -48,10 +50,12 @@
   <div class="ticks">
     {#each data as tick, i}
       <div class="wrapper">
-        <div class="tick" style="background: {colorScale(tick)}" />
-        <span class="legend-label">{tick}</span>{#if i === data.length - 1}
-          &thinsp;°C
-        {/if}
+        <div
+          class="tick {i === data.length - 1 ? 'last' : ''} {i === 0 ? 'first' : ''}"
+          style="background: {colorScale(tick)}" />
+        <span class="legend-label">{`> ${tick}`}{#if i === i}
+            &thinsp;°C
+          {/if}</span>
       </div>
     {/each}
   </div>
