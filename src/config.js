@@ -362,7 +362,7 @@ export const content = {
       showMinimap: true,
       text: {
         title: 'Überschwemmungen',
-        paragraph: `Auch Hochwasser können durch den Klimawandel begünstigt werden. Hier zu sehen sind Wahr&shy;schein&shy;lich&shy;keiten, dass ein Hoch&shy;wasser&shy;ereigniss dieser Größen&shy;ordnung in einem von <strong style="color:${fluvial_flood_high};">10-30</strong>, <strong style="color:${fluvial_flood_medium};">100</strong> und <strong style="color:${fluvial_flood_low};">200 Jahren</strong> auftritt. Einmal in 200 Jahren entspricht also einer sehr geringen und einmal in 10-30 Jahren einer hohen Wahrscheinlichkeit.`,
+        paragraph: `Auch Hochwasser können durch den Klimawandel begünstigt werden. Die Bundesanstalt für Gewässer&shy;kunde veröffentlich regelmäßig Informationen zu Hochwassergefahren. Diese werden dabei in drei Klassen eingeteilt. Regionen mit einer <strong style="color:${fluvial_flood_high};">hohen Wahr&shy;scheinlichkeit</strong> für Hochwasser (einmal in 10-30 Jahren).`,
       },
       layers: [
         {
@@ -404,7 +404,7 @@ export const content = {
       showMinimap: true,
       text: {
         title: 'Überschwemmungen',
-        paragraph: `Auch Hochwasser können durch den Klimawandel begünstigt werden. Hier zu sehen sind Wahr&shy;schein&shy;lich&shy;keiten, dass ein Hoch&shy;wasser&shy;ereigniss dieser Größen&shy;ordnung in einem von <strong style="color:${fluvial_flood_high};">10-30</strong>, <strong style="color:${fluvial_flood_medium};">100</strong> und <strong style="color:${fluvial_flood_low};">200 Jahren</strong> auftritt. Einmal in 200 Jahren entspricht also einer sehr geringen und einmal in 10-30 Jahren einer hohen Wahrscheinlichkeit.`,
+        paragraph: `Regionen mit einer <strong style="color:${fluvial_flood_medium};">geringen Wahrscheinlichkeit</strong> für Hochwasser (einmal in 100 Jahren).`,
       },
       layers: [
         {
@@ -446,7 +446,7 @@ export const content = {
       showMinimap: true,
       text: {
         title: 'Überschwemmungen',
-        paragraph: `Auch Hochwasser können durch den Klimawandel begünstigt werden. Hier zu sehen sind Wahr&shy;schein&shy;lich&shy;keiten, dass ein Hoch&shy;wasser&shy;ereigniss dieser Größen&shy;ordnung in einem von <strong style="color:${fluvial_flood_high};">10-30</strong>, <strong style="color:${fluvial_flood_medium};">100</strong> und <strong style="color:${fluvial_flood_low};">200 Jahren</strong> auftritt. Einmal in 200 Jahren entspricht also einer sehr geringen und einmal in 10-30 Jahren einer hohen Wahrscheinlichkeit.`,
+        paragraph: `Und Regionen mit einer <strong style="color:${fluvial_flood_low};">sehr geringen Wahrscheinlichkeit</strong> für Hochwasser (einmal in 200 Jahren).`,
       },
       layers: [
         {
