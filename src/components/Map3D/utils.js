@@ -72,7 +72,7 @@ export function setAlignedAnnotations(annotations, innerWidth, innerHeight) {
     // für jede annotation: loop über alle anderen annotationen und berechne:
     annotationsCopy.map((comparedAnnotation, cI) => {
       const coordsToCompare = comparedAnnotation.coords
-      const labelWidth = 160
+      const labelWidth = 170
       const labelHeight = 100
       if (i !== cI) {
         if (
@@ -85,7 +85,10 @@ export function setAlignedAnnotations(annotations, innerWidth, innerHeight) {
           innerWidth - coords.x > labelWidth
         ) {
           coords.alignX = 'right'
-        } else if (coords.x < labelWidth) {
+        } else if (
+          coords.x < labelWidth &&
+          innerWidth - coords.x > labelWidth
+        ) {
           coords.alignX = 'right'
         } else if (
           coords.x < coordsToCompare.x &&
@@ -94,8 +97,9 @@ export function setAlignedAnnotations(annotations, innerWidth, innerHeight) {
           innerWidth - coords.x < labelWidth
         ) {
           coords.alignX = 'left'
+        } else if (innerWidth - coords.x < labelWidth) {
+          coords.alignX = 'left'
         }
-
         if (
           coords.y < coordsToCompare.y &&
           (coords.x < labelWidth || innerWidth - coords.x < innerWidth) &&
