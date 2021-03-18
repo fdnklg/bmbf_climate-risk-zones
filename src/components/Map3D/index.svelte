@@ -60,7 +60,6 @@
       map.on('moveend', () => {
         isMoving = false
         if (data && !isMoving) {
-          console.log(data)
           let { anchors, step } = data
           let postcode_annotation
           if (anchors.length > 0) {
