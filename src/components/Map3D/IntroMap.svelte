@@ -40,7 +40,6 @@
       )
 
       map.on('load', () => {
-        console.log(map.getStyle())
         map.setLayoutProperty('hochwasser', 'visibility', 'visible')
         map.addLayer(
           {
