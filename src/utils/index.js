@@ -65,14 +65,15 @@ export function mergeBundesland(a, b) {
 function createAvg(data) {
   const total = data[0].length - 1
   let averages = []
-  range(0, total).map((index) => {
+  let arr = range(0, total)
+  arr.map((index) => {
     let values = []
     data.forEach((kreis) => {
       const value = kreis[index]
       values.push(value)
     })
     const sum = values.reduce((a, b) => a + b, 0)
-    const avg = sum / total
+    const avg = sum / values.length
     averages.push(avg)
   })
   return averages
@@ -107,13 +108,12 @@ export async function loadTopojson(url) {
   const kreiseTopoKey = Object.keys(kreiseTopo.objects)[0]
   let kreise = feature(kreiseTopo, kreiseTopoKey)
 
-  // divide values by 10 to get temperature
   kreise.features.forEach((feature) => {
     const data = feature.properties.data
     feature.properties.data = data.map((d) => d / 10)
   })
-
-  let avgGermany = createAvg(kreise.features.map((d) => d.properties.data))
+  const kreiseTimeSeries = kreise.features.map((d) => d.properties.data)
+  let avgGermany = createAvg(kreiseTimeSeries)
   addRollingAvg(avgGermany)
   avgGermany.splice(0, 6)
 
@@ -143,8 +143,8 @@ export async function loadTopojson(url) {
   }
 
   const meta = Object.assign({}, kreise.features[0].properties)
-  meta.value_max = meta.value_max / 10
-  meta.value_min = meta.value_min / 10
+  meta.value_max = meta.value_max
+  meta.value_min = meta.value_min
   meta.avgGermany = avgGermany
   meta.extentGermany = extent(avgGermany)
   meta.year_min = meta.year_min + 6 // @TODO don't do this hardcoded!
@@ -194,6 +194,10 @@ export const mergeZeitreihen = (postcode, germany) => {
   })
   germany.data = merged
   return germany
+}
+
+export function getPostcode(postcode) {
+  return postcode.toString().length === 4 ? `0${postcode}` : postcode
 }
 
 export const createZeitreihe = (data, datakey, sliceAt = false) => {

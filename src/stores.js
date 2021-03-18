@@ -44,11 +44,18 @@ export const storyData = derived(
           const isDenseSpace = dense_space.bbox
           const hasOceanFlood = has_ocean_flood === 1
 
-          const hasFluvialFlood_L = fluvial_flood && fluvial_flood.filter((f) => f.level === 'L').length > 0
-          const hasFluvialFlood_M = fluvial_flood && fluvial_flood.filter((f) => f.level === 'M').length > 0
-          const hasFluvialFlood_H = fluvial_flood && fluvial_flood.filter((f) => f.level === 'H').length > 0
+          const hasFluvialFlood_L =
+            fluvial_flood &&
+            fluvial_flood.filter((f) => f.level === 'L').length > 0
+          const hasFluvialFlood_M =
+            fluvial_flood &&
+            fluvial_flood.filter((f) => f.level === 'M').length > 0
+          const hasFluvialFlood_H =
+            fluvial_flood &&
+            fluvial_flood.filter((f) => f.level === 'H').length > 0
 
-          const hasFluvialFlood = hasFluvialFlood_L || hasFluvialFlood_M || hasFluvialFlood_H
+          const hasFluvialFlood =
+            hasFluvialFlood_L || hasFluvialFlood_M || hasFluvialFlood_H
 
           // remove steps from config if json is no dense space
           if (!isDenseSpace) {
@@ -65,17 +72,23 @@ export const storyData = derived(
           } else {
             if (!hasFluvialFlood_L) {
               szenarien = szenarien.filter(
-                (d) => !d.layers.map((l) => l.key).includes('fluvial_flood') || !d.layers.map((l) => l.type[0]).includes('L')
+                (d) =>
+                  !d.layers.map((l) => l.key).includes('fluvial_flood') ||
+                  !d.layers.map((l) => l.type?.[0]).includes('L')
               )
             }
             if (!hasFluvialFlood_M) {
               szenarien = szenarien.filter(
-                (d) => !d.layers.map((l) => l.key).includes('fluvial_flood') || !d.layers.map((l) => l.type[0]).includes('M')
+                (d) =>
+                  !d.layers.map((l) => l.key).includes('fluvial_flood') ||
+                  !d.layers.map((l) => l.type?.[0]).includes('M')
               )
             }
             if (!hasFluvialFlood_H) {
               szenarien = szenarien.filter(
-                (d) => !d.layers.map((l) => l.key).includes('fluvial_flood') || !d.layers.map((l) => l.type[0]).includes('H')
+                (d) =>
+                  !d.layers.map((l) => l.key).includes('fluvial_flood') ||
+                  !d.layers.map((l) => l.type?.[0]).includes('H')
               )
             }
           }
@@ -98,7 +111,10 @@ export const storyData = derived(
             // add fit bounds of dense space to step, if verdichtungsräume is in mapbox_layers
             if (layerKeys.includes('verdichtungsraeume') && isDenseSpace) {
               szenario.fitBounds = isDenseSpace
-                ? dense_space.bbox.coordinates[0]
+                ? [
+                    dense_space.bbox.coordinates[0][0],
+                    dense_space.bbox.coordinates[0][2],
+                  ]
                 : false
             }
 
@@ -119,7 +135,7 @@ export const storyData = derived(
               const geometries = json[key]
 
               // if geometries is an array create feature for each item and push it to array
-              if (geometries && geometries.length > 1 && !isMapbox) {
+              if (geometries && geometries.length >= 1 && !isMapbox) {
                 geometries.forEach((geometry) => {
                   if (type.includes(geometry.level)) {
                     const style = styles[`${key}_${geometry.level}`]
@@ -186,7 +202,8 @@ export const storyData = derived(
             })
 
             szenario.geojson = szenarioGeojson
-            szenario.postcode = postcode
+            szenario.postcode =
+              postcode.length === 4 ? `0${postcode}` : postcode
             szenario.marker = postcode_point
             szenario.denseSpace = dense_space.bbox ? dense_space : false
             szenario.risk_zone_ids = risk_zone_ids

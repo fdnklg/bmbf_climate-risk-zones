@@ -121,11 +121,19 @@ textarea {
 }
 
 .dot.warm:after {
-  background-color: #ec5e51;
+  background-color: #cf6d49;
 }
 
 .dot.cold:after {
-  background-color: #3b75f1;
+  background-color: #418fa0;
+}
+
+.mapboxgl-canvas:focus {
+  outline: none;
+}
+
+.mapboxgl-canvas {
+  pointer-events: none;
 }
 
 .dot {
@@ -138,6 +146,10 @@ textarea {
 
 .dense-space {
   color: #5d42d2;
+}
+
+.storm-surge {
+  color: #5c80db;
 }
 
 .cold {

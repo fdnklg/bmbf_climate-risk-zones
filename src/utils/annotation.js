@@ -1,8 +1,6 @@
-import {
-  klimazonenDict,
-} from 'constants'
+import { klimazonenDict, klimazonen_anchor_indices } from 'constants'
 
-function createAnnotation(layersWithAnchors, json, layer, szenario) {
+function createAnnotation(layersWithAnchors, json, layer, szenario, id) {
   const { annotations, key } = layer
   const current = layersWithAnchors.find((d) => d.id === key).anchors
   annotations.forEach((annotation) => {
@@ -13,10 +11,13 @@ function createAnnotation(layersWithAnchors, json, layer, szenario) {
 
         szenario.anchors.push({
           fid,
-          anchors: anchors.map((d) => d.coordinates),
-          // .filter((d, i) =>
-          //   klimazonen_anchor_indices[currentKlimazone.type].includes(i)
-          // )
+          id: id,
+          klimaId: `${id}_${currentKlimazone.type}`,
+          anchors: anchors
+            .map((d) => d.coordinates)
+            .filter((d, i) =>
+              klimazonen_anchor_indices[currentKlimazone.type].includes(i)
+            ),
           text: annotation.text(currentKlimazone.type),
           isVertical: true,
         })
@@ -28,6 +29,7 @@ function createAnnotation(layersWithAnchors, json, layer, szenario) {
           if (layer.type.includes(level))
             szenario.anchors.push({
               level,
+              id: id,
               type: layer.type,
               anchors: anchors.map((d) => d.coordinates),
               // .filter((d, i) =>
@@ -44,6 +46,7 @@ function createAnnotation(layersWithAnchors, json, layer, szenario) {
       // .filter((d, i) => i === 3 || i === 5)
       szenario.anchors.push({
         anchors: coords,
+        id: id,
         text: annotation.text(json),
       })
     }
@@ -90,6 +93,6 @@ export function addAnnotations(json, szenario, layer) {
 
   // create annotation object for local layers
   if (anchorIds.includes(key) && annotations && annotations.length > 0) {
-    createAnnotation(layersWithAnchors, json, layer, szenario)
+    createAnnotation(layersWithAnchors, json, layer, szenario, key)
   }
 }

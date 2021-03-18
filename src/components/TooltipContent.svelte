@@ -10,6 +10,7 @@
     left: 0;
     width: 150px;
     height: 45px;
+    line-height: 120%;
   }
   .label {
     color: black;

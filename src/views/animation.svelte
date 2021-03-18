@@ -11,18 +11,21 @@
 
   let windowWidth
 
-  $: svgWidth = 400
-  $: svgHeight = 550
+  let svgWidth = 400
+  let svgHeight = 550
 
   $: {
     if (windowWidth) {
       if (windowWidth < 600) {
         svgWidth = windowWidth - 80
         svgHeight = svgWidth * 1.3
+      } else {
+        svgWidth = 400
+        svgHeight = 550
       }
     }
   }
-  $: isActive = false
+  $: isActive = true
 
   $: dateLength = $jsonData
     ? $jsonData.kreise.features[0].properties.data.length - 1
@@ -57,9 +60,7 @@
 
   let dateIndex = 0
 
-  $: colorScale = $jsonData
-    ? getColorScale([$jsonData.meta.value_min, $jsonData.meta.value_max])
-    : false
+  $: colorScale = $jsonData ? getColorScale() : false
 </script>
 
 <style lang="scss">
@@ -73,7 +74,7 @@
   }
   .footer {
     width: 100%;
-    max-width: 490px;
+    max-width: 550px;
     display: flex;
     margin: auto;
     justify-content: space-between;
@@ -91,13 +92,18 @@
     text-align: center;
   }
   .map-container {
+    margin-top: 20px;
     display: flex;
     justify-content: center;
+
+    @include respond-max-screen-phablet {
+      margin-bottom: 30px;
+    }
   }
 </style>
 
 <div class="container animation">
-  <Title>Es wird immer heißer</Title>
+  <Title align="center">Deutschland wird <br /> immer wärmer</Title>
   {#if $jsonData && $jsonData.meta}
     <ColorLegend extent={$jsonData.meta.extentGermany} />
     <div class="map-container">
@@ -117,8 +123,9 @@
       on:year={handleYear} />
   {/if}
   <div class="footer">
-    <Source
-      data={{ label: 'Helmholtz Zentrum für Umweltforschung (UFZ)', url: 'https://google.com' }} />
+    <div style="display: block;">
+      <a href="https://google.com">Helmholtz Zentrum für Umweltforschung (UFZ)</a>
+    </div>
     <ButtonRound
       type={isActive ? 'pause' : 'play'}
       handleClick={handleToggle} />

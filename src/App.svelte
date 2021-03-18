@@ -2,7 +2,7 @@
   import { onMount } from 'svelte'
   import { zipcodes, data, jsonData, userInput } from 'stores'
   import { loadFile, loadTopojson } from 'utils'
-  import { metadata, content } from 'config'
+  import { content } from 'config'
   import { zipCodesUrl } from 'constants'
 
   import Zeitreihe from 'views/zeitreihe.svelte'
@@ -12,7 +12,6 @@
   import ReadingList from 'views/readinglist.svelte'
 
   import Header from 'components/Header.svelte'
-  import Meta from 'core/components/Meta.svelte'
   import Section from 'components/Section.svelte'
   import Share from 'components/Share.svelte'
   import Appendix from 'components/Appendix.svelte'
@@ -48,7 +47,6 @@
 </style>
 
 <div class="container">
-  <Meta meta={metadata} />
   <Header />
   <Section>
     Steigende Temperaturen, vermehrte Extremwettereignisse und andere
@@ -59,6 +57,7 @@
     Extremwetterlagen genauso belastet werden, wie z.B. auch die Land- und
     Forstwirtschaft. Erfahre mehr Details für deine spezifische Region:
   </Section>
+  <!-- <Animation /> -->
   <Onboarding />
   {#if $userInput}
     <Szenarien />
