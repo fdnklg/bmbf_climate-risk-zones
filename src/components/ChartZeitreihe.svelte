@@ -46,10 +46,6 @@
     }
   }
 
-  $: {
-    console.log('closest', closest)
-  }
-
   $: zeitreihe = $zeitreihenData
     ? $zeitreihenData.find((item) => item.step === step)
     : false

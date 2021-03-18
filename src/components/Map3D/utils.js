@@ -100,6 +100,7 @@ export function setAlignedAnnotations(annotations, innerWidth, innerHeight) {
         } else if (innerWidth - coords.x < labelWidth) {
           coords.alignX = 'left'
         }
+
         if (
           coords.y < coordsToCompare.y &&
           (coords.x < labelWidth || innerWidth - coords.x < innerWidth) &&
