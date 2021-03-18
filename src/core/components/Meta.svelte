@@ -7,15 +7,6 @@
   <meta name="author" content="{meta.authors}">
   <meta name="description" content="{meta.description}">
 
-  <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
-  <link rel="icon" href="/favicon.ico" type="image/x-icon" />
-  <link rel="shortcut icon" href="/favicon.ico" type="image/x-icon" />
-  <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
-  <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
-  <link rel="mask-icon" href="/safari-pinned-tab.svg">
-  <meta name="msapplication-TileColor" content="#2691d5">
-  <meta name="theme-color" content="#ffffff">
-
   <meta itemprop="name" content="{meta.title}">
   <meta itemprop="datePublished" content="2021-03-30 00:00:00 +0000">
   <meta itemprop="dateModified" content="{new Date().toString()}">
