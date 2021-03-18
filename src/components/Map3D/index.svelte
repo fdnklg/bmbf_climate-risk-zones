@@ -49,7 +49,7 @@
         doubleClickZoom: false,
         scrollZoom: false,
         attributionControl: false,
-        style: 'mapbox://styles/juli84/ckm51o5k30ztm17r1yy3oelir',
+        style: 'mapbox://styles/juli84/ckmevp79nc2oy17lhgal0ps87',
       })
 
       map.on('movestart', () => {

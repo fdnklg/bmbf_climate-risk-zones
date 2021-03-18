@@ -23,7 +23,7 @@
         dragPan: false,
         scrollZoom: false,
         attributionControl: false,
-        style: 'mapbox://styles/juli84/ckm51o5k30ztm17r1yy3oelir'
+        style: 'mapbox://styles/juli84/ckmevp79nc2oy17lhgal0ps87'
       }).fitBounds(
         [
           [5.866250351, 47.270123604],
@@ -40,6 +40,7 @@
       )
 
       map.on('load', () => {
+        console.log(map.getStyle())
         map.setLayoutProperty('hochwasser', 'visibility', 'visible')
         map.addLayer(
           {

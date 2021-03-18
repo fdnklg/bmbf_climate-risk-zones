@@ -228,27 +228,27 @@ export const klimazonen_anchor_indices = {
 
 export const klimazonenDict = [
   {
-    fid: 1,
+    fid: 4,
     type: 'cold',
   },
   {
-    fid: 40,
+    fid: 98,
     type: 'midmountain',
   },
   {
-    fid: 99,
+    fid: 1,
     type: 'dry',
   },
   {
-    fid: 297,
+    fid: 3,
     type: 'warm',
   },
   {
-    fid: 2892,
+    fid: 29,
     type: 'premountain',
   },
   {
-    fid: 4089,
+    fid: 15,
     type: 'mountain',
   },
 ]
