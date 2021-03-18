@@ -362,7 +362,7 @@ export const content = {
       showMinimap: true,
       text: {
         title: 'Überschwemmungen',
-        paragraph: `Auch Hochwasser können durch den Klimawandel begünstigt werden. Die Bundesanstalt für Gewässer&shy;kunde veröffentlich regelmäßig Informationen zu Hochwassergefahren. Diese werden dabei in drei Klassen eingeteilt. Regionen mit einer <strong style="color:${fluvial_flood_high};">hohen Wahr&shy;scheinlichkeit</strong> für Hochwasser (einmal in 10-30 Jahren).`,
+        paragraph: `Auch Hochwasser können durch den Klimawandel begünstigt werden. Die Bundesanstalt für Gewässer&shy;kunde veröffentlicht regelmäßig Informationen zu Hochwassergefahren. Diese werden dabei in drei Klassen eingeteilt. Regionen mit einer <strong style="color:${fluvial_flood_high};">hohen Wahr&shy;scheinlichkeit</strong> für Hochwasser (einmal in 10-30 Jahren).`,
       },
       layers: [
         {
@@ -404,7 +404,8 @@ export const content = {
       showMinimap: true,
       text: {
         title: 'Überschwemmungen',
-        paragraph: `Regionen mit einer <strong style="color:${fluvial_flood_medium};">geringen Wahrscheinlichkeit</strong> für Hochwasser (einmal in 100 Jahren).`,
+        paragraph: (json) => 
+          `${((json.szenarien.filter((s) => s.step === '1.7').length >= 1) ? '' : 'Auch Hochwasser können durch den Klimawandel begünstigt werden. Die Bundesanstalt für Gewässer&shy;kunde veröffentlicht regelmäßig Informationen zu Hochwassergefahren. Diese werden dabei in verschiedene Klassen nach Wahrscheinlichkeit eingeteilt. Für deine PLZ gibt es ')}Regionen mit einer <strong style="color:${fluvial_flood_medium};">geringen Wahrscheinlichkeit</strong> für Hochwasser (einmal in 100 Jahren).`,
       },
       layers: [
         {
@@ -446,7 +447,8 @@ export const content = {
       showMinimap: true,
       text: {
         title: 'Überschwemmungen',
-        paragraph: `Und Regionen mit einer <strong style="color:${fluvial_flood_low};">sehr geringen Wahrscheinlichkeit</strong> für Hochwasser (einmal in 200 Jahren).`,
+        paragraph: (json) =>
+          `${((json.szenarien.filter((s) => s.step === '1.7' || s.step === '1.8').length >= 1) ? 'Und ' : 'Auch Hochwasser können durch den Klimawandel begünstigt werden. Die Bundesanstalt für Gewässer&shy;kunde veröffentlicht regelmäßig Informationen zu Hochwassergefahren. Diese werden dabei in verschiedene Klassen nach Wahrscheinlichkeit eingeteilt. Für deine PLZ gibt es nur ')}Regionen mit einer <strong style="color:${fluvial_flood_low};">sehr geringen Wahrscheinlichkeit</strong> für Hochwasser (einmal in 200 Jahren).`,
       },
       layers: [
         {

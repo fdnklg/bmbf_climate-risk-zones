@@ -6,12 +6,12 @@
   const Icons = [
     {
       name: 'twitter',
-      text: 'Der Text zum Projekt',
-      url: 'https://fabiandinklage.com',
+      text: 'Klimawandelrisiken in Deutschland',
+      url: 'https://klima-risiken.vislab.io',
     },
     {
       name: 'facebook',
-      url: 'https://fabiandinklage.com',
+      url: 'https://klima-risiken.vislab.io',
     },
   ]
 </script>
