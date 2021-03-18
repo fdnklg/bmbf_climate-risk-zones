@@ -73,6 +73,7 @@
 
     @include respond-max-screen-phablet {
       padding-top: 40px;
+      padding: $space-m $space-m 20px $space-m;
     }
   }
 
@@ -99,7 +100,7 @@
     @include respond-max-screen-phablet {
       height: 80px;
       padding: 3em 0 0 20px;
-      width: calc(100% - 40px);
+      width: calc(100% - 60px);
     }
   }
 
