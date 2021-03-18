@@ -21,7 +21,7 @@
   .ticks {
     display: flex;
     justify-content: space-between;
-    width: 225px;
+    width: 226px;
     margin: 0 10px;
   }
   .tick {
@@ -31,7 +31,7 @@
     &.last {
       border-radius: 0 10px 10px 0;
     }
-    width: 53px;
+    width: 55px;
     height: 5px;
   }
 

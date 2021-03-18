@@ -11,14 +11,17 @@
 
   let windowWidth
 
-  $: svgWidth = 400
-  $: svgHeight = 550
+  let svgWidth = 400
+  let svgHeight = 550
 
   $: {
     if (windowWidth) {
       if (windowWidth < 600) {
         svgWidth = windowWidth - 80
         svgHeight = svgWidth * 1.3
+      } else {
+        svgWidth = 400
+        svgHeight = 550
       }
     }
   }
@@ -57,10 +60,7 @@
 
   let dateIndex = 0
 
-  $: colorScale = $jsonData
-    ? // ? getColorScale([$jsonData.meta.value_min, $jsonData.meta.value_max])
-      getColorScale()
-    : false
+  $: colorScale = $jsonData ? getColorScale() : false
 </script>
 
 <style lang="scss">
@@ -95,6 +95,10 @@
     margin-top: 20px;
     display: flex;
     justify-content: center;
+
+    @include respond-max-screen-phablet {
+      margin-bottom: 30px;
+    }
   }
 </style>
 

@@ -59,6 +59,7 @@
     Extremwetterlagen genauso belastet werden, wie z.B. auch die Land- und
     Forstwirtschaft. Erfahre mehr Details für deine spezifische Region:
   </Section>
+  <Animation />
   <Onboarding />
   {#if $userInput}
     <Szenarien />
