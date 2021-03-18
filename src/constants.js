@@ -253,48 +253,6 @@ export const klimazonenDict = [
   },
 ]
 
-export const fluvial_flood_anchor_indices = {
-  L: [5, 6, 7],
-  M: [5, 6, 7],
-  H: [5, 6, 7],
-}
-
-export const klimazonen_anchor_indices = {
-  cold: [0, 1],
-  warm: [3, 4],
-  dry: [0, 3],
-  mountain: [3, 4],
-  premountain: [4, 5],
-  midmountain: [6, 7],
-}
-
-export const klimazonenDict = [
-  {
-    fid: 1,
-    type: 'cold',
-  },
-  {
-    fid: 40,
-    type: 'midmountain',
-  },
-  {
-    fid: 99,
-    type: 'dry',
-  },
-  {
-    fid: 297,
-    type: 'warm',
-  },
-  {
-    fid: 2892,
-    type: 'premountain',
-  },
-  {
-    fid: 4089,
-    type: 'mountain',
-  },
-]
-
 export const klimazonenIds = [1, 40, 99, 297, 2892, 4089]
 export const klimazonenIdsDict = [1, 40, 99, 297, 2892, 4089]
 

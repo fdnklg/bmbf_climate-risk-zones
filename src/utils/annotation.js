@@ -43,7 +43,6 @@ function createAnnotation(layersWithAnchors, json, layer, szenario, id) {
       }
     } else if (current) {
       const coords = current.map((p) => p.coordinates)
-      // .filter((d, i) => i === 3 || i === 5)
       szenario.anchors.push({
         anchors: coords,
         id: id,

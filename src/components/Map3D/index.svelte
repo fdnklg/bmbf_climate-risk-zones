@@ -136,14 +136,7 @@
         }
       })
 
-      map.on('data', () => {
-        if (ignoreOnce) {
-          ignoreOnce = false;
-          updateMapboxLayers(map, [])
-        }
-      })
-
-      map.on('load', () => {        
+      map.on('load', () => {
         map.addSource('layers', { type: 'geojson', data: createGeojson() })
 
         addLayer(map, 'postcode_buff_geom-fill', 'fill', 'layers', paintFill)
