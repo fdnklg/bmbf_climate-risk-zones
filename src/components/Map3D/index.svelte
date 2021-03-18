@@ -41,8 +41,8 @@
     link.onload = () => {
       map = new mapbox.Map({
         container,
-        zoom: 13.1,
-        center: [13.404, 52.520008],
+        zoom: 5,
+        center: [10.4515, 51.1657],
         // pitch: 45,
         // bearing: 80,
         dragPan: false,
