@@ -14,7 +14,4 @@
   }
 </style>
 
-<div class="source">
-  <span class="source-label"> Quelle:</span>
-  <a class="source" href={data.url}>{data.label}</a>
-</div>
+<div class="source"><a href={data.url}>Quelle: {data.label}</a></div>

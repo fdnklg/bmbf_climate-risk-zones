@@ -1,7 +1,4 @@
 <script>
-  import { zeitreiheHeadlines as headlines } from 'constants'
-
-  export let datakey
   export let gradient
 </script>
 
@@ -13,9 +10,11 @@
 </style>
 
 <div class="chart-header">
-  <strong style="color: {gradient[0]}">{headlines[datakey].min}</strong>,
-  <strong style="color: {gradient[1]}">{headlines[datakey].max}</strong>
+  <strong style="color: {gradient[0]}">Mindest,</strong>
+  <strong style="color: {gradient[1]}">höchst</strong>
+  und Mittel der durchschnittlichen Tageshöchsttemperaturen für
+  <strong style="color: grey">deine Region</strong>
   und
-  <strong style="color: #000}">{headlines[datakey].avg}</strong>
-  {@html headlines[datakey].metricHeadline}.
+  <strong style="color: black">Deutschland</strong>
+  in °&thinsp;C
 </div>

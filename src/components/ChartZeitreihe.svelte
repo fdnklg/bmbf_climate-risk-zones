@@ -78,7 +78,7 @@
   @import 'src/style/root.scss';
 
   .barchart {
-    padding: 2em 0 5.3em 2em;
+    padding: 1em 0 7.3em 2em;
     height: 220px;
     margin: auto;
 
