@@ -55,7 +55,7 @@
 
   .szenario {
     margin-left: 20px;
-    height: 500px;
+    height: 80vh;
     width: 400px;
 
     @include respond-max-screen-phablet {
@@ -121,7 +121,6 @@
       {#each $selectedAnchors as d, i}
         <Tooltip anchor={d.coords}>
           <TooltipContent data={d.text} />
-          <!-- @TODO check what kind of annotation is set? risk zone, fluvia flood or else and act accordingly in config.js† -->
         </Tooltip>
       {/each}
     </div>

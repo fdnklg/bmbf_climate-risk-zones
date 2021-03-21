@@ -28,11 +28,17 @@
 
   .vis {
     width: 50%;
-    backdrop-filter: blur(20px);
+    background: rgba(255, 255, 255, 0.95);
     @include respond-max-screen-phablet {
+      box-shadow: 0 0 0 1px rgba(53, 72, 91, 0.01),
+        0 2px 2px rgba(0, 0, 0, 0.0174351), 0 4px 4px rgba(0, 0, 0, 0.0200741),
+        0 10px 8px rgba(0, 0, 0, 0.0299982),
+        0 15px 15px rgba(0, 0, 0, 0.0296004),
+        0 30px 30px rgba(0, 0, 0, 0.0309366), 0 70px 65px rgba(0, 0, 0, 0.05);
       position: sticky;
       top: 0;
       width: 100%;
+      padding-bottom: 20px;
     }
   }
 </style>

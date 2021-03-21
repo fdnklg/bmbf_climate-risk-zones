@@ -275,6 +275,17 @@
   }
   .annotation {
     font-size: $font-size-s;
+    border-left: 1px dashed grey;
+    // width: 400px;
+    height: 220px;
+    background-color: rgba(255, 255, 255, 0.9);
+
+    @include respond-max-screen-phablet {
+      // width: 400px;
+      height: 120px;
+      display: flex;
+      flex-wrap: wrap;
+    }
   }
   .grid-line span {
     position: absolute;
@@ -374,9 +385,7 @@
 
         {#if closest}
           <Point x={closest.x} y={get.yMax(zeitreihe)}>
-            <div
-              class="annotation"
-              style="border-left: 1px dashed grey; width: 400px; height: 220px; background-color: rgba(255,255,255,.9);" />
+            <div class="annotation" />
           </Point>
           <Point x={closest.x} y={get.yMax(zeitreihe)}>
             <div class="tooltip">

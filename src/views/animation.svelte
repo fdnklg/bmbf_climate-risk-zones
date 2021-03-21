@@ -27,6 +27,10 @@
   }
   $: isActive = true
 
+  $: {
+    console.log('$jsonData', $jsonData)
+  }
+
   $: dateLength = $jsonData
     ? $jsonData.kreise.features[0].properties.data.length - 1
     : 0
@@ -113,6 +117,12 @@
         {dateIndex}
         {colorScale}
         data={$jsonData.kreise} />
+      <!-- <StaticMap
+        width={svgWidth}
+        height={svgHeight}
+        {dateIndex}
+        {colorScale}
+        data={$jsonData.states} /> -->
     </div>
     <TimeSeriesSlider
       data={$jsonData.meta.avgGermany}
