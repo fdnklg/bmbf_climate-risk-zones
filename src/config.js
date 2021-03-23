@@ -491,7 +491,7 @@ export const content = {
       text: {
         title: 'Küstengebiete',
         paragraph:
-          'Gebiete die in Küstennähe, sind darüber hinaus auch dem klimabedingten Anstieg des Meeresspiegels und vermehrten <span class="storm-surge bold">Sturmfluten</span> ausgesetzt.',
+          'Gebiete in Küstennähe, sind darüber hinaus auch dem klimabedingten Anstieg des Meeresspiegels und vermehrten <span class="storm-surge bold">Sturmfluten</span> ausgesetzt.',
       },
       layers: [
         {

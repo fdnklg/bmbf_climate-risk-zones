@@ -6,7 +6,7 @@
   @import 'src/style/root.scss';
 
   .footer {
-    padding-bottom: 0.5em;
+    padding: 0.5em 0 0 2em;
   }
   .source-label {
     font-size: $font-size-xs;
@@ -15,6 +15,5 @@
 </style>
 
 <div class="footer">
-  <span class="source-label"> Quelle:</span>
-  <a class="source" href={data.source.url}>{data.source.label}</a>
+  <a href="https://dwd.de">Quelle: Deutscher Wetterdienst</a>
 </div>

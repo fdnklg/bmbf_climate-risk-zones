@@ -21,6 +21,10 @@
 
   let closest
 
+  function round(number) {
+    return (Math.round(number * 10) / 10).toString().replace('.', ',')
+  }
+
   const get = {
     xMin: (d) => d.meta.extentX[0],
     xMax: (d) => d.meta.extentX[1],
@@ -50,7 +54,7 @@
     return d.data.map((d, i) => ({
       id: `${d.i}-${d.year}`,
       x: d.year,
-      y1: d.min,
+      y: d.min,
       y2: d.max,
       yPostcode: d.avgPostcode,
       yGermany: d.avgGermany,
@@ -70,7 +74,7 @@
   @import 'src/style/root.scss';
 
   .barchart {
-    padding: 2em 0 5.3em 2em;
+    padding: 1em 0 7.3em 2em;
     height: 220px;
     margin: auto;
 
@@ -242,6 +246,20 @@
       font-size: $font-size-xs;
     }
   }
+  .tooltip {
+    width: 90px;
+    // min-height: 110px;
+    display: flex;
+    padding-top: 20px;
+    height: fit-content;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    background-color: white;
+    @include box-shadow-btn;
+    border-radius: 3px;
+    transform: translate(-50%, -100%);
+  }
   .column {
     position: absolute;
     /* left: 1px;
@@ -257,6 +275,17 @@
   }
   .annotation {
     font-size: $font-size-s;
+    border-left: 1px dashed grey;
+    // width: 400px;
+    height: 220px;
+    background-color: rgba(255, 255, 255, 0.9);
+
+    @include respond-max-screen-phablet {
+      // width: 400px;
+      height: 120px;
+      display: flex;
+      flex-wrap: wrap;
+    }
   }
   .grid-line span {
     position: absolute;
@@ -291,7 +320,7 @@
           {#each data as d, i (d.id)}
             <AnimatedExtent
               x={d.x}
-              y={d.y1}
+              y={d.y}
               y1={d.y2}
               {animated}
               {scrollingDown}
@@ -356,29 +385,32 @@
 
         {#if closest}
           <Point x={closest.x} y={get.yMax(zeitreihe)}>
-            <div
-              class="annotation"
-              style="border-left: 1px dashed grey; width: 400px; height: 220px; background-color: rgba(255,255,255,.9);" />
+            <div class="annotation" />
           </Point>
-          <Point x={closest.x} y={closest.y}>
-            <div class="annotation-label avg"><strong>{closest.y}</strong></div>
+          <Point x={closest.x} y={get.yMax(zeitreihe)}>
+            <div class="tooltip">
+              <span
+                style="color: {zeitreihe.meta.gradient[0]}"
+                class="annotation-label avg">{round(closest.y)}&thinsp;°C</span>
+              {#if step !== '2.1'}
+                <span
+                  style="color: {zeitreihe.meta.gradient[1]}"
+                  class="annotation-label avg">{round(closest.y2)}&thinsp;°C</span>
+              {/if}
+
+              {#if showYPostcode}
+                <span
+                  style="color: grey;"
+                  class="annotation-label avg">{round(closest.yPostcode)}&thinsp;°C</span>
+              {/if}
+              {#if showYGermany}
+                <span
+                  class="annotation-label avg">{round(closest.yGermany)}&thinsp;°C</span>
+              {/if}
+            </div>
           </Point>
           <Point x={closest.x} y={get.yMin(zeitreihe)}>
             <div class="annotation-label year">{closest.x}</div>
-          </Point>
-          <Point x={closest.x} y={closest.y2}>
-            <div
-              style="color: {zeitreihe.meta.gradient[1]}"
-              class="annotation-label">
-              {closest.y2}
-            </div>
-          </Point>
-          <Point x={closest.x} y={closest.y1}>
-            <div
-              style="color: {zeitreihe.meta.gradient[0]}"
-              class="annotation-label">
-              {closest.y1}
-            </div>
           </Point>
         {/if}
 

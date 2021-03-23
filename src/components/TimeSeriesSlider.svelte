@@ -229,6 +229,7 @@
     color: $color-main-60;
   }
 
+  input[type='range']::-moz-range-thumb,
   input[type='range']::-webkit-slider-thumb {
     -webkit-appearance: none;
     width: 36px;
@@ -241,6 +242,10 @@
     background-repeat: no-repeat;
     background-position: center;
     @include box-shadow-btn;
+  }
+
+  input[type='range']::-moz-focus-outer {
+    border: 0;
   }
 </style>
 
