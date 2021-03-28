@@ -1,7 +1,10 @@
 <script>
   import { zipcodes, activeZipcode, userInput } from 'stores'
 
+  import { postcodes } from 'config'
+
   import Button from 'components/Button.svelte'
+  import ExampleSearches from 'components/ExampleSearches.svelte'
 
   $: isValid = false
   $: isEditing = true
@@ -26,6 +29,12 @@
     if (valid) {
       userInput.set(true)
     }
+  }
+
+  const handleExampleSubmit = (e) => {
+    zip.value = e.detail
+    validate()
+    userInput.set(true)
   }
 
   const disable = (e) => {
@@ -61,14 +70,14 @@
   @import 'src/style/root.scss';
   .form {
     position: relative;
-    height: 35px;
+    height: 20px;
     display: flex;
     justify-content: center;
     padding: 10px;
-    max-width: 50%;
+    // max-width: 50%;
     outline: none;
     background-color: white;
-    border: 2px solid $color-main-20;
+    outline: 1px solid $color-main-40;
     flex-direction: column;
     box-shadow: none;
     @include transition-s;
@@ -100,7 +109,7 @@
     font-size: $font-size-m;
     align-items: center;
     flex-direction: row;
-    margin-top: 35px;
+    margin-top: 30px;
 
     @include respond-max-screen-phablet {
       justify-content: space-evenly;
@@ -123,21 +132,22 @@
     padding: 0;
     color: $color-main;
     font-family: 'Post Grotesk Bold';
-    font-size: $font-size-s;
+    font-size: $font-size-m;
 
     &::placeholder {
+      color: $color-main;
     }
   }
 </style>
 
 <div>
   <form class="form {className}">
-    <label for="zipcode">Postleitzahl</label>
+    <!-- <label for="zipcode">Postleitzahl</label> -->
     <input
       id="zipcode"
       bind:this={zip}
       on:keydown={handleKeydown}
-      placeholder="z.B. 10115 (Berlin)"
+      placeholder="Postleitzahl eingeben"
       class="zipInput" />
   </form>
   {#if !isValid && !isEditing}
@@ -148,10 +158,12 @@
     </p>
   {/if}
 
+  {#if postcodes}
+    <ExampleSearches on:postcode={handleExampleSubmit} {postcodes} />
+  {/if}
+
   <div class="onboarding buttons">
-    <Button primary={true} handleClick={handleSubmit}>
-      Bestätigen
-    </Button>
+    <Button primary={true} handleClick={handleSubmit}>Bestätigen</Button>
     <Button primary={false} handleClick={handleRandom}>Zufällige Region</Button>
   </div>
 </div>

@@ -5,7 +5,6 @@
   import Title from 'components/Title.svelte'
   import ButtonRound from 'components/ButtonRound.svelte'
   import ColorLegend from 'components/AnimatedMaps/ColorLegend.svelte'
-  import Source from 'components/Source.svelte'
   import TimeSeriesSlider from 'components/TimeSeriesSlider.svelte'
   import { getColorScale } from 'components/AnimatedMaps/utils.js'
 
@@ -26,10 +25,6 @@
     }
   }
   $: isActive = true
-
-  $: {
-    console.log('$jsonData', $jsonData)
-  }
 
   $: dateLength = $jsonData
     ? $jsonData.kreise.features[0].properties.data.length - 1
@@ -117,12 +112,6 @@
         {dateIndex}
         {colorScale}
         data={$jsonData.kreise} />
-      <!-- <StaticMap
-        width={svgWidth}
-        height={svgHeight}
-        {dateIndex}
-        {colorScale}
-        data={$jsonData.states} /> -->
     </div>
     <TimeSeriesSlider
       data={$jsonData.meta.avgGermany}
@@ -134,7 +123,7 @@
   {/if}
   <div class="footer">
     <div style="display: block;">
-      <a href="https://google.com">Helmholtz Zentrum für Umweltforschung (UFZ)</a>
+      <a href="https://dwd.de">Deutscher Wetterdienst</a>
     </div>
     <ButtonRound
       type={isActive ? 'pause' : 'play'}

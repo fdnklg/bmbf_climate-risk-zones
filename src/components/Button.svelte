@@ -26,6 +26,10 @@
     opacity: 1;
     transition: all 0.125s ease-in-out;
 
+    @include respond-max-screen-phablet {
+      font-size: $font-size-s;
+    }
+
     &:hover {
       opacity: 0.6;
     }

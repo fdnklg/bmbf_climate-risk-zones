@@ -9,6 +9,29 @@ import { getPostcode } from 'utils'
 
 export const s3Url = 'https://locobss-story-co2.s3.eu-central-1.amazonaws.com/'
 
+export const postcodes = [
+  {
+    postcode: 97437,
+    label: 'Klimazonen',
+  },
+  {
+    postcode: 22589,
+    label: 'Sturmfluten',
+  },
+  {
+    postcode: 29227,
+    label: 'Überschwemmungen',
+  },
+  {
+    postcode: 79541,
+    label: 'Verdichtungsraum',
+  },
+]
+
+export const steps = {
+  szenarien: '3.0',
+}
+
 export const content = {
   project: {
     lang: 'de',
@@ -25,7 +48,7 @@ export const content = {
       text: {
         title: 'Deine Region',
         paragraph:
-          'Um deine Region besser untersuchen zu können, haben wir ein 5km Einzugsgebiet um deine Postleitzahl gelegt.',
+          'Um deine Region besser untersuchen zu können, haben wir ein 5&thinsp;km Einzugsgebiet um deine Postleitzahl gelegt.',
       },
       layers: [
         {
@@ -404,8 +427,12 @@ export const content = {
       showMinimap: true,
       text: {
         title: 'Überschwemmungen',
-        paragraph: (json) => 
-          `${((json.szenarien.filter((s) => s.step === '1.7').length >= 1) ? '' : 'Auch Hochwasser können durch den Klimawandel begünstigt werden. Die Bundesanstalt für Gewässer&shy;kunde veröffentlicht regelmäßig Informationen zu Hochwassergefahren. Diese werden dabei in verschiedene Klassen nach Wahrscheinlichkeit eingeteilt. Für deine PLZ gibt es ')}Regionen mit einer <strong style="color:${fluvial_flood_medium};">geringen Wahrscheinlichkeit</strong> für Hochwasser (einmal in 100 Jahren).`,
+        paragraph: (json) =>
+          `${
+            json.szenarien.filter((s) => s.step === '1.7').length >= 1
+              ? ''
+              : 'Auch Hochwasser können durch den Klimawandel begünstigt werden. Die Bundesanstalt für Gewässer&shy;kunde veröffentlicht regelmäßig Informationen zu Hochwassergefahren. Diese werden dabei in verschiedene Klassen nach Wahrscheinlichkeit eingeteilt. Für deine PLZ gibt es '
+          }Regionen mit einer <strong style="color:${fluvial_flood_medium};">geringen Wahrscheinlichkeit</strong> für Hochwasser (einmal in 100 Jahren).`,
       },
       layers: [
         {
@@ -448,7 +475,12 @@ export const content = {
       text: {
         title: 'Überschwemmungen',
         paragraph: (json) =>
-          `${((json.szenarien.filter((s) => s.step === '1.7' || s.step === '1.8').length >= 1) ? 'Und ' : 'Auch Hochwasser können durch den Klimawandel begünstigt werden. Die Bundesanstalt für Gewässer&shy;kunde veröffentlicht regelmäßig Informationen zu Hochwassergefahren. Diese werden dabei in verschiedene Klassen nach Wahrscheinlichkeit eingeteilt. Für deine PLZ gibt es nur ')}Regionen mit einer <strong style="color:${fluvial_flood_low};">sehr geringen Wahrscheinlichkeit</strong> für Hochwasser (einmal in 200 Jahren).`,
+          `${
+            json.szenarien.filter((s) => s.step === '1.7' || s.step === '1.8')
+              .length >= 1
+              ? 'Und '
+              : 'Auch Hochwasser können durch den Klimawandel begünstigt werden. Die Bundesanstalt für Gewässer&shy;kunde veröffentlicht regelmäßig Informationen zu Hochwassergefahren. Diese werden dabei in verschiedene Klassen nach Wahrscheinlichkeit eingeteilt. Für deine PLZ gibt es nur '
+          }Regionen mit einer <strong style="color:${fluvial_flood_low};">sehr geringen Wahrscheinlichkeit</strong> für Hochwasser (einmal in 200 Jahren).`,
       },
       layers: [
         {

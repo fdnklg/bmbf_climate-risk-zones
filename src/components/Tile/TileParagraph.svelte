@@ -8,9 +8,9 @@
   @import 'src/style/root.scss';
 
   .intro {
-    @include respond-max-screen-phablet {
-      text-align: center;
-    }
+    // @include respond-max-screen-phablet {
+    //   text-align: center;
+    // }
   }
   .title {
     font-size: $font-size-l;
@@ -28,7 +28,7 @@
     font-size: $font-size-s;
     letter-spacing: $letter-spacing-s;
     line-height: 150%;
-    color: $color-main-60;
+    color: $color-main-80;
     margin-top: 0px;
     margin-bottom: 20px;
 

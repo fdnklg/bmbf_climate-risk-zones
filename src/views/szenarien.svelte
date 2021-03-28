@@ -64,8 +64,17 @@
     }
   }
 
+  .topline {
+    font-size: $font-size-xxs;
+    text-transform: uppercase;
+    color: $color-main;
+    letter-spacing: $letter-spacing-m;
+  }
+
   .tile-title {
     margin: 0px;
+    font-size: $font-size-l;
+    line-height: 130%;
   }
 
   .tile-paragraph {
@@ -132,6 +141,7 @@
             on:step={handleActiveStep}
             bind:step={item.step}>
             <Tile isMap={true} active={item.step === step}>
+              <span class="topline">{i + 1} von {data.length}</span>
               <h3 class="tile-title">{setText(item.text.title)}</h3>
               <p class="tile-paragraph">
                 {@html setText(item.text.paragraph)}
