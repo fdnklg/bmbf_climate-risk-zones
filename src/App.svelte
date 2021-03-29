@@ -60,12 +60,13 @@
   <Header />
   <Section>
     Steigende Temperaturen, vermehrte Extremwettereignisse und andere
-    Veränderungen, welche sich auf den fortschreitenden Klimawandel zurückführen
+    Veränderungen, die sich auf den fortschreitenden Klimawandel zurückführen
     lassen, haben einen direkten Einfluss auf unsere Umwelt und auf unser
-    alltägliches Leben. Die Auswirkungen bekommen somit nicht nur unsere Tier-
-    und Pflanzenwelt zu spüren, sondern auch wir selber, die durch
-    Extremwetterlagen genauso belastet werden, wie z.B. auch die Land- und
-    Forstwirtschaft. Erfahre mehr Details für deine spezifische Region:
+    alltägliches Leben. Die Auswirkungen bekommen wir schon jetzt zu spüren: 
+    Wir Menschen werden durch Extremwetterlagen genauso belastet, wie 
+    unsere Tier- und Pflanzenwelt, was zum Beispiel direkte Auswirkungen 
+    auf die Land- und Forstwirtschaft hat. Erfahre mehr darüber, was dies im Detail 
+    für deine spezifische Region bedeutet:
   </Section>
   <!-- <Animation /> -->
   <Anchor anchorId={steps.szenarien} />
@@ -74,14 +75,14 @@
     <Szenarien />
     <Section>
       Wenn über die Folgen des Klimawandels berichtet wird, hören wir häufig vom
-      Schmelzen des arktischen Eises, von exotischen Inseln, welche vom Anstieg
-      des Meeresspiegels bedroht sind, oder von den extremen Bränden in
-      Australien oder der Westküste der USA. Doch dies sind nur die Extreme der
+      Schmelzen des arktischen Eises, von tropischen Inseln, die vom Anstieg
+      des Meeresspiegels akut bedroht sind, oder von den extremen Bränden in
+      Australien oder der Westküste der USA. Doch dies sind nur die globalen Extreme der
       Klimawandelfolgen. Auch in unseren Breiten können wir die Folgen bereits
       spüren.<br /><br />
       In vielen Regionen Deutschlands hat es in den letzten Jahren vermehrt
       längere Dürreperioden gegeben. Frost- und Schneetage haben abgenommen,
-      während heißte Tage
+      während heiße Tage
       <span class="addition">(> 30&thinsp;°C)</span>
       und sogenannte Tropennächte
       <span class="addition">(> 20&thinsp;°C)</span>
@@ -90,20 +91,21 @@
     <Zeitreihe />
     <Section>
       Die folgende Karte zeigt die durchschnittliche Temperatur in Deutschland
-      seit 1887. Über diesen langen Zeitraum wird noch einmal deutlich, dass es
-      schon immer mal heißere und kältere Jahre gab. Einen kontinuierlichen
+      seit 1887. Über diesen langen Zeitraum wird deutlich, dass es
+      schon immer mal heißere und kältere Jahre gab. Aber einen so kontinuierlichen
       Anstieg, wie wir ihn seit den 1980er Jahren verzeichnen können, gab es in
-      diesem Messungszeitraum bisher aber nicht. Klimawandel und Klima im
+      diesem Messungszeitraum bisher nicht. Klimawandel und Klima im
       Allgemeinen beschreiben genau solche langfristigen größeren Veränderungen
       und Zusammenhänge, die sich unabhängig von lokalen Wetterextremen in den
       Daten abzeichnen.
     </Section>
     <Animation />
     <Section>
-      Der Klimawandel wird auch viele Risiken für Deutschland mit sich bringen.
-      Neben Entwicklungen die versuchen den Klimawandel zu stoppen oder
-      zumindest zu verlangsamen, wie der Reduktion von Treibhausgasemmissionen,
-      müssen wir uns aber auch den schon jetzt eintretenden Folgen stellen.
+      Der Klimawandel wird in den kommenden Jahren noch deutlichere 
+      Risiken für Deutschland mit sich bringen. 
+      Es reicht daher nicht nur, den Klimawandel langfristig zu stoppen oder
+      zumindest zu verlangsamen. Wir müssen auch jetzt schon lernen, mit 
+      den Folgen des Klimawandels umzugehen.
 
       <p>Weitere Regionen entdecken:</p>
       <Button primary={true} handleClick={scrollToOnboarding}>
@@ -113,8 +115,8 @@
       <br />
 
       Für weiterführende Informationen empfehlen wir die Seiten des
-      Umweltbundesamts. Im Folgenden haben wir eine Reihe Artikel
-      zusammengestellt, die besonders Themen für deine Region hervorheben:
+      Umweltbundesamts. Im Folgenden haben wir eine Reihe an Artikeln
+      zusammengestellt, die besonders relevante Themen für deine Region hervorheben:
     </Section>
     <Section>
       <ReadingList />
