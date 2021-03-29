@@ -73,7 +73,7 @@
 
   .tile-title {
     margin: 0px;
-    font-size: $font-size-l;
+    font-size: $font-size-m;
     line-height: 130%;
   }
 

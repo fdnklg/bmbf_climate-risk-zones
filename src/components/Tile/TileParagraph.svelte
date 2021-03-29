@@ -13,7 +13,7 @@
     // }
   }
   .title {
-    font-size: $font-size-l;
+    font-size: $font-size-m;
     color: $color-main;
     margin-bottom: 5px;
     margin-top: 0px;

@@ -37,6 +37,7 @@
         0 30px 30px rgba(0, 0, 0, 0.0309366), 0 70px 65px rgba(0, 0, 0, 0.05);
       position: sticky;
       top: 0;
+      z-index: 30;
       width: 100%;
       padding-bottom: 20px;
     }
