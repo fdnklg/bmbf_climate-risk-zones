@@ -127,12 +127,23 @@ export const STATE_LABELS = {
   16: 'Thüringen',
 }
 
+// export const droughtColors = [
+//   '#ffe0a9',
+
+//   '#ff986d',
+
+//   '#e35056',
+
+//   '#ae112a',
+//   // '#8b0000',
+// ]
+
 export const droughtColors = [
-  '#ffe0a9',
+  '#C9B764',
 
-  '#ff986d',
+  '#EEC14D',
 
-  '#e35056',
+  '#EE913C',
 
   '#ae112a',
   // '#8b0000',

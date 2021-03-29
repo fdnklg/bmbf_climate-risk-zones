@@ -11,6 +11,7 @@
   @import 'src/style/root.scss';
   .tile {
     opacity: 0.5;
+    position: relative;
     padding: 20px;
     border: 1px solid transparent;
     margin: auto;

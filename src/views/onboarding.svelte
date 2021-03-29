@@ -1,7 +1,9 @@
 <script>
   import { getDocumentHeight } from 'utils'
+  import { postcodes } from 'config'
 
   import Input from 'components/Input.svelte'
+  import ExampleSearches from 'components/ExampleSearches.svelte'
   import Tile from 'components/Tile/Tile.svelte'
   import TileParagraph from 'components/Tile/TileParagraph.svelte'
 
@@ -52,7 +54,7 @@
         title="Für welche Region interessierst du dich?"
         subtitle="Gib deine Postleitzahl ein und bestätige. <br/> Oder fahre mit einer zufälligen
       Postleitzahl fort." />
-      <Input className={inputClass} />
+      <Input {postcodes} className={inputClass} />
     </div>
   </Tile>
 </div>

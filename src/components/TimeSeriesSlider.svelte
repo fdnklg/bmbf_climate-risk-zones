@@ -229,7 +229,20 @@
     color: $color-main-60;
   }
 
-  input[type='range']::-moz-range-thumb,
+  input[type='range']::-moz-range-thumb {
+    -webkit-appearance: none;
+    width: 36px;
+    height: 36px;
+    border-radius: 100px;
+    cursor: ew-resize;
+    border: 1px solid $color-main-20;
+    background-image: url(/icons/icon-slider-handle.svg);
+    background-color: white;
+    background-repeat: no-repeat;
+    background-position: center;
+    @include box-shadow-btn;
+  }
+
   input[type='range']::-webkit-slider-thumb {
     -webkit-appearance: none;
     width: 36px;

@@ -34,6 +34,10 @@
     @include max-width;
   }
 
+  .gap {
+    height: 50vh;
+  }
+
   .tile-title {
     margin: 0px !important;
   }
@@ -65,7 +69,7 @@
           <IntersectionObserver
             on:step={handleActiveStep}
             bind:step={item.step}>
-            <Anchor anchorId={item.step} />
+            <div style="height: {i === 0 ? '20vh' : '50vh'}" />
             <Tile
               isLast={i === currentData.length - 1}
               active={item.step === step}>

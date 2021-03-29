@@ -245,6 +245,6 @@ strong {
 }
 
 .blink {
-  border: 2px solid rgb(231, 118, 103) !important;
+  border: 1px solid rgb(231, 118, 103) !important;
   transition: all 0.25s ease-in-out;
 }

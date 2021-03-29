@@ -1,8 +1,9 @@
 <script>
+  import * as animateScroll from 'svelte-scrollto'
   import { onMount } from 'svelte'
   import { zipcodes, data, jsonData, userInput } from 'stores'
   import { loadFile, loadTopojson } from 'utils'
-  import { content } from 'config'
+  import { content, steps } from 'config'
   import { zipCodesUrl } from 'constants'
 
   import Zeitreihe from 'views/zeitreihe.svelte'
@@ -11,10 +12,19 @@
   import Animation from 'views/animation.svelte'
   import ReadingList from 'views/readinglist.svelte'
 
+  import Button from 'components/Button.svelte'
   import Header from 'components/Header.svelte'
   import Section from 'components/Section.svelte'
   import Share from 'components/Share.svelte'
   import Appendix from 'components/Appendix.svelte'
+  import Anchor from './components/Anchor.svelte'
+
+  function scrollToOnboarding() {
+    animateScroll.scrollTo({
+      element: `[id='anchor-3.0']`,
+      offset: -50,
+    })
+  }
 
   onMount(async () => {
     const topo = await loadTopojson(
@@ -58,6 +68,7 @@
     Forstwirtschaft. Erfahre mehr Details für deine spezifische Region:
   </Section>
   <!-- <Animation /> -->
+  <Anchor anchorId={steps.szenarien} />
   <Onboarding />
   {#if $userInput}
     <Szenarien />
@@ -92,8 +103,16 @@
       Der Klimawandel wird auch viele Risiken für Deutschland mit sich bringen.
       Neben Entwicklungen die versuchen den Klimawandel zu stoppen oder
       zumindest zu verlangsamen, wie der Reduktion von Treibhausgasemmissionen,
-      müssen wir uns aber auch den schon jetzt eintretenden Folgen stellen. Für
-      weiterführende Informationen empfehlen wir die Seiten des
+      müssen wir uns aber auch den schon jetzt eintretenden Folgen stellen.
+
+      <p>Weitere Regionen entdecken:</p>
+      <Button primary={true} handleClick={scrollToOnboarding}>
+        Zurück zur Auswahl
+      </Button>
+      <br />
+      <br />
+
+      Für weiterführende Informationen empfehlen wir die Seiten des
       Umweltbundesamts. Im Folgenden haben wir eine Reihe Artikel
       zusammengestellt, die besonders Themen für deine Region hervorheben:
     </Section>
