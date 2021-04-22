@@ -37,7 +37,7 @@ export const content = {
     lang: 'de',
     title: 'Klimawandelrisiken in Deutschland',
     description:
-      'Der Klimawandel ist längst in Deutschland angekommen. In den nächsten Jahren und Jahrzehnten, werden wir die Auswirkungen immer deutlicher spüren. Die lokalen Risiken sind stark davon abhängig wo man in Deutschland wohnt. Finde auf dieser Seite heraus, welchen Herausforderungen sich deine Region stellen muss.',
+      'Der Klimawandel ist längst in Deutschland angekommen. In den nächsten Jahren und Jahrzehnten werden wir die Auswirkungen immer deutlicher spüren. Die lokalen Risiken sind stark davon abhängig, wo man in Deutschland wohnt. Finde auf dieser Seite heraus, welchen Herausforderungen sich deine Region stellen muss.',
     socialImgUrl:
       'https://fabiandinklage.com/public/images/demos/demos-tooltip-3840x2040.jpg',
   },
@@ -118,10 +118,10 @@ export const content = {
               return 'Du befindest dich in einer Region mit  <span class="dry bold">trockenerem Klima.</span> In diesen Regionen fällt über das ganze Jahr hinweg unterdurchschnittlich viel Regen, bei gleichzeit starken Schwankungen zwischen den Jahreszeiten bei Temperaturen und Niederschlägen.'
               break
             case 'premountain':
-              return 'Du befindest dich in einer Region mit  <span class="premountain bold">Gebirgsvorlandklima.</span> Neben vielen Tagen mit Frost und Starkregen, zeichnet sich diese Region auch durch überdurchschnittliche hohe Niederschläge im Sommer aus.'
+              return 'Du befindest dich in einer Region mit  <span class="premountain bold">Gebirgsvorlandklima.</span> Neben vielen Tagen mit Frost und Starkregen zeichnet sich diese Region auch durch überdurchschnittliche hohe Niederschläge im Sommer aus.'
               break
             case 'midmountain':
-              return 'Du befindest dich in einer Region mit  <span class="midmountain bold">Mittelgebirksklima.</span> Neben vielen Frosttagen, zeichnet sich diese Region durch häufigen Starkregen und hohe Sommer- und Winterniederschläge aus.'
+              return 'Du befindest dich in einer Region mit  <span class="midmountain bold">Mittelgebirksklima.</span> Neben vielen Frosttagen zeichnet sich diese Region durch häufigen Starkregen und hohe Sommer- und Winterniederschläge aus.'
               break
             case 'mountain':
               return 'Du befindest dich in einer Region mit  <span class="mountain bold">Gebirgsklima.</span> Diese Regionen zeichnen sich durch hohe Niederschlagswerte und viele Tage mit Starkregen und Frost aus.'
@@ -189,19 +189,19 @@ export const content = {
         paragraph: (json) => {
           switch (json.zeitreihen.meta.riskzones[0]) {
             case 'cold':
-              return 'In Zukunft kann die Wahrscheinlichkeit für Extremwetterereignisse und dir dadurch entstehenden Schäden zunehmen.'
+              return 'In Zukunft kann die Wahrscheinlichkeit für Extremwetterereignisse und dadurch entstehende Schäden zunehmen.'
               break
             case 'warm':
               return 'In Zukunft wird es in diesen Regionen noch häufiger heiße Tage <span class="addition">(mehr als 30&thinsp;°C)</span> und sogenannte Tropennächte <span class="addition">(20&thinsp;°C und wärmer)</span> geben. Diese Klimaregion wird sich wahrscheinlich noch weiter ausdehnen.'
               break
             case 'dry':
-              return 'In Zukunft wird die Trockenheit in diesen Regionen weiter zunehmen und damit auf Einfluss auf die Wasserressourcen haben. Darüber hinaus ein genereller Trend zu höheren Temperaturen, über das ganze Jahr hinweg.'
+              return 'In Zukunft wird die Trockenheit in diesen Regionen weiter zunehmen und damit auch Einfluss auf die Wasserressourcen haben. Darüber hinaus zeigt sich ein genereller Trend zu höheren Temperaturen über das ganze Jahr hinweg.'
               break
             case 'premountain':
-              return 'In Zukunft werden die Temperaturen im Sommer weiter steigen und damit auch die Anzahl der heißen Tage <span class="addition">(mehr als 30&thinsp;°C)</span>. In manchen der Vorgebirgsregionen wird ein Ansteig der Siedlungs- und Verkehrsflächen erwartet. Dies wird die Effekte verstärken.'
+              return 'In Zukunft werden die Temperaturen im Sommer weiter steigen und damit auch die Anzahl der heißen Tage <span class="addition">(mehr als 30&thinsp;°C)</span>. In manchen der Vorgebirgsregionen wird ein Anstieg der Siedlungs- und Verkehrsflächen erwartet. Dies wird die Effekte noch verstärken.'
               break
             case 'midmountain':
-              return 'In Zukunft werden die Temperaturen sowohl in Sommer als auch Winter weiter ansteigen, mit einer gleichzeitigen Zunahme der Niederschläge und seltenerem Schneefall.'
+              return 'In Zukunft werden die Temperaturen sowohl im Sommer als auch im Winter weiter ansteigen, mit einer gleichzeitigen Zunahme der Niederschläge und seltenerem Schneefall.'
               break
             case 'mountain':
               return 'In Zukunft werden sich diese Regionen überdurchschnittlich stark Erwärmen. Gleichzeit sollen Starkregenereignisse und Niederschläge im Winter zunehmen, während Niederschläge im Sommer abnehmen.'
@@ -271,7 +271,7 @@ export const content = {
           switch (json.zeitreihen.meta.riskzones[0]) {
             case 'cold':
               r +=
-                'Wasserwirtschaft und -haushalt, Küsten- und Meeresschutz, Verkehr sowie Bauwesen, Industrie und Gewerbe'
+                'Wasserwirtschaft und -haushalt, Küsten- und Meeresschutz, Verkehr und Bauwesen Industrie und Gewerbe'
               break
             case 'warm':
               r +=
@@ -296,7 +296,7 @@ export const content = {
           }
           return (
             r +
-            ' mit Nachdruck behandelt werden. Am Ende des Artikels haben wir weiterführende Links zu den wichtigen Themen für deine Region zusammengestellt.'
+            ' mit Nachdruck behandelt werden. Am Ende des Artikels haben wir weiterführende Links zu den wichtigsten Themen für deine Region zusammengestellt.'
           )
         },
       },
@@ -315,7 +315,7 @@ export const content = {
                     return 'Regionen mit<br /><span class="warm bold">warmem Klima</span>'
                     break
                   case 'dry':
-                    return 'Regionen mit<br /><span class="dry bold">trockenere Klima</span>'
+                    return 'Regionen mit<br /><span class="dry bold">trockenerem Klima</span>'
                     break
                   case 'premountain':
                     return 'Regionen mit<br /><span class="premountain bold">Gebirgsvorlandklima</span>'
@@ -354,7 +354,7 @@ export const content = {
       text: {
         title: 'Verdichtungsräume',
         paragraph: (json) =>
-          `Deine Region befindet sich im <span class="bold" style="color: ${dense_space};">Verdichtungsraum</span> <strong>${json.zeitreihen.meta.denseSpaceName}</strong>. Verdichtungsräume sind Gebiete mit einer hohen Dichte an Siedlungs- und Industrieflächen. In diesen Gebieten konzentrieren sich Gefahren für Schäden an Gebäuden und Infrastruktur, durch z.B. Hitzebelastung oder extreme Wetterereignisse. Durch die hohe Bevölkerungsdichte in diesen Gebieten sind viele Menschen durch die Folgen betroffen.`,
+          `Deine Region befindet sich im <span class="bold" style="color: ${dense_space};">Verdichtungsraum</span> <strong>${json.zeitreihen.meta.denseSpaceName}</strong>. Verdichtungsräume sind Gebiete mit einer hohen Dichte an Siedlungs- und Industrieflächen. In diesen Gebieten konzentrieren sich Gefahren für Schäden an Gebäuden und Infrastruktur, z.B. durch Hitzebelastung oder extreme Wetterereignisse. Durch die hohe Bevölkerungsdichte in diesen Gebieten sind viele Menschen durch die Folgen betroffen.`,
       },
       layers: [
         {
@@ -385,7 +385,7 @@ export const content = {
       showMinimap: true,
       text: {
         title: 'Überschwemmungen',
-        paragraph: `Auch Hochwasser können durch den Klimawandel begünstigt werden. Die Bundesanstalt für Gewässer&shy;kunde veröffentlicht regelmäßig Informationen zu Hochwassergefahren. Diese werden dabei in drei Klassen eingeteilt. Regionen mit einer <strong style="color:${fluvial_flood_high};">hohen Wahr&shy;scheinlichkeit</strong> für Hochwasser (einmal in 10-30 Jahren).`,
+        paragraph: `Auch Hochwasser können durch den Klimawandel begünstigt werden. Die Bundesanstalt für Gewässer&shy;kunde veröffentlicht regelmäßig Informationen zu Hochwassergefahren. Diese werden in drei Klassen eingeteilt. Regionen mit einer <strong style="color:${fluvial_flood_high};">hohen Wahr&shy;scheinlichkeit</strong> für Hochwasser (einmal in 10-30 Jahren).`,
       },
       layers: [
         {
@@ -523,7 +523,7 @@ export const content = {
       text: {
         title: 'Küstengebiete',
         paragraph:
-          'Gebiete in Küstennähe, sind darüber hinaus auch dem klimabedingten Anstieg des Meeresspiegels und vermehrten <span class="storm-surge bold">Sturmfluten</span> ausgesetzt.',
+          'Gebiete in Küstennähe sind darüber hinaus auch dem klimabedingten Anstieg des Meeresspiegels und vermehrten <span class="storm-surge bold">Sturmfluten</span> ausgesetzt.',
       },
       layers: [
         {
@@ -576,7 +576,7 @@ export const content = {
       text: {
         title: 'Zunehmender Trend',
         paragraph:
-          'Betrachtet man neben den Extremen, den <strong style="color:grey;">Durchschnitt</strong>, lässt sich in den meisten Regionen ein langsamer Anstieg erkennen.',
+          'Betrachtet man neben den Extremen den <strong style="color:grey;">Durchschnitt</strong>, lässt sich in den meisten Regionen ein langsamer Anstieg erkennen.',
       },
     },
     {
@@ -603,6 +603,6 @@ export const metadata = {
   url: 'https://klima-risiken.vislab.io',
   title: 'Klimawandelrisiken in Deutschland',
   description:
-    'Der Klimawandel ist längst in Deutschland angekommen. In den nächsten Jahren und Jahrzehnten, werden wir die Auswirkungen immer deutlicher spüren. Die lokalen Risiken sind stark davon abhängig wo man in Deutschland wohnt. Finde auf dieser Seite heraus, welchen Herausforderungen sich deine Region stellen muss.',
+    'Der Klimawandel ist längst in Deutschland angekommen. In den nächsten Jahren und Jahrzehnten werden wir die Auswirkungen immer deutlicher spüren. Die lokalen Risiken sind stark davon abhängig, wo man in Deutschland wohnt. Finde auf dieser Seite heraus, welchen Herausforderungen sich deine Region stellen muss.',
   image: 'https://klima-risiken.vislab.io/data/social_media.jpg',
 }
