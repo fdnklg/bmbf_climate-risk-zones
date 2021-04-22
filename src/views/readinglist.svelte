@@ -97,7 +97,6 @@
 
   const stormMatch = ['wasser', 'bauwesen', 'verkehr', 'industrie', 'fischerei']
 
-  // https://stackoverflow.com/questions/1960473/get-all-unique-values-in-a-javascript-array-remove-duplicates
   const onlyUnique = (value, index, self) => {
     return self.indexOf(value) === index
   }

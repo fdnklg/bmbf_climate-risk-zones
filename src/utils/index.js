@@ -147,7 +147,7 @@ export async function loadTopojson(url) {
   meta.value_min = meta.value_min
   meta.avgGermany = avgGermany
   meta.extentGermany = extent(avgGermany)
-  meta.year_min = meta.year_min + 6 // @TODO don't do this hardcoded!
+  meta.year_min = meta.year_min + 6
   delete meta.ags
   delete meta.data
 
@@ -175,7 +175,6 @@ export async function loadTopojson(url) {
   return {
     germany: germanyFeature,
     states,
-    // statesMesh,
     kreise,
     meta,
   }

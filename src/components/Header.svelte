@@ -1,23 +1,10 @@
 <script>
-  // import { storyData } from 'stores'
   import { content } from 'config'
 
   const { project } = content
 
   import IntroMap from 'components/Map3D/IntroMap.svelte'
   import Icon from 'components/Icon.svelte'
-
-  // const szenarioIndices = [2, 3, 4]
-  // let initial = true
-
-  // export let duration = 6000
-  // let szenarioIndex = 0
-  // $: current = $storyData ? $storyData.szenarien[2] : false
-
-  // onInterval(() => {
-  //   szenarioIndex =
-  //     szenarioIndex === szenarioIndices.length - 1 ? 0 : szenarioIndex + 1
-  // }, duration)
 </script>
 
 <style lang="scss">
@@ -33,10 +20,6 @@
     width: 100%;
     position: absolute;
     bottom: 20px;
-
-    // @include respond-max-screen-phablet {
-    //   bottom: 10px;
-    // }
   }
 
   .inner {

@@ -1,5 +1,3 @@
-// adapted from https://github.com/d3/d3-array/blob/master/src/ticks.js
-// MIT License https://github.com/d3/d3-array/blob/master/LICENSE
 const e10 = Math.sqrt(50)
 const e5 = Math.sqrt(10)
 const e2 = Math.sqrt(2)
@@ -77,7 +75,6 @@ class Node {
     }
 
     if (leaf) {
-      // need to subdivide
       this.children = {
         nw: new Node(x0, y0, xm, ym),
         ne: new Node(xm, y0, x1, ym),

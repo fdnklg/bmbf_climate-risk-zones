@@ -74,7 +74,6 @@
     display: flex;
     justify-content: center;
     padding: 10px;
-    // max-width: 50%;
     outline: none;
     background-color: white;
     outline: 1px solid $color-main-40;

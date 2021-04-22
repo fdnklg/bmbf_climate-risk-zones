@@ -9,21 +9,13 @@
   export let y = default_y
   export let radius = Infinity
 
-  // exposing the prop lets consumers use let: or bind:
   export let closest = undefined
 
-  const {
-    pointer,
-    x_scale,
-    y_scale,
-    width,
-    height,
-  } = getChartContext()
+  const { pointer, x_scale, y_scale, width, height } = getChartContext()
 
   $: quadtree = new Quadtree(data)
   $: quadtree.update(x, y, $x_scale, $y_scale)
 
-  // track reference changes, to trigger updates sparingly
   let prev_closest
   let next_closest
 

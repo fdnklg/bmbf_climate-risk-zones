@@ -78,7 +78,7 @@ export const content = {
       fitBounds: [
         [5.98865807458, 47.3024876979],
         [15.0169958839, 54.983104153],
-      ], // defines the focus of the bounding box
+      ],
       text: {
         title: (json) => {
           let climate = 'Klima'
@@ -183,7 +183,7 @@ export const content = {
       fitBounds: [
         [5.98865807458, 47.3024876979],
         [15.0169958839, 54.983104153],
-      ], // defines the focus of the bounding box
+      ],
       text: {
         title: 'Zukünftige Herausforderungen',
         paragraph: (json) => {
@@ -263,7 +263,7 @@ export const content = {
       fitBounds: [
         [5.98865807458, 47.3024876979],
         [15.0169958839, 54.983104153],
-      ], // defines the focus of the bounding box
+      ],
       text: {
         title: 'Handlungsfelder',
         paragraph: (json) => {

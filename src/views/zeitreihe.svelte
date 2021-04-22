@@ -21,7 +21,6 @@
     const stepCurrent = e.detail
     scrollingDown = isScrollingDown(step, stepCurrent)
     step = stepCurrent
-    // activeAnchor.set(stepCurrent)
   }
 </script>
 

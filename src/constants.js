@@ -5,18 +5,7 @@ export const mapbox_layers = [
   'klimazonen',
 ]
 
-export const zeitreiheDataKeys = [
-  'air_temperature_max',
-  // 'air_temperature_mean',
-  // 'drought_index',
-  // 'frost_days',
-  // 'hot_days',
-  // 'ice_days',
-  // 'precipGE30mm_days',
-  // 'precipitation',
-  // 'snowcover_days',
-  // 'summer_days',
-]
+export const zeitreiheDataKeys = ['air_temperature_max']
 
 export const fluvial_flood_low = '#60BFC1'
 export const fluvial_flood_medium = '#418FA0'
@@ -78,15 +67,6 @@ export const styles = {
 
 export const zeitreiheDataGradients = {
   air_temperature_max: ['#418fa0', '#cf6d49'],
-  // air_temperature_mean: ['#418fa0', '#cf6d49'],
-  // drought_index: ['#C7A168', '#B46250'],
-  // hot_days: ['#C7A168', '#B46250'],
-  // summer_days: ['#C7A168', '#B46250'],
-  // frost_days: ['#C5DCDB', '#6FA9AD'],
-  // ice_days: ['#C5DCDB', '#6FA9AD'],
-  // snowcover_days: ['#C5DCDB', '#6FA9AD'],
-  // precipGE30mm_days: ['#7ACB9A', '#9681B0'],
-  // precipitation: ['#7ACB9A', '#9681B0'],
 }
 
 export const stateCentroids = {
@@ -127,27 +107,7 @@ export const STATE_LABELS = {
   16: 'Thüringen',
 }
 
-// export const droughtColors = [
-//   '#ffe0a9',
-
-//   '#ff986d',
-
-//   '#e35056',
-
-//   '#ae112a',
-//   // '#8b0000',
-// ]
-
-export const droughtColors = [
-  '#C9B764',
-
-  '#EEC14D',
-
-  '#EE913C',
-
-  '#ae112a',
-  // '#8b0000',
-]
+export const droughtColors = ['#C9B764', '#EEC14D', '#EE913C', '#ae112a']
 
 export const fluvial_flood_anchor_indices = {
   L: [5, 6, 7],

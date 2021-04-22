@@ -32,11 +32,6 @@ function createAnnotation(layersWithAnchors, json, layer, szenario, id) {
               id: id,
               type: layer.type,
               anchors: anchors.map((d) => d.coordinates),
-              // .filter((d, i) =>
-              //   fluvial_flood_anchor_indices[currenAnnotation.level].includes(
-              //     i
-              //   )
-              // )
               text: annotation.text(level),
             })
         })
@@ -90,7 +85,6 @@ export function addAnnotations(json, szenario, layer) {
 
   const anchorIds = layersWithAnchors.map((d) => d.id)
 
-  // create annotation object for local layers
   if (anchorIds.includes(key) && annotations && annotations.length > 0) {
     createAnnotation(layersWithAnchors, json, layer, szenario, key)
   }

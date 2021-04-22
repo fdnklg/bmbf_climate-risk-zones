@@ -57,14 +57,12 @@ export const storyData = derived(
           const hasFluvialFlood =
             hasFluvialFlood_L || hasFluvialFlood_M || hasFluvialFlood_H
 
-          // remove steps from config if json is no dense space
           if (!isDenseSpace) {
             szenarien = szenarien.filter(
               (d) => !d.layers.map((l) => l.key).includes('verdichtungsraeume')
             )
           }
 
-          // remove steps from config if json has no fluvial floods
           if (!hasFluvialFlood) {
             szenarien = szenarien.filter(
               (d) => !d.layers.map((l) => l.key).includes('fluvial_flood')
@@ -93,7 +91,6 @@ export const storyData = derived(
             }
           }
 
-          // remove steps from config if json has no ocean floods
           if (!hasOceanFlood) {
             szenarien = szenarien.filter(
               (d) => !d.layers.map((l) => l.key).includes('sturmfluten')
@@ -108,7 +105,6 @@ export const storyData = derived(
 
             const layerKeys = layers.map((d) => d.key)
 
-            // add fit bounds of dense space to step, if verdichtungsräume is in mapbox_layers
             if (layerKeys.includes('verdichtungsraeume') && isDenseSpace) {
               szenario.fitBounds = isDenseSpace
                 ? [
@@ -128,13 +124,11 @@ export const storyData = derived(
               ]
             }
 
-            // create feature for each layer based on config
             layers.map((layer) => {
               const { key, isMapbox, type } = layer
               const style = styles[key]
               const geometries = json[key]
 
-              // if geometries is an array create feature for each item and push it to array
               if (geometries && geometries.length >= 1 && !isMapbox) {
                 geometries.forEach((geometry) => {
                   if (type.includes(geometry.level)) {
@@ -160,26 +154,21 @@ export const storyData = derived(
                     szenarioGeojson.features.push(featureContour)
                   }
                 })
-                // else if geometry has only on object push to features
               } else if (!isMapbox) {
-                // if the key layer is the mask
                 const propsFill = {
                   id: `${key}-fill`,
                   ...style,
-                  // level: geometry.level,
                 }
 
                 const propsContour = {
                   id: `${key}-contour`,
                   ...style,
-                  // level: geometry.level,
                 }
 
                 if (key === 'postcode_buff_geom') {
                   const propsMask = {
                     id: `${key}-mask`,
                     ...style,
-                    // level: geometry.level,
                   }
 
                   const featureMask = createFeature(geometries, propsMask)
@@ -193,7 +182,6 @@ export const storyData = derived(
                 if (key === 'postcode_geom') {
                   szenario.postcodeShape = featureFill
                 }
-                // add white mask of postcode buffer shape feature here
                 szenarioGeojson.features.push(featureFill)
                 szenarioGeojson.features.push(featureContour)
               }
@@ -229,7 +217,6 @@ export const storyData = derived(
               datakey,
               50
             )
-            // set same extent for postcode
             zeitreihePostcode.meta.extentY = zeitreiheGermany.meta.extentY
 
             const mergedZeitreihen = mergeZeitreihen(

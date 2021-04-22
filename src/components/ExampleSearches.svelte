@@ -33,7 +33,6 @@
   }
   .headline {
     color: $color-main;
-    // font-family: $font-bold;
     display: block;
     margin: 15px 0 5px 0;
   }

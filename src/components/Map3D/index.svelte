@@ -43,8 +43,6 @@
         container,
         zoom: 5,
         center: [10.4515, 51.1657],
-        // pitch: 45,
-        // bearing: 80,
         dragPan: false,
         doubleClickZoom: false,
         scrollZoom: false,
@@ -88,12 +86,11 @@
             })
 
             const alignedAnnotations = setAlignedAnnotations(
-              anchors, // projectedAnnotations,
+              anchors,
               innerWidth,
               innerHeight
             )
 
-            // check if annotation is within boundings of postcode
             const postcodeFeature = data.geojson.features.find(
               (d) => d.properties.id === 'postcode_geom-fill'
             )
@@ -223,8 +220,7 @@
         source.setData(geojson)
         updateMapboxLayers(map, mapbox_layers)
 
-        // fit map to bounding box
-        const boundGeoJson = map.fitBounds(fittingBounds, {
+        map.fitBounds(fittingBounds, {
           padding: paddingBounds,
           duration: 600,
         })

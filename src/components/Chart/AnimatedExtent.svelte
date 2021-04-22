@@ -39,7 +39,7 @@
     if (animated) {
       setTimeout(() => {
         position.set(scrollingDown ? y1 : y)
-      }, delay) //  * index
+      }, delay)
     }
   })
 </script>

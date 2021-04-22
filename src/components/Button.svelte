@@ -44,7 +44,6 @@
     }
 
     &.secondary {
-      // border-bottom: 1px solid $color-main;
       padding: 0 0 3px 0;
       color: $color-main;
       height: fit-content;

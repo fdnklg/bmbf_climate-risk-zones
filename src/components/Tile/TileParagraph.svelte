@@ -6,12 +6,6 @@
 
 <style lang="scss">
   @import 'src/style/root.scss';
-
-  .intro {
-    // @include respond-max-screen-phablet {
-    //   text-align: center;
-    // }
-  }
   .title {
     font-size: $font-size-m;
     color: $color-main;

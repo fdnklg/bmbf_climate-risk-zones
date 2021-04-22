@@ -6,7 +6,6 @@ import distance from '@turf/distance'
 
 export const createBoundingBox = (cutOutFeat) => {
   let bboxEurope = [-5.2288281645, 42.0255985816, 25.622332041, 58.9956007543]
-  // let bboxEurope = [-430.3125, -85.513398, 443.671875, 85.051129]
   let bboxEuropeFeat
   bboxEuropeFeat = difference(bboxPolygon.default(bboxEurope), cutOutFeat)
 
@@ -66,10 +65,10 @@ export function pointInPolygon(point, polygon, align) {
 
 export function setAlignedAnnotations(annotations, innerWidth, innerHeight) {
   const annotationsCopy = JSON.parse(JSON.stringify(annotations))
-  // loop über jede annotation
+
   annotations.forEach((annotation, i) => {
     const { coords } = annotation
-    // für jede annotation: loop über alle anderen annotationen und berechne:
+
     annotationsCopy.map((comparedAnnotation, cI) => {
       const coordsToCompare = comparedAnnotation.coords
       const labelWidth = 170
@@ -121,15 +120,9 @@ export function setAlignedAnnotations(annotations, innerWidth, innerHeight) {
           coords.alignY = false
         }
 
-        if (
-          // coords.x > coordsToCompare.x &&
-          coords.y < labelHeight
-          // coords.x - coordsToCompare.x < labelWidth &&
-          // coords.y > coordsToCompare.y
-        ) {
+        if (coords.y < labelHeight) {
           coords.alignY = 'bottom'
         } else if (
-          // coords.x > coordsToCompare.x &&
           coords.x - coordsToCompare.x < labelWidth &&
           coords.y < coordsToCompare.y
         ) {
@@ -140,13 +133,6 @@ export function setAlignedAnnotations(annotations, innerWidth, innerHeight) {
   })
   return annotations
 }
-
-/*
-
-- berechne die distanze zwischen allen punkten
-- wähle das Set aus Punkten aus, dass insgesamt die größte distanze zueinander hat
-
-*/
 
 export function calcSelectedAnchor(anchors, mode) {
   let filteredAnchors = []
@@ -296,10 +282,7 @@ export function getSelectedCoords(anchors) {
 }
 
 export function rotateCamera(map, timestamp) {
-  // clamp the rotation between 0 -360 degrees
-  // Divide timestamp by 100 to slow rotation to ~10 degrees / sec
   map.rotateTo((timestamp / 100) % 360, { duration: 0 })
-  // Request the next frame of the animation.
   requestAnimationFrame(rotateCamera)
 }
 
@@ -315,10 +298,6 @@ export const updateMapboxLayers = (map, mapbox_layers) => {
   }
 }
 
-export function getFittingBounds(data) {
-  // bbox(JSON.parse(JSON.stringify(geojson)));
-}
-
 export function addLayer(map, id, type, source, paint) {
   map.addLayer({
     id: id,
@@ -328,9 +307,3 @@ export function addLayer(map, id, type, source, paint) {
     filter: ['==', 'id', id],
   })
 }
-
-// const parse = (str, delimiter) => {
-//   const csv = dsvFormat(delimiter)
-//   const parsed = csv.parse(str)
-//   return parsed.columns
-// }

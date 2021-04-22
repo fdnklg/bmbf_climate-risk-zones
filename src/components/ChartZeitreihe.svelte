@@ -248,7 +248,6 @@
   }
   .tooltip {
     width: 90px;
-    // min-height: 110px;
     display: flex;
     padding-top: 20px;
     height: fit-content;
@@ -262,12 +261,8 @@
   }
   .column {
     position: absolute;
-    /* left: 1px;
-		width: calc(100% - 2px); */
     left: 0;
     width: 100%;
-    // border-left: 0.25px solid rgba(255, 255, 255, 1);
-    // border-right: 0.25px solid rgba(255, 255, 255, 1);
     box-sizing: border-box;
     height: 100%;
     opacity: 1;
@@ -276,12 +271,10 @@
   .annotation {
     font-size: $font-size-s;
     border-left: 1px dashed grey;
-    // width: 400px;
     height: 220px;
     background-color: rgba(255, 255, 255, 0.9);
 
     @include respond-max-screen-phablet {
-      // width: 400px;
       height: 120px;
       display: flex;
       flex-wrap: wrap;
