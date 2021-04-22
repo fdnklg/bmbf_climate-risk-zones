@@ -1,7 +1,3 @@
-# BMBF Prototypes
-
-This Repo contains prototypes that do
-
 ## Get started
 
 Install the dependencies...
